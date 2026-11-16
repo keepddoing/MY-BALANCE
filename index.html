@@ -158,7 +158,7 @@ function defS(){return{pt:[{day:0,time:'18:00',part:'하체'},{day:2,time:'18:00
 const defC=()=>({wk:{0:[7,16],1:[7,16],2:[7,16],3:[7,16],4:[7,16]},ds:{},pst:{},pl:[],c:'좋음',sw:'없음',so:'없음',sl:'좋음',note:'',busy:[],rest:[6],late:[],simple:false,xy:false,shift:'A'});
 let S,W,cur,tab='month',EDONE=false,UI={gen:false};
 function load(){try{const o=JSON.parse(localStorage.getItem(K));if(o&&o.S&&o.W){S=o.S;W=o.W;normS();return}}catch(e){}S=defS();W={}}
-function save(){try{localStorage.setItem(K,JSON.stringify({S,W}));wgSched()}catch(e){toast('저장 공간을 확인해 주세요')}}
+function save(){try{localStorage.setItem(K,JSON.stringify({S,W}));if(!wgBoot&&wgCfg())localStorage.setItem('mb-rev',String(Date.now()));wgSched()}catch(e){toast('저장 공간을 확인해 주세요')}}
 function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1800)}
 const mon=d=>{const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return x};
 const key=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
@@ -280,7 +280,7 @@ function yogaBox(){return `<h3>일반 요가<small>대전 죽동 STELLA YOGA</sm
 const catCard=(t,title,body)=>`<div class="card cat"><h2>${DOT(t)}${title}</h2>${body}</div>`;
 function setCats(){return catCard('pt','웨이트',`<section class="sub">${ptBox()}</section><section class="sub">${wtBox()}</section>`)+catCard('cardio','유산소',cdBox())+catCard('pilates','필라테스',pilBox())+catCard('flying','요가',`<section class="sub">${flyBox()}</section><section class="sub">${yogaBox()}</section>`)}
 function vSet(){return setCats()+wgCard()+dataCard()}
-function wgCard(){const c=wgCfg()||{url:'',token:''};return `<div class="card"><h2>iPhone 위젯</h2><h3 style="margin:8px 0 4px;font-size:15px">자동 동기화 (Google Apps Script)</h3><div class="row" style="flex-direction:column;align-items:stretch;gap:8px"><input id="wgu" type="url" placeholder="웹 앱 URL (https://script.google.com/…)" value="${esc(c.url)}" autocomplete="off" spellcheck="false" style="width:100%"><input id="wgt" type="password" placeholder="토큰 (Apps Script에 넣은 문자열, 8자 이상)" value="${esc(c.token)}" autocomplete="off" style="width:100%"><div class="row"><button class="pri" onclick="wgSaveCfg()">저장하고 동기화 켜기</button><button onclick="wgPush(true)">지금 동기화</button></div></div><p class="mut" id="wgst">${c.url?'체크·일정 변경 시 자동으로 동기화돼요':'설정하지 않으면 동기화되지 않아요 (아래 수동 저장은 계속 쓸 수 있어요)'}</p><div class="row"><button onclick="wgExport()">수동으로 파일 저장</button></div><p class="mut">수동 저장: 공유 창에서 <b>파일에 저장 → iCloud Drive › Scriptable</b> 폴더에 <b>my-balance-widget.json</b> 으로 저장(바꾸기)</p></div>`}
+function wgCard(){const c=wgCfg()||{url:'',token:''};return `<div class="card"><h2>iPhone 위젯 · 기기 간 일정 공유</h2><p class="mut" style="margin:0 0 8px">같은 URL과 토큰을 입력한 기기끼리 일정이 자동으로 공유되고, 위젯에도 반영돼요. (구글 아이디 로그인이 아니라 URL·토큰으로 연결돼요)</p><div class="row" style="flex-direction:column;align-items:stretch;gap:8px"><input id="wgu" type="url" placeholder="웹 앱 URL (https://script.google.com/…)" value="${esc(c.url)}" autocomplete="off" spellcheck="false" style="width:100%"><input id="wgt" type="password" placeholder="토큰 (Apps Script에 넣은 문자열, 8자 이상)" value="${esc(c.token)}" autocomplete="off" style="width:100%"><div class="row"><button class="pri" onclick="wgSaveCfg()">저장하고 동기화 켜기</button><button onclick="wgSync(true)">지금 동기화</button></div><div class="row"><button class="ghost" onclick="wgForcePull()">서버 일정으로 이 기기 바꾸기</button><button class="ghost" onclick="wgForcePush()">이 기기 일정으로 서버 덮어쓰기</button></div></div><p class="mut" id="wgst">${c.url?'체크·일정 변경 시 자동으로 동기화돼요':'설정하지 않으면 동기화되지 않아요'}</p><p class="mut">두 기기에서 동시에 수정하지 마세요. 나중에 저장한 쪽이 반영돼요.</p><div class="row"><button onclick="wgExport()">수동으로 파일 저장</button></div></div>`}
 function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl||[];
  const sel=(f,o)=>`<select onchange="setC('${f}',this.value,1)">${o.map(v=>`<option ${c[f]==v?'selected':''}>${v}</option>`).join('')}</select>`;
  const ck=f=>D.map((x,i)=>`<label><input type="checkbox" ${c[f].includes(i)?'checked':''} onchange="tg('${f}',${i})">${x}</label>`).join('');
@@ -483,20 +483,50 @@ async function wgExport(){const f=new File([JSON.stringify(wgBuild())],'my-balan
  try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'MY BALANCE 위젯 데이터'});return}}catch(e){if(e&&e.name=='AbortError')return}
  const u=URL.createObjectURL(f),a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
  toast('파일을 저장했어요. iCloud Drive › Scriptable 폴더로 옮겨 주세요')}
-/* ===== 자동 동기화: 변경 시 Google Apps Script 웹 앱으로 전송 ===== */
-const WGK='mb-sync';let wgT=null;
+/* ===== 자동 동기화: Google Apps Script 웹 앱 (위젯 데이터 + 기기 간 일정 공유) ===== */
+const WGK='mb-sync';let wgT=null,wgBoot=false,wgReady=false,wgPause=false,wgBusy=false,wgLast=0;
+const wgRev=()=>parseInt(localStorage.getItem('mb-rev'))||0;
 function wgCfg(){try{const o=JSON.parse(localStorage.getItem(WGK));return o&&/^https:\/\/script\.google\.com\/\S+$/.test(o.url)&&o.token&&o.token.length>=8?o:null}catch(e){return null}}
-function wgSched(){if(!wgCfg())return;clearTimeout(wgT);wgT=setTimeout(wgPush,1500)}
+function wgSched(){if(!wgCfg()||!wgReady||wgPause)return;clearTimeout(wgT);wgT=setTimeout(()=>wgPush(false),1500)}
 function wgStat(t){const e=document.getElementById('wgst');if(e)e.textContent=t}
-async function wgPush(manual){const c=wgCfg();if(!c){if(manual===true)toast('먼저 URL과 토큰을 저장해 주세요');return}
- try{await fetch(c.url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({token:c.token,data:wgBuild()})});
-  const n=new Date();wgStat('마지막 전송 '+pad(n.getHours())+':'+pad(n.getMinutes())+' (전송 확인은 위젯에서 해 주세요)');if(manual===true)toast('전송했어요')}
+async function wgGet(c){const r=await fetch(c.url+(c.url.includes('?')?'&':'?')+'mode=full&token='+encodeURIComponent(c.token),{cache:'no-store'});return await r.json()}
+async function wgPush(manual,force){const c=wgCfg();if(!c){if(manual===true)toast('먼저 URL과 토큰을 저장해 주세요');return}
+ if(!wgReady&&!force){if(manual===true)toast('서버 확인이 끝나면 전송돼요');return}
+ try{await fetch(c.url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({token:c.token,force:!!force,data:wgBuild(),full:{rev:wgRev(),S,W}})});
+  const n=new Date();wgStat('마지막 전송 '+pad(n.getHours())+':'+pad(n.getMinutes()));if(manual===true)toast('전송했어요')}
  catch(e){wgStat('전송 실패: 인터넷 연결을 확인해 주세요')}}
+function wgApply(o){if(!o||!o.data||!o.data.S||!o.data.W)return false;
+ S=o.data.S;W=o.data.W;normS();
+ try{localStorage.setItem(K,JSON.stringify({S,W}));localStorage.setItem('mb-rev',String(o.rev||0))}catch(e){toast('저장 공간을 확인해 주세요');return false}
+ wgBoot=true;try{const t=key(mon(new Date()));if(!wk(t).items.length)generate(t)}finally{wgBoot=false}
+ R();toast('다른 기기의 일정으로 업데이트했어요');return true}
+async function wgSync(manual){const c=wgCfg();if(!c||wgBusy)return;wgBusy=true;
+ try{let o;try{o=await wgGet(c)}catch(e){wgStat('서버에 연결하지 못했어요 (오프라인이거나 URL을 확인해 주세요)');return}
+  if(!o||o.ok===false){wgStat('토큰이 맞지 않아요. 토큰을 확인해 주세요');return}
+  const srv=o.rev||0,loc=wgRev();
+  if(srv>loc){
+   if(document.querySelector('dialog[open]'))return;
+   if(wgPause&&manual!==true)return;
+   if(loc===0&&!confirm('서버에 저장된 일정이 있어요.\n이 기기의 일정을 서버 일정으로 바꿀까요?\n\n확인: 서버 일정 사용 (이 기기 일정은 사라져요)\n취소: 보류 (운동 설정 탭에서 직접 선택)')){wgPause=true;wgStat('동기화 보류 중 — 운동 설정 탭의 버튼으로 선택해 주세요');return}
+   if(wgApply(o)){wgPause=false;wgReady=true;wgStat('서버 일정으로 업데이트했어요')}return}
+  if(wgPause&&manual!==true)return;
+  if(srv===0&&loc===0){try{localStorage.setItem('mb-rev',String(Date.now()))}catch(e){}}
+  wgReady=true;wgPause=false;
+  if(wgRev()>srv||manual===true)await wgPush(manual===true);else wgStat('최신 상태예요')}
+ finally{wgBusy=false}}
+async function wgForcePull(){const c=wgCfg();if(!c)return toast('먼저 URL과 토큰을 저장해 주세요');
+ if(!confirm('서버 일정으로 이 기기의 일정을 바꿀까요?\n(이 기기 일정은 사라져요)'))return;
+ try{const o=await wgGet(c);if(!o||o.ok===false||!o.data)return toast('서버에 가져올 일정이 없어요');if(wgApply(o)){wgPause=false;wgReady=true;wgStat('서버 일정으로 바꿨어요')}}catch(e){toast('서버에 연결하지 못했어요')}}
+async function wgForcePush(){const c=wgCfg();if(!c)return toast('먼저 URL과 토큰을 저장해 주세요');
+ if(!confirm('이 기기의 일정으로 서버 일정을 덮어쓸까요?\n(다른 기기도 다음에 열 때 이 기기 내용으로 바뀌어요)'))return;
+ try{localStorage.setItem('mb-rev',String(Date.now()))}catch(e){return toast('저장 공간을 확인해 주세요')}
+ wgPause=false;wgReady=true;await wgPush(true,true)}
 function wgSaveCfg(){const u=document.getElementById('wgu').value.trim(),t=document.getElementById('wgt').value.trim();
- if(!u&&!t){try{localStorage.removeItem(WGK)}catch(e){}R();toast('자동 동기화를 껐어요');return}
+ if(!u&&!t){try{localStorage.removeItem(WGK);localStorage.removeItem('mb-rev')}catch(e){}wgReady=false;wgPause=false;R();toast('자동 동기화를 껐어요');return}
  if(!/^https:\/\/script\.google\.com\/\S+$/.test(u)||t.length<8)return toast('웹 앱 URL과 8자 이상의 토큰을 입력해 주세요');
  try{localStorage.setItem(WGK,JSON.stringify({url:u,token:t}))}catch(e){return toast('저장 공간을 확인해 주세요')}
- R();wgPush(true)}
+ wgReady=false;wgPause=false;R();wgSync(true)}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-wgLast>5000){wgLast=Date.now();wgSync()}});
 function tgDone(id){const i=wk(curK()).items.find(x=>x.id==id);i.status=i.status=='done'?'todo':'done';save();R()}
 function editEv(id){openEd(id=='work'?{k:'work'}:wk(curK()).items.find(i=>i.id==id))}
 function delIt0(w,it){if(it.type!='rest'&&!it.add){w.del=w.del||[];w.del.push({day:it.od??it.day,type:it.type})}w.items=w.items.filter(i=>i!==it)}
@@ -548,5 +578,5 @@ function delEv(){const id=E.id,w=wk(curK());if(id=='work'){matWk(w.cond);delete 
 function yAdd(id){const y=S.yoga.find(x=>x.id==id),t=new Date();t.setHours(0,0,0,0);t.setDate(t.getDate()+(y.day-((t.getDay()+6)%7)+7)%7);
  dropRest(wk(key(mon(t))),y.day);wk(key(mon(t))).items.push({id:uid(),u:1,add:1,status:'todo',day:y.day,time:y.time,dur:1.17,type:y.name.includes('플라잉')?'flying':'yoga',part:'',place:'대전 죽동 STELLA YOGA',min:'',memo:y.name});
  save();tab='month';msel=key(t);cur=key(mon(t));mc=new Date(t.getFullYear(),t.getMonth(),1);R();openDay();toast(`${t.getMonth()+1}월 ${t.getDate()}일 타임테이블에 추가했어요`)}
-load();cur=key(mon(new Date()));if(!wk(cur).items.length)generate(cur);R();wgSched();
+wgBoot=true;load();cur=key(mon(new Date()));if(!wk(cur).items.length)generate(cur);R();wgBoot=false;wgSync();
 </script></body></html>
