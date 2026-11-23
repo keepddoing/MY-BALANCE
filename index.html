@@ -217,6 +217,21 @@ details.cat2[open]>summary{border-bottom:1px solid var(--line)}
 .cdchip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 @media(max-width:600px){details.cat2>summary{padding:14px 16px}.cat2b{padding:14px 14px 18px}}
 </style>
+<style>
+/* 다음 주 운동 만들기: 요일 선택 블록 */
+.dp{display:flex;gap:4px}
+.dp button{flex:1;min-width:0;padding:10px 0;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;font-size:14px;font-weight:600;box-shadow:none}
+.dp button:disabled{opacity:.3}
+.dp button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.exb{border-left:5px solid var(--cc,#ccc)}
+.exb h2 small{font-size:13px;font-weight:400;color:var(--mut);margin-left:8px}
+.slot{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:10px;background:#fafafa}
+.slot .sl{font-size:14px;font-weight:700;margin-bottom:8px}
+.slot .f label{font-size:14px;font-weight:600}
+.slot .f{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.bz{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-left:4px solid #e0a64f;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fafafa}
+.bz select{flex:none}.bz input[type=text]{flex:1;min-width:120px}
+</style>
 </head><body><div class="hero"><div class="wrap">
 <button class="gear" onclick="openSet()" aria-label="설정" title="설정"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
 <header><h1>MY BALANCE<small>Weekly Fitness Planner</small></h1><div class="row"><span id="range" class="mut"></span><button class="pri" onclick="nextWeek()">다음 주 운동 일정 만들기</button></div></header>
@@ -239,7 +254,7 @@ const K='mybalance_v1';
 const AM=[['플라잉 0/1','센트모션요가'],['골반테라피','비트 1/2'],['아쉬탕가 0/1','플라잉 0/1'],['센트모션하타요가','경추테라피'],['센트모션요가','센트모션하타 1']];
 const PM=[['비트 1/2','센트모션요가','경추테라피'],['플라잉 0','아쉬탕가 0','플라잉 1/2'],['아쉬탕가 0','하타 AD','아쉬탕가 1'],['센트모션요가','플라잉 1','골반테라피'],['하타 AD','골반테라피',null]];
 function defYoga(){const y=[];AM.forEach((r,d)=>r.forEach((n,i)=>y.push({id:uid(),day:d,time:['09:30','10:40'][i],name:n})));PM.forEach((r,d)=>r.forEach((n,i)=>n&&y.push({id:uid(),day:d,time:['18:30','19:40','20:50'][i],name:n})));return y}
-function defS(){return{pt:[{day:0,time:'18:00',part:'하체'},{day:2,time:'18:00',part:'등'}],ptFill:true,pil:{days:[0,2,4,5],time:'10:00',wtime:'19:00'},flyPref:'',cardio:defCardio(),yoga:defYoga()}}
+function defS(){return{pt:[{day:0,time:'18:00',part:'하체'},{day:2,time:'18:00',part:'등'}],ptd:{time:'18:00',min:60,part:'하체'},wt:{time:'',dur:1},pil:{time:'10:00',wtime:'19:00',min:60,part:'코어'},cardio:defCardio(),yoga:defYoga()}}
 const defC=()=>({wk:{0:[7,16],1:[7,16],2:[7,16],3:[7,16],4:[7,16]},ds:{},pst:{},pl:[],c:'좋음',sw:'없음',so:'없음',sl:'좋음',note:'',busy:[],rest:[6],late:[],simple:false,xy:false,shift:'A'});
 let S,W,cur,tab='month',EDONE=false,UI={gen:false};
 function load(){try{const o=JSON.parse(localStorage.getItem(K));if(o&&o.S&&o.W){S=o.S;W=o.W;normS();return}}catch(e){}S=defS();normS();W={}}
@@ -254,64 +269,70 @@ const wk=k=>W[k]||(W[k]={items:[],cond:defC(),msgs:[]});
 /* ---------- 규칙 기반 자동 생성 ---------- */
 const sh=(c,d)=>(c.ds&&c.ds[d])||c.shift;
 const pad=n=>String(n).padStart(2,'0');
+const T30=(()=>{const a=[];for(let m=360;m<=1320;m+=30)a.push(pad(m/60|0)+':'+pad(m%60));return a})();
+const t30end=t=>{const m=(+t.slice(0,2))*60+(+t.slice(3))+60;return pad(m/60|0)+':'+pad(m%60)};
+function snap30(t){if(!/^\d{2}:\d{2}$/.test(t||''))return '10:00';let m=Math.round(((+t.slice(0,2))*60+(+t.slice(3)))/30)*30;m=Math.min(1320,Math.max(360,m));return pad(m/60|0)+':'+pad(m%60)}
+const pilDef=d=>snap30(d>=5?S.pil.time:S.pil.wtime);
 const wkh=(c,d)=>c.wk?(c.wk[d]||null):(d<5?(c.shift=='B'?[8,17]:[7,16]):null);
 function goalOf(i){const p=i.part||'';
  if(i.type=='pt'||i.type=='weight'){if(/하체|둔근/.test(p))return '둔근 볼륨·하체 근력 강화';if(/등|어깨|상체/.test(p))return '등·어깨 중심 상체 근육 유지';return i.type=='pt'?'전신 근력·체형 관리':'근육량 유지·체형 개선'}
  return {pilates:'코어·자세·신체 균형·가동성',flying:'다양한 움직임·유연성·신체 이완',cardio:'순환·일상 활동량 보완(무리 없는 범위)',rest:'회복과 컨디션 관리'}[i.type]||desc(i.memo||'')||'스트레칭·긴장 완화'}
+const yDef=d=>{const l=S.yoga.filter(y=>y.day==d);return l.find(y=>y.name.includes('플라잉'))||l[0]||null};
+function plan(c){const P=c.plan=(c.plan&&typeof c.plan=='object')?c.plan:{},okd=v=>v!==''&&v!=null&&!isNaN(+v)&&+v>=0&&+v<=6;
+ const days=a=>[...new Set((Array.isArray(a)?a:[]).filter(okd).map(Number))].sort((x,y)=>x-y);
+ // 이전 형식(회차별 슬롯)에서 변환
+ if(Array.isArray(P.pt)){const o={};P.pt.forEach(p=>{if(okd(p.day))o[+p.day]={time:p.time,part:p.part,min:p.min}});P.pt=o}
+ if(Array.isArray(P.cd)){const o={};P.cd.forEach(x=>{if(x.k&&okd(x.day))(o[x.k]=o[x.k]||[]).push(+x.day)});P.cd=o}
+ if(P.fly||P.yg){const o={};[...(P.fly||[]),...(P.yg||[])].forEach(v=>{if(okd(v)){const y=yDef(+v);if(y)o[+v]=y.id}});P.yoga=Object.assign(o,P.yoga||{});delete P.fly;delete P.yg}
+ if(!P.init){P.init=1;
+  if(!P.pt||typeof P.pt!='object'||Array.isArray(P.pt)){P.pt={};S.pt.forEach(t=>{if(t.day!==''&&okd(t.day))P.pt[+t.day]={time:t.time,part:t.part,min:+t.min||60}})}
+  if(!P.yoga||typeof P.yoga!='object'){P.yoga={};[1,3].forEach(d=>{const y=yDef(d);if(y)P.yoga[d]=y.id})}}
+ P.pt=(P.pt&&typeof P.pt=='object'&&!Array.isArray(P.pt))?P.pt:{};
+ P.yoga=(P.yoga&&typeof P.yoga=='object'&&!Array.isArray(P.yoga))?P.yoga:{};
+ P.cd=(P.cd&&typeof P.cd=='object'&&!Array.isArray(P.cd))?P.cd:{};
+ P.wt=days(P.wt);
+ {const o={};if(Array.isArray(P.pil))P.pil.forEach(v=>{if(okd(v))o[+v]=pilDef(+v)});else if(P.pil&&typeof P.pil=='object')Object.keys(P.pil).forEach(k=>{if(okd(k))o[+k]=/^\d{2}:\d{2}$/.test(P.pil[k])?snap30(P.pil[k]):pilDef(+k)});P.pil=o}
+ {const o={},mm=(v,k)=>Math.min(240,Math.max(5,Math.round(+v)||(S.cardio[k]&&+S.cardio[k].min)||30));
+  Object.keys(P.cd).forEach(k=>{const v=P.cd[k];
+   if(!okd(k)){if(Array.isArray(v)&&S.cardio[k])v.forEach(d=>{if(okd(d))(o[+d]=o[+d]||[]).push({k,min:mm(0,k)})});return}
+   (Array.isArray(v)?v:[v]).forEach(x=>{const kk=typeof x=='string'?x:(x&&x.k);if(S.cardio[kk])(o[+k]=o[+k]||[]).push({k:kk,min:mm(x&&x.min,kk)})})});
+  Object.keys(o).forEach(d=>{if((!P.pt[d]&&!P.wt.includes(+d))||!o[d].length)delete o[d];else o[d]=o[d].slice(0,5)});P.cd=o}
+ return P}
 function gen(c){
  const I=[],M=[],busy=new Set(c.busy),rest=new Set(c.rest),low=p=>/하체|둔근|전신/.test(p||'');
  const add=o=>I.push({id:uid(),status:'todo',place:'',part:'',min:'',memo:'',time:'',...o});
- const has=(d,f)=>I.some(i=>i.day==d&&f(i)),free=d=>!busy.has(d)&&!rest.has(d);
- const tired=c.c=='피곤함',sw=c.sw=='심함',so=c.so=='심함',sl=c.sl=='부족';
+ const has=(d,f)=>I.some(i=>i.day==d&&f(i));
+ const tired=c.c=='피곤함',sw=c.sw=='심함',so=c.so=='심함',sl=c.sl=='부족',relax=tired||sl;
  const okT=(d,t)=>{const w=wkh(c,d);if(!w)return true;const x=+t.slice(0,2)+t.slice(3)/60;return x>=w[1]+1||x+1.5<=w[0]};
  const wtime=d=>{const w=wkh(c,d);return w?pad(Math.min(Math.floor(w[1])+1,22))+':30':'10:00'};
- const wdFree=()=>[0,1,2,3,4,5].filter(d=>free(d)&&!has(d,i=>i.type!='rest')).map(d=>D[d]).join('·');
- S.pt.forEach(p=>{if(p.day===''||p.day==null)return;const d=+p.day;add({day:d,time:p.time,type:'pt',part:p.part,place:PLC('pt'),dur:(+p.min||60)/60});const wx=wkh(c,d);if(wx&&+p.time.slice(0,2)<wx[1])M.push(`${D[d]}요일 PT 시간이 근무시간(${wx[0]}~${wx[1]}시)과 겹쳐요. PT 시간이나 근무시간을 확인해 주세요.`);
-  if(busy.has(d))M.push(`${D[d]}요일에 개인 일정이 있지만 PT가 우선이라 그대로 두었어요.`);
-  if(rest.has(d)){rest.delete(d);M.push(`${D[d]}요일은 휴식일이었지만 PT 일정이 있어 휴식일에서 제외했어요.`)}});
- const nPT=I.length;
- const al=S.pil.days||[],pf=S.pil.pref??5;let best=null,bs=99;
- al.forEach(d=>{if(!free(d)||has(d,i=>i.type=='pt'))return;let s=d==pf?0:2;if(has(d-1,i=>i.type=='pt'&&low(i.part)))s+=5;if(has(d-1,i=>i.type=='pt')||has(d+1,i=>i.type=='pt'))s+=1;if(s<bs){bs=s;best=d}});
- if(best!=null){add({day:best,time:best>=5?S.pil.time:S.pil.wtime,type:'pilates',part:S.pil.part||'코어',place:PLC('pilates'),dur:(+S.pil.min||60)/60});
-  if(best!=pf&&al.includes(pf))M.push(D[pf]+'요일에 '+(busy.has(pf)?'개인 일정이 있어':'휴식 지정 등으로 배치가 어려워')+' 필라테스를 '+D[best]+'요일로 옮겼어요.')}
- else M.push(`필라테스 가능 요일(${al.map(d=>D[d]).join('·')||'없음'})이 PT·개인 일정·휴식일과 겹쳐 이번 주는 제외했어요.`+(wdFree()?` 대체 가능한 요일: ${wdFree()} (직접 추가할 수 있어요)`:''));
- const relax=tired||sl;
- const fl=S.yoga.filter(y=>y.day<=4&&okT(y.day,y.time)&&free(y.day)&&!has(y.day,i=>i.type=='pt'||i.type=='pilates')&&(relax?/센트모션|경추|골반/.test(y.name):y.name.includes('플라잉')));
- let fb=null,fs=99;fl.forEach(y=>{let s=0;if(has(y.day-1,i=>i.type=='pt'&&low(i.part)))s+=4;if(has(y.day-1,i=>i.type=='pilates')||has(y.day+1,i=>i.type=='pilates'))s+=2;if(has(y.day-1,i=>i.type=='pt')||has(y.day+1,i=>i.type=='pt'))s+=1;if(y.id==S.flyPref&&!relax)s-=10;if(s<fs){fs=s;fb=y}});
- if(fb){add({day:fb.day,time:fb.time,type:relax?'yoga':'flying',place:PLC('yoga'),memo:fb.name});if(relax)M.push(`컨디션(피곤함/수면 부족)을 고려해 플라잉 대신 이완 중심 수업(${fb.name})을 제안했어요. 원하면 일정 수정에서 플라잉으로 바꿀 수 있어요.`)}
- else{const fd=[...new Set(S.yoga.filter(y=>y.name.includes('플라잉')&&y.day<=4&&y.time>='18:00').map(y=>D[y.day]))].join('·');M.push((relax?'이완 요가':'플라잉요가')+'를 넣을 수 있는 저녁 수업이 없어 이번 주는 제외했어요.'+(fd&&!relax?` 플라잉 저녁 수업 요일(${fd})이 PT·필라테스·개인 일정과 겹쳐요. PT 요일을 조정하거나 직접 추가해 보세요.`:''))}
- let n=(nPT<S.wt.ptMin&&S.ptFill)?Math.max(1,S.wt.target-nPT):S.wt.n;
- if(nPT<S.wt.ptMin&&!S.ptFill)M.push(`PT가 주 ${S.wt.ptMin}회보다 적지만 개인 웨이트로 채우지 않도록 설정되어 있어요.`);
- let light=false;
- if(tired){light=true;if(n>1)n--;M.push('피곤함: 개인 웨이트 강도를 낮추고 횟수를 줄였어요.')}
- if(sl){light=true;n=Math.min(n,1);M.push('수면 부족: 개인 웨이트를 줄이고 휴식·가벼운 스트레칭을 권해요.')}
- if(c.simple){n=Math.min(n,1);M.push('일정이 바빠 선택 운동을 줄이고 간소화했어요.')}
- for(let k=0;k<n;k++){let bd=null,b2=99;
-  for(let d=0;d<6;d++){if(!free(d)||has(d,i=>['pt','weight','pilates','flying'].includes(i.type)))continue;
-   let s=0;[d-1,d+1].forEach(x=>{if(has(x,i=>i.type=='pt'||i.type=='weight'))s+=10;if(so&&has(x,i=>low(i.part)&&['pt','weight'].includes(i.type)))s+=10});if(d==5)s+=3;if(s<b2){b2=s;bd=d}}
-  if(bd==null){M.push('개인 웨이트를 넣을 여유 있는 요일이 없어 제외했어요.'+(wdFree()?` 대체 가능한 요일: ${wdFree()}`:''));break}
-  if(b2>=10)M.push(D[bd]+'요일 개인 웨이트가 PT와 연속될 수밖에 없어 강도를 낮추길 권해요.');
-  const nb=[bd-1,bd+1].flatMap(x=>I.filter(i=>i.day==x&&['pt','weight'].includes(i.type)).map(i=>i.part));
+ const P=c.plan||{pt:{},wt:[],cd:{},pil:[],yoga:{}};
+ const chk=(d,nm)=>{if(busy.has(d))M.push(`${D[d]}요일에 개인 일정이 있지만 선택하신 대로 넣었어요 (${nm}).`);if(rest.has(d)){rest.delete(d);M.push(`${D[d]}요일은 휴식일이었지만 선택하신 운동이 있어 휴식일에서 제외했어요 (${nm}).`)}};
+ Object.keys(P.pt).map(Number).sort((a,b)=>a-b).forEach(d=>{const p=P.pt[d];chk(d,'PT');add({day:d,time:p.time,type:'pt',part:p.part,place:PLC('pt'),dur:(+p.min||60)/60});const wx=wkh(c,d);if(wx&&+String(p.time).slice(0,2)<wx[1])M.push(`${D[d]}요일 PT 시간이 근무시간(${wx[0]}~${wx[1]}시)과 겹쳐요. PT 시간이나 근무시간을 확인해 주세요.`)});
+ Object.keys(P.yoga).map(Number).sort((a,b)=>a-b).forEach(d=>{let y=S.yoga.find(z=>z.id==P.yoga[d]&&z.day==d)||yDef(d);
+  if(!y){M.push(`${D[d]}요일에는 요가 시간표 수업이 없어 제외했어요. 요가 시간표를 확인해 주세요.`);return}
+  chk(d,'요가');
+  if(relax&&y.name.includes('플라잉')){const rl=S.yoga.filter(z=>z.day==d&&/센트모션|경추|골반/.test(z.name));if(rl.length){y=rl[0];M.push(`컨디션(피곤함/수면 부족)을 고려해 ${D[d]}요일 플라잉 대신 이완 중심 수업(${y.name})으로 넣었어요. 원하면 일정 수정에서 바꿀 수 있어요.`)}}
+  if(!okT(d,y.time))M.push(`${D[d]}요일 ${y.name} 수업이 근무시간과 겹칠 수 있어요.`);
+  add({day:d,time:y.time,type:y.name.includes('플라잉')?'flying':'yoga',place:PLC('yoga'),memo:y.name})});
+ Object.keys(P.pil).map(Number).sort((a,b)=>a-b).forEach(d=>{const t=P.pil[d];chk(d,'필라테스');if(!okT(d,t))M.push(`${D[d]}요일 필라테스(${t})가 근무시간과 겹칠 수 있어요.`);add({day:d,time:t,type:'pilates',part:S.pil.part||'코어',place:PLC('pilates'),dur:1})});
+ if(tired)M.push('피곤함: 개인 웨이트 강도를 낮추도록 표시했어요.');
+ if(sl)M.push('수면 부족: 개인 웨이트 강도를 낮추고 휴식·가벼운 스트레칭을 권해요.');
+ P.wt.forEach(d=>{chk(d,'개인 웨이트');
+  const nb=[d-1,d+1].flatMap(x=>I.filter(i=>i.day==x&&['pt','weight'].includes(i.type)).map(i=>i.part));
+  if(has(d,i=>['pt','weight'].includes(i.type)))M.push(`${D[d]}요일은 PT와 같은 날이에요. 강도를 확인해 주세요.`);
+  else if(nb.length)M.push(`${D[d]}요일 개인 웨이트가 PT·웨이트와 연속돼요. 강도를 낮추길 권해요.`);
   const part=(sw||nb.some(low))?'상체':(nb.length?'둔근':'전신');
-  add({day:bd,time:S.wt.time||wtime(bd),dur:S.wt.dur,type:'weight',part,place:PLC('weight'),memo:light?'가볍게 (강도 낮춤)':''})}
- if(sw)M.push('하체 부종이 심해 고강도 하체와 추가 유산소를 줄였어요. 컨디션에 따라 직접 조정하셔도 좋아요.');
- if(so)M.push('근육통이 심해 같은 부위 운동 간격을 벌렸어요.');
- if(c.xy&&c.c=='좋음'&&!c.simple){let yb=null,ys=99;
-  S.yoga.filter(y=>y.day<=4&&okT(y.day,y.time)&&!y.name.includes('플라잉')&&free(y.day)&&!has(y.day,i=>['pt','weight','pilates','flying'].includes(i.type))).forEach(y=>{let s=/센트모션|골반|하타/.test(y.name)?0:2;if(has(y.day-1,i=>i.type=='pt'&&low(i.part)))s+=2;if(y.id==S.xyPref)s-=5;if(s<ys){ys=s;yb=y}});
-  if(yb)add({day:yb.day,time:yb.time,type:'yoga',place:PLC('yoga'),memo:yb.name,opt:true});else M.push('추가 요가를 넣을 여유 있는 저녁 수업이 없어 제외했어요.')}
- if(!c.simple)(c.late||[]).forEach(d=>{
-  if(!free(d)&&!has(d,i=>i.type=='pt')){M.push(D[d]+'요일은 개인 일정/휴식일이라 유산소를 넣지 않았어요.');return}
-  if(has(d,i=>['yoga','flying'].includes(i.type))){M.push(D[d]+'요일은 요가 후 월평동 이동이 번거로워 유산소를 넣지 않았어요.');return}
-  const pt=I.find(i=>i.day==d&&i.type=='pt');
-  if(pt&&(low(pt.part)||c.c!='좋음')){M.push(D[d]+'요일은 PT 후 22시 퇴근이지만 유산소는 생략하는 편이 좋아 넣지 않았어요(원하면 추가 가능).');return}
-  const gentle=sw||tired||sl||!!pt||has(d,i=>i.type=='weight'),cc=cdR(gentle?'tread':'bike');
-  if(!cc){M.push(D[d]+'요일 유산소는 자동 추천에 지정된 운동이 없어 넣지 않았어요.');return}
-  add({day:d,time:cc.time,type:'cardio',place:cc.place||PLC('cardio'),min:cc.min,part:cc.name,memo:'22시 퇴근 대기 · 선택',opt:true})});
- const wc=cdR('walk');if(!c.simple&&wc)(c.pl||[]).forEach(d=>{if(busy.has(d)&&!rest.has(d)&&!has(d,i=>i.type!='rest'))add({day:d,time:wc.time,type:'cardio',place:wc.place||'',part:wc.name,min:wc.min,memo:'개인 일정이 있는 날 · 가볍게(선택)',opt:true})});
- if(sl&&!c.simple){for(let d=1;d<6;d++)if(free(d)&&!I.some(i=>i.day==d)){add({day:d,time:'20:00',type:'yoga',part:'가벼운 스트레칭',place:'집',memo:'가벼운 스트레칭 10~15분',opt:true});break}}
+  add({day:d,time:S.wt.time||wtime(d),dur:S.wt.dur,type:'weight',part,place:PLC('weight'),memo:relax?'가볍게 (강도 낮춤)':''})});
+ if(sw)M.push('하체 부종이 심해 개인 웨이트를 상체 중심으로 구성했어요. 컨디션에 따라 직접 조정하셔도 좋아요.');
+ if(so)M.push('근육통이 심해요. 같은 부위 운동이 이어지지 않는지 확인해 주세요.');
+ Object.keys(P.cd).map(Number).sort((a,b)=>a-b).forEach(d=>{let e=null;I.forEach(i=>{if(i.day==d&&(i.type=='pt'||i.type=='weight')&&TRE.test(i.time||'')){const x=+i.time.slice(0,2)+i.time.slice(3)/60+(+i.dur||1);if(e==null||x>e)e=x}});
+  if(P.cd[d].length)chk(d,'유산소');
+  P.cd[d].forEach(x=>{const cc=S.cardio[x.k];if(!cc)return;let tm=cc.time||'20:00';
+   if(e!=null){const t=Math.min(e,23.5),h=Math.floor(t),m=Math.round((t-h)*12)*5;tm=pad(m==60?h+1:h)+':'+pad(m==60?0:m);e=t+x.min/60}
+   add({day:d,time:tm,type:'cardio',place:cc.place||PLC('cardio'),min:x.min,part:cc.name})})});
  for(let d=0;d<7;d++)if(!I.some(i=>i.day==d)&&!busy.has(d))add({day:d,type:'rest',status:'rest',memo:d==6?'기본 휴식일 · 가벼운 산책 선택':'회복 · 가벼운 산책 선택'});
  return{items:I,msgs:M}}
-function generate(k,full){const w=wk(k),pd=[...new Set(w.items.filter(i=>i.type=='personal'&&(!i.time||(st0(i)<22&&st0(i)+durOf(i)>17))).map(i=>i.day))],r=gen(Object.assign({},w.cond,{busy:[...new Set([...w.cond.busy,...pd])]})),M=r.msgs;if(pd.length)M.push('개인 일정이 있는 요일('+pd.map(d=>D[d]).join('·')+')에는 운동을 넣지 않았어요.');
+function generate(k,full){const w=wk(k),_pl=plan(w.cond),pd=[...new Set(w.items.filter(i=>i.type=='personal'&&(!i.time||(st0(i)<22&&st0(i)+durOf(i)>17))).map(i=>i.day))],r=gen(Object.assign({},w.cond,{busy:[...new Set([...w.cond.busy,...pd])]})),M=r.msgs;
  const keep=full?[]:w.items.filter(i=>i.u||i.status=='done'||i.status=='chg'||(i.status=='rest'&&i.type!='rest'));
  if(full)w.del=[];const del=w.del||[];
  let gi=r.items.filter(n=>!del.some(x=>x.day==n.day&&x.type==n.type));
@@ -321,7 +342,7 @@ function generate(k,full){const w=wk(k),pd=[...new Set(w.items.filter(i=>i.type=
  gi=gi.filter(n=>!ur.includes(n.day)&&!(n.type=='rest'&&keep.some(o=>o.day==n.day)));
  const ku=keep.filter(o=>o.u).length;if(ku)M.push(`직접 수정·추가하신 일정 ${ku}개는 그대로 유지했어요.`);
  if(del.length)M.push('이전에 삭제하신 일정('+del.map(x=>D[x.day]+' '+T[x.type][0]).join(', ')+')은 다시 만들지 않았어요. 되돌리려면 "처음부터 새로 생성"을 누르세요.');
- w.items=[...keep,...gi];w.msgs=M;save()}
+ w.items=[...keep,...gi];w.msgs=M;S.pt=Object.keys(w.cond.plan.pt).map(d=>{const p=w.cond.plan.pt[d];return{day:+d,time:TRE.test(p.time)?p.time:'18:00',part:PTPARTS.includes(p.part)?p.part:'하체',min:[30,45,60,90,120].includes(+p.min)?+p.min:60}});save()}
 /* ---------- 화면 ---------- */
 const TABS=[['month','월간 달력'],['set','운동 설정'],['yoga','요가 시간표'],['log','운동 기록']];
 function R(){document.getElementById('tabs').innerHTML=TABS.filter(t=>t[0]!='yoga').map(t=>`<button class="${(tab==t[0]||(tab=='yoga'&&t[0]=='set'))?'on':''}" onclick="tab='${t[0]}';R()">${t[1]}</button>`).join('');
@@ -352,9 +373,6 @@ function setRest(d){if(wk(cur).items.some(i=>i.day==d&&isEx(i)))return toast(RES
 function dataCard(){return `<div class="card"><h2>데이터 관리</h2><div class="row"><button onclick="exp()">JSON 내보내기</button><label class="mut"><input type="file" accept=".json" onchange="imp(this.files[0])" style="max-width:200px"></label><button class="ghost" onclick="rst()">전체 데이터 초기화</button></div><p class="mut">모든 데이터는 이 브라우저의 LocalStorage에만 저장돼요.</p></div>`}
 const defCardio=()=>({});
 const DOT=t=>`<i class="dot" style="background:${T[t][1]}"></i>`;
-const yOpt=(f,fn)=>S.yoga.filter(fn).map(y=>`<option value="${y.id}" ${S[f]==y.id?'selected':''}>${D[y.day]} ${y.time} ${esc(y.name)}</option>`).join('');
-function flyBox(){return `<h3>플라잉 요가<small>주 1회</small></h3><div class="f"><label>선호 플라잉 수업<select onchange="S.flyPref=this.value;save()"><option value="">자동 선택</option>${yOpt('flyPref',y=>y.name.includes('플라잉'))}</select></label></div><p class="mut" style="margin:8px 0 0">피곤하거나 수면이 부족하면 플라잉 대신 이완 중심 수업을 제안해요.</p>`}
-function yogaBox(){return `<h3>일반 요가</h3><div class="f"><label>추가 요가 선호 수업<select onchange="S.xyPref=this.value;save()"><option value="">자동 선택</option>${yOpt('xyPref',y=>!y.name.includes('플라잉'))}</select></label></div><p class="mut" style="margin:8px 0 0">일정 만들기의 '여유 있으면 추가 요가 1회'를 켜면 이 수업이 우선 배치돼요. 수업 시간표 수정·추가는 '요가 시간표' 탭에서 할 수 있어요. 일정 수정 창에서도 수업을 골라 넣을 수 있어요.</p>`}
 const catCard=(t,title,body)=>`<div class="card cat"><h2>${DOT(t)}${title}</h2>${body}</div>`;
 const PTPARTS=['하체','둔근','등','어깨','상체','전신','코어'];
 const DEFPL={pt:'월평동 헬스장',weight:'월평동 헬스장',cardio:'월평동 헬스장',pilates:'월평동 헬스장',yoga:'대전 죽동 STELLA YOGA'};
@@ -368,12 +386,12 @@ function normS(){const d=defCardio();S.cardio=S.cardio&&typeof S.cardio=='object
  const g0=typeof S.gym=='string'&&S.gym.trim()?S.gym.trim().slice(0,30):'월평동 헬스장',pl0=S.places&&typeof S.places=='object'?S.places:{};S.places={};for(const t in DEFPL){const v=typeof pl0[t]=='string'&&pl0[t].trim()?pl0[t].trim().slice(0,30):(t=='yoga'?DEFPL.yoga:g0);S.places[t]=v}delete S.gym;
  if(!Array.isArray(S.pt))S.pt=[];
  S.pt=S.pt.filter(p=>p&&typeof p=='object').slice(0,7).map(p=>({day:p.day===''||p.day==null?'':Math.min(6,Math.max(0,Math.round(+p.day)||0)),time:TRE.test(p.time)?p.time:'18:00',part:PTPARTS.includes(p.part)?p.part:'하체',min:[30,45,60,90,120].includes(+p.min)?+p.min:60}));
- const cl=(v,a,b,df)=>{v=+v;return isNaN(v)?df:Math.min(b,Math.max(a,Math.round(v)))};
- const w=Object.assign({ptMin:2,target:3,n:1,time:'',dur:1},S.wt&&typeof S.wt=='object'?S.wt:{});
- S.wt={ptMin:cl(w.ptMin,0,7,2),target:cl(w.target,1,7,3),n:cl(w.n,0,3,1),time:TRE.test(w.time)?w.time:'',dur:[.5,.75,1,1.5,2].includes(+w.dur)?+w.dur:1};
- const p=Object.assign({days:[0,2,4,5],time:'10:00',wtime:'19:00',pref:5,min:60,part:'코어'},S.pil&&typeof S.pil=='object'?S.pil:{});
- const pr=p.pref!=null&&p.pref!==''&&Number.isInteger(+p.pref)&&+p.pref>=0&&+p.pref<=6?+p.pref:5;
- S.pil={days:Array.isArray(p.days)?[...new Set(p.days.map(Number).filter(x=>Number.isInteger(x)&&x>=0&&x<=6))]:[0,2,4,5],time:TRE.test(p.time)?p.time:'10:00',wtime:TRE.test(p.wtime)?p.wtime:'19:00',pref:pr,min:[30,45,60,90].includes(+p.min)?+p.min:60,part:PARTS.includes(p.part)?p.part:'코어'}}
+ const pd0=Object.assign({time:'18:00',min:60,part:'하체'},S.ptd&&typeof S.ptd=='object'?S.ptd:{});
+ S.ptd={time:TRE.test(pd0.time)?pd0.time:'18:00',min:[30,45,60,90,120].includes(+pd0.min)?+pd0.min:60,part:PTPARTS.includes(pd0.part)?pd0.part:'하체'};
+ const w=Object.assign({time:'',dur:1},S.wt&&typeof S.wt=='object'?S.wt:{});
+ S.wt={time:TRE.test(w.time)?w.time:'',dur:[.5,.75,1,1.5,2].includes(+w.dur)?+w.dur:1};
+ const p=Object.assign({time:'10:00',wtime:'19:00',min:60,part:'코어'},S.pil&&typeof S.pil=='object'?S.pil:{});
+ S.pil={time:snap30(p.time),wtime:snap30(p.wtime||'19:00'),min:60,part:PARTS.includes(p.part)?p.part:'코어'};}
 const CDR=[['bike','22시 퇴근 대기일에 컨디션이 좋을 때 추천'],['tread','컨디션이 좋지 않거나 PT·웨이트 후에 가볍게 추천'],['walk',"개인 일정이 있는 날 '가벼운 운동 허용'을 켜면 추천"]];
 const cdR=r=>S.cardio[S.cdRole[r]]||null;
 const cdSub=()=>{const a=Object.values(S.cardio).map(c=>[c.name,c.name]);return a.length?a:[['유산소','유산소']]};
@@ -383,82 +401,103 @@ function cdSet(k,f,v){const c=S.cardio[k];if(!c)return;const d=defCardio()[k]||{
  else if(f=='place')c.place=String(v).trim().slice(0,30);
  else c.time=TRE.test(v)?v:(d.time||'20:00');
  save();R()}
-function cdAdd(){const nm=(document.getElementById('cd_n').value||'').trim().slice(0,20),tm0=document.getElementById('cd_t').value,mn=Math.round(+document.getElementById('cd_m').value),pl=(document.getElementById('cd_p').value||'').trim().slice(0,30);
+function cdAdd(){const nm=(document.getElementById('cd_n').value||'').trim().slice(0,20),pl=(document.getElementById('cd_p').value||'').trim().slice(0,30);
  if(!nm)return toast('유산소 운동 이름을 입력해 주세요');
  if(Object.keys(S.cardio).length>=12)return toast('유산소 종류는 최대 12개까지예요');
  if(Object.values(S.cardio).some(c=>c.name==nm))return toast('같은 이름의 유산소가 이미 있어요');
- const first=!Object.keys(S.cardio).length,k='c'+uid();
- S.cardio[k]={name:nm,place:pl||PLC('cardio'),time:TRE.test(tm0)?tm0:'20:00',min:Math.min(120,Math.max(5,mn||20))};UI.cdSel=k;
- if(first)CDR.forEach(r=>{if(!S.cdRole[r[0]])S.cdRole[r[0]]=k});
- save();R()}
+ const k='c'+uid();S.cardio[k]={name:nm,place:pl||PLC('cardio'),time:'20:00',min:30};UI.cdSel=k;save();R()}
 function cdDel(k){if(!S.cardio[k])return;if(!confirm('"'+S.cardio[k].name+'" 유산소를 삭제할까요?\n(이미 만든 일정은 그대로 유지돼요)'))return;delete S.cardio[k];if(UI.cdSel==k)UI.cdSel=null;const f=Object.keys(S.cardio)[0]||'';CDR.forEach(r=>{if(S.cdRole[r[0]]==k)S.cdRole[r[0]]=f});save();R()}
 function cdSel(k){if(S.cardio[k]){UI.cdSel=k;R()}}
 function cdRoleSet(r,k){if(!CDR.some(x=>x[0]==r))return;S.cdRole[r]=S.cardio[k]?k:'';save();R()}
-function ptBox(){return `<h3>PT<small>최우선 반영</small></h3><div class="f" style="margin-bottom:8px">${plInp('pt')}</div>`+(S.pt.length?S.pt.map((x,i)=>`<div class="ptc"><div class="ptch"><b>${i+1}회차</b><button class="sm ghost" onclick="ptDel(${i})">삭제</button></div><div class="f"><label>요일<select onchange="ptSet(${i},'day',this.value)"><option value="">없음</option>${D.map((d,j)=>`<option value="${j}" ${x.day!==''&&x.day==j?'selected':''}>${d}요일</option>`).join('')}</select></label><label>시작 시간<input type="time" value="${esc(x.time)}" onchange="ptSet(${i},'time',this.value)"></label><label>수업 시간<select onchange="ptSet(${i},'min',this.value)">${[30,45,60,90,120].map(m=>`<option value="${m}" ${x.min==m?'selected':''}>${m}분</option>`).join('')}</select></label><label>운동 부위<select onchange="ptSet(${i},'part',this.value)">${PTPARTS.map(t=>`<option ${x.part==t?'selected':''}>${t}</option>`).join('')}</select></label></div></div>`).join(''):'<p class="mut" style="margin:0 0 6px">등록된 PT가 없어요.</p>')+`<div class="row"><button class="sm ghost" onclick="ptAdd()">+ PT 회차 추가</button></div>`}
-function ptSet(i,f,v){const p=S.pt[i];if(!p)return;
- if(f=='day'){if(v==='')p.day='';else{const n=+v;if(!Number.isInteger(n)||n<0||n>6)return;p.day=n;if(S.pt.some((q,j)=>j!=i&&q.day===n))toast('같은 요일에 PT가 2회 이상 있어요')}}
- else if(f=='time'){if(TRE.test(v))p.time=v}
- else if(f=='min'){const n=+v;if([30,45,60,90,120].includes(n))p.min=n}
- else if(f=='part'){if(PTPARTS.includes(v))p.part=v}
+function ptBox(){const d=S.ptd;return `<p class="mut" style="margin:0 0 8px">PT 요일은 매주 일정 만들 때 골라요. 여기에는 요일을 고를 때 처음 채워질 기본값만 정해요.</p><div class="f"><label>기본 시작 시간<input type="time" value="${esc(d.time)}" onchange="ptdSet('time',this.value)"></label><label>수업 시간<select onchange="ptdSet('min',this.value)">${[30,45,60,90,120].map(m=>`<option value="${m}" ${d.min==m?'selected':''}>${m}분</option>`).join('')}</select></label><label>기본 운동 부위<select onchange="ptdSet('part',this.value)">${PTPARTS.map(t=>`<option ${d.part==t?'selected':''}>${t}</option>`).join('')}</select></label></div>`}
+function ptdSet(f,v){const d=S.ptd;
+ if(f=='time'){if(TRE.test(v))d.time=v}
+ else if(f=='min'){const n=+v;if([30,45,60,90,120].includes(n))d.min=n}
+ else if(f=='part'){if(PTPARTS.includes(v))d.part=v}
  save();R()}
-function ptAdd(){if(S.pt.length>=7)return toast('PT는 최대 7회까지예요');S.pt.push({day:'',time:'18:00',part:'하체',min:60});save();R()}
-function ptDel(i){S.pt.splice(i,1);save();R()}
-function wtBox(){const w=S.wt,nm=(f,l,a,b)=>`<label>${l}<input type="number" min="${a}" max="${b}" value="${w[f]}" onchange="wtSet('${f}',this.value)"></label>`;
- return `<h3>개인 웨이트</h3><div class="f" style="margin-bottom:8px">${plInp('weight')}</div><div class="chips"><label><input type="checkbox" ${S.ptFill?'checked':''} onchange="S.ptFill=this.checked;save()">PT가 부족하면 개인 웨이트로 대체</label></div><div class="f" style="margin-top:8px">${nm('ptMin','PT 기준 횟수(주)',0,7)}${nm('target','대체 시 주 총 웨이트 횟수',1,7)}${nm('n','PT가 충분할 때 개인 웨이트(주)',0,3)}<label>시작 시간<input type="time" value="${esc(w.time)}" onchange="wtSet('time',this.value)"></label><label>운동 시간<select onchange="wtSet('dur',this.value)">${[[.5,'30분'],[.75,'45분'],[1,'60분'],[1.5,'90분'],[2,'120분']].map(x=>`<option value="${x[0]}" ${w.dur==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></label></div><p class="mut" style="margin:8px 0 0">시작 시간을 비워 두면 근무 종료 후로 자동 정해져요. 부위는 PT 부위와 컨디션(부종·근육통)에 맞춰 정해져요.</p>`}
+function wtBox(){const w=S.wt;return `<p class="mut" style="margin:0 0 8px">개인 웨이트 요일은 매주 일정 만들 때 골라요. 부위는 PT 부위와 컨디션(부종·근육통)에 맞춰 정해져요.</p><div class="f"><label>시작 시간<input type="time" value="${esc(w.time)}" onchange="wtSet('time',this.value)"></label><label>운동 시간<select onchange="wtSet('dur',this.value)">${[[.5,'30분'],[.75,'45분'],[1,'60분'],[1.5,'90분'],[2,'120분']].map(x=>`<option value="${x[0]}" ${w.dur==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></label></div><span class="hint">시작 시간을 비워 두면 근무 종료 후로 자동 정해져요.</span>`}
 function wtSet(f,v){const w=S.wt;
  if(f=='time')w.time=TRE.test(v)?v:'';
  else if(f=='dur'){const n=+v;if([.5,.75,1,1.5,2].includes(n))w.dur=n}
- else{const r={ptMin:[0,7],target:[1,7],n:[0,3]}[f],n=Math.round(+v);if(!r||isNaN(n))return;w[f]=Math.min(r[1],Math.max(r[0],n))}
  save();R()}
-function cdEdit(k){const x=S.cardio[k],u=CDR.some(r=>S.cdRole[r[0]]==k);
- return `<div class="cdedit"><div class="ptch"><b>${esc(x.name)}${u?'<small>자동 추천에 사용 중</small>':''}</b><button class="sm ghost" onclick="cdDel('${k}')">삭제</button></div><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" maxlength="20" value="${esc(x.name)}" onchange="cdSet('${k}','name',this.value)"></label><label style="grid-column:1/-1">운동 장소<input type="text" maxlength="30" value="${esc(x.place||PLC('cardio'))}" placeholder="예: 월평동 헬스장, 집, 공원" onchange="cdSet('${k}','place',this.value)"></label><label>시작 시간<input type="time" value="${esc(x.time)}" onchange="cdSet('${k}','time',this.value)"></label><label>운동 시간(분)<input type="number" min="5" max="120" step="5" value="${+x.min||20}" onchange="cdSet('${k}','min',this.value)"></label></div></div>`}
-function cdBox(){const c=S.cardio,ks=Object.keys(c),sel=c[UI.cdSel]?UI.cdSel:(ks[0]||''),
- CT={bike:'퇴근 대기일 · 컨디션 좋을 때',tread:'컨디션 낮음 · PT/웨이트 후',walk:'개인 일정이 있는 날'};
- let h=`<section class="sub"><h3>유산소 직접 입력<small>운동 이름·시간을 입력해 추가해요</small></h3><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" id="cd_n" maxlength="20" placeholder="예: 러닝머신 걷기, 실내 자전거, 계단 오르기" onkeydown="if(event.key=='Enter')cdAdd()"></label><label style="grid-column:1/-1">운동 장소<input type="text" id="cd_p" maxlength="30" value="${esc(PLC('cardio'))}" placeholder="예: 월평동 헬스장, 집, 공원"></label><label>시작 시간<input type="time" id="cd_t" value="20:00"></label><label>운동 시간(분)<input type="number" id="cd_m" min="5" max="120" step="5" value="20"></label></div><div class="row" style="margin-top:8px"><button class="sm" onclick="cdAdd()">+ 추가</button></div></section>`;
+function cdEdit(k){const x=S.cardio[k];
+ return `<div class="cdedit"><div class="ptch"><b>${esc(x.name)}</b><button class="sm ghost" onclick="cdDel('${k}')">삭제</button></div><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" maxlength="20" value="${esc(x.name)}" onchange="cdSet('${k}','name',this.value)"></label><label style="grid-column:1/-1">운동 장소<input type="text" maxlength="30" value="${esc(x.place||PLC('cardio'))}" placeholder="예: 월평동 헬스장, 집, 공원" onchange="cdSet('${k}','place',this.value)"></label></div></div>`}
+function cdBox(){const c=S.cardio,ks=Object.keys(c),sel=c[UI.cdSel]?UI.cdSel:(ks[0]||'');
+ let h=`<section class="sub"><h3>유산소 종류 추가<small>직접 입력해서 등록해요</small></h3><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" id="cd_n" maxlength="20" placeholder="예: 러닝머신 걷기, 실내 자전거, 계단 오르기" onkeydown="if(event.key=='Enter')cdAdd()"></label><label style="grid-column:1/-1">운동 장소<input type="text" id="cd_p" maxlength="30" value="${esc(PLC('cardio'))}" placeholder="예: 월평동 헬스장, 집, 공원"></label></div><div class="row" style="margin-top:8px"><button class="sm" onclick="cdAdd()">+ 추가</button></div></section>`;
  h+=`<section class="sub"><h3>등록된 유산소<small>${ks.length?'눌러서 선택하고 수정해요':''}</small></h3>`+(ks.length?`<div class="cdchips">${ks.map(k=>`<button class="cdchip ${k==sel?'on':''}" onclick="cdSel('${k}')">${esc(c[k].name)}</button>`).join('')}</div>${cdEdit(sel)}`:'<p class="mut" style="margin:0">등록된 유산소가 없어요. 위에서 직접 입력해 추가해 주세요.</p>')+`</section>`;
- h+=`<section class="sub"><h3>자동 일정에 쓸 유산소<small>일정 생성 시 상황별로 추천할 운동을 골라요</small></h3><div class="f">${CDR.map(r=>`<label style="grid-column:1/-1">${CT[r[0]]||r[0]}<span class="hint">${r[1]}</span><select onchange="cdRoleSet('${r[0]}',this.value)"><option value="">사용 안 함</option>${ks.map(k=>`<option value="${k}" ${S.cdRole[r[0]]==k?'selected':''}>${esc(c[k].name)}</option>`).join('')}</select></label>`).join('')}</div></section>`;
  return h}
-function pilBox(){const p=S.pil,tf=(f,l)=>`<label>${l}<input type="time" value="${esc(p[f])}" onchange="pilSet('${f}',this.value)"></label>`;
- return `<p class="mut" style="margin:0 0 8px">주 1회 · 가능한 요일 중 우선 요일을 먼저 추천하고, 일정이 있으면 다른 가능 요일로 옮겨 배치해요.</p><div class="f" style="margin-bottom:8px">${plInp('pilates')}</div><div class="chips">${D.map((x,d)=>`<label><input type="checkbox" ${p.days.includes(d)?'checked':''} onchange="pilDay(${d})">${x}</label>`).join('')}</div><div class="f" style="margin-top:8px"><label>우선 요일<select onchange="pilSet('pref',this.value)">${D.map((x,d)=>`<option value="${d}" ${p.pref==d?'selected':''}>${x}요일</option>`).join('')}</select></label>${tf('time','주말(토·일) 수업 시간')}${tf('wtime','평일 수업 시간')}<label>수업 시간<select onchange="pilSet('min',this.value)">${[30,45,60,90].map(m=>`<option value="${m}" ${p.min==m?'selected':''}>${m}분</option>`).join('')}</select></label></div>`}
+function pilBox(){const p=S.pil,tf=(f,l)=>`<label>${l}<select onchange="pilSet('${f}',this.value)">${T30.map(t=>`<option value="${t}" ${p[f]==t?'selected':''}>${t}</option>`).join('')}</select></label>`;
+ return `<p class="mut" style="margin:0 0 8px">필라테스는 1시간 수업이에요. 요일은 매주 일정 만들 때 고르고, 여기에는 요일을 눌렀을 때 처음 채워질 시작 시간만 정해요. (30분 단위)</p><div class="f">${tf('time','주말(토·일) 기본 시간')}${tf('wtime','평일 기본 시간')}</div>`}
 function pilSet(f,v){const p=S.pil;
- if(f=='time'||f=='wtime'){if(TRE.test(v))p[f]=v}
- else if(f=='pref'){const n=Math.round(+v);if(n>=0&&n<=6)p.pref=n}
- else if(f=='min'){const n=+v;if([30,45,60,90].includes(n))p.min=n}
- else if(f=='part'){if(PARTS.includes(v))p.part=v}
+ if((f=='time'||f=='wtime')&&T30.includes(v))p[f]=v;
  save();R()}
 const catBox=(id,col,title,sum,body)=>`<details class="cat2" id="cat-${id}" style="--cc:${col}" ${(UI.so||{})[id]?'open':''} ontoggle="(UI.so=UI.so||{})['${id}']=this.open"><summary><div class="st"><b>${title}</b><span>${esc(sum)}</span></div></summary><div class="cat2b">${body}</div></details>`;
 function setGo(t){UI.so=UI.so||{};UI.so[t]=true;R();const e=document.getElementById('cat-'+t);if(e)e.scrollIntoView({behavior:'smooth',block:'start'})}
-function setCats(){const p=S.pil,pts=S.pt.map(x=>x.day===''?'':D[x.day]).filter(Boolean).join('·'),ks=Object.values(S.cardio).map(c=>c.name);
+function setCats(){const ks=Object.values(S.cardio).map(c=>c.name),lab={pt:'PT',weight:'개인 웨이트',pilates:'필라테스',yoga:'요가'};
  const items=[
-  ['pt','#2f7d5b','웨이트',`PT ${S.pt.length}회${pts?' ('+pts+')':''} · 개인 웨이트 주 ${S.wt.n}회`,`<section class="sub">${ptBox()}</section><section class="sub">${wtBox()}</section>`],
+  ['pt','#2f7d5b','PT',`기본 ${S.ptd.time} · ${S.ptd.min}분 · ${S.ptd.part}`,ptBox()],
+  ['weight','#6fae85','개인 웨이트',`${S.wt.time||'근무 후 자동'} · ${Math.round(S.wt.dur*60)}분`,wtBox()],
+  ['pilates','#f2a65a','필라테스',`평일 ${S.pil.wtime} · 주말 ${S.pil.time} · 1시간`,pilBox()],
   ['cardio','#5ea3d8','유산소',ks.length?ks.join(' · '):'등록된 운동 없음',cdBox()],
-  ['pilates','#f2a65a','필라테스',`${p.days.map(d=>D[d]).join('·')||'요일 미지정'} 중 주 1회 · 우선 ${D[p.pref]}요일`,pilBox()],
-  ['yoga','#8f6fe0','요가',`수업 ${S.yoga.length}개 등록`,`<div class="row" style="justify-content:flex-end;margin-bottom:8px"><button class="sm" onclick="tab='yoga';R();window.scrollTo(0,0)">요가 시간표 보기 ›</button></div><div class="f" style="margin-bottom:12px">${plInp('yoga')}</div><section class="sub" style="margin-top:0">${flyBox()}</section><section class="sub">${yogaBox()}</section>`]];
- return `<div class="setnav">${items.map(x=>`<button class="sm ghost" onclick="setGo('${x[0]}')"><i class="dot" style="background:${x[1]}"></i>${x[2]}</button>`).join('')}</div>`+items.map(x=>catBox(x[0],x[1],x[2],x[3],x[4])).join('')}
+  ['yoga','#8f6fe0','요가',`시간표에 수업 ${S.yoga.length}개`,`<p class="mut" style="margin:0 0 10px">요가는 시간표의 수업을 요일별로 골라 쓰니까, 수업 시간표를 먼저 정리해 두세요.</p><div class="row"><button class="sm" onclick="tab='yoga';R();window.scrollTo(0,0)">요가 시간표 보기 ›</button></div>`],
+  ['place','#9a9a9a','운동 장소',['pt','weight','pilates','yoga'].map(t=>lab[t]+' '+PLC(t)).join(' · '),`<div class="f">${['pt','weight','pilates','yoga'].map(t=>`<label style="grid-column:1/-1">${lab[t]} 장소<input type="text" maxlength="30" value="${esc(PLC(t))}" onchange="plSet('${t}',this.value)"></label>`).join('')}</div><span class="hint">유산소 장소는 유산소 종류마다 따로 설정해요.</span>`]];
+ return `<div class="setnav">${items.map(x=>`<button class="sm ghost" onclick="setGo('${x[0]}')"><i class="dot" style="background:${x[1]}"></i>${x[2]}</button>`).join('')}</div>`+`<p class="mut" style="margin:0 0 12px">운동 횟수는 따로 정하지 않아요. '다음 주 운동 일정 만들기'에서 매주 운동별로 요일을 고르면, 고른 요일 수만큼 일정이 만들어져요. 유산소는 웨이트·PT 요일에 선택해서 추가하고, 종류와 시간(분)은 그날마다 입력해요.</p>`+items.map(x=>catBox(x[0],x[1],x[2],x[3],x[4])).join('')}
 function vSet(){return setCats()}
 function renderSet(){document.getElementById('setDlg').innerHTML=`<div class="dd"><div class="ddh"><b style="font-size:18px">설정</b><button class="sm" onclick="document.getElementById('setDlg').close()">닫기</button></div><div class="ddb">${wgCard()}${dataCard()}</div></div>`}
 function openSet(){renderSet();const d=document.getElementById('setDlg');if(!d.open)d.showModal()}
 function wgCard(){const c=wgCfg()||{url:'',token:''};return `<div class="card"><h2>iPhone 위젯 · 기기 간 일정 공유</h2><p class="mut" style="margin:0 0 8px">같은 URL과 토큰을 입력한 기기끼리 일정이 자동으로 공유되고, 위젯에도 반영돼요. (구글 아이디 로그인이 아니라 URL·토큰으로 연결돼요)</p><div class="row" style="flex-direction:column;align-items:stretch;gap:8px"><input id="wgu" type="url" placeholder="웹 앱 URL (https://script.google.com/…)" value="${esc(c.url)}" autocomplete="off" spellcheck="false" style="width:100%"><input id="wgt" type="password" placeholder="토큰 (Apps Script에 넣은 문자열, 8자 이상)" value="${esc(c.token)}" autocomplete="off" style="width:100%"><div class="row"><button class="pri" onclick="wgSaveCfg()">저장하고 동기화 켜기</button><button onclick="wgSync(true)">지금 동기화</button></div><div class="row"><button class="ghost" onclick="wgForcePull()">서버 일정으로 이 기기 바꾸기</button><button class="ghost" onclick="wgForcePush()">이 기기 일정으로 서버 덮어쓰기</button></div></div><p class="mut" id="wgst">${c.url?'체크·일정 변경 시 자동으로 동기화돼요':'설정하지 않으면 동기화되지 않아요'}</p><p class="mut">두 기기에서 동시에 수정하지 마세요. 나중에 저장한 쪽이 반영돼요.</p><div class="row"><button onclick="wgExport()">수동으로 파일 저장</button></div></div>`}
-function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl||[];
+function bzInit(c){if(!Array.isArray(c.bz))c.bz=(c.busy||[]).map(d=>({day:d,txt:(c.pst&&c.pst[d])||''}))}
+function bzSync(c){c.busy=[...new Set(c.bz.map(b=>b.day))];c.pst={};c.bz.forEach(b=>{if(b.txt)c.pst[b.day]=c.pst[b.day]?c.pst[b.day]+' / '+b.txt:b.txt})}
+function bzAdd(){const c=wk(cur).cond;bzInit(c);const u=new Set(c.bz.map(b=>b.day)),d=[0,1,2,3,4,5,6].find(x=>!u.has(x));c.bz.push({day:d==null?0:d,txt:''});bzSync(c);save();R()}
+function bzSet(i,f,v,q){const c=wk(cur).cond;bzInit(c);const b=c.bz[i];if(!b)return;if(f=='day')b.day=+v;else b.txt=String(v).slice(0,40);bzSync(c);save();if(!q)R()}
+function bzDel(i){const c=wk(cur).cond;bzInit(c);c.bz.splice(i,1);bzSync(c);save();R()}
+function dayTg(g,d,k){const P=plan(wk(cur).cond),dropCd=()=>{if(!P.pt[d]&&!P.wt.includes(d))delete P.cd[d]};
+ if(g=='pt'){if(P.pt[d])delete P.pt[d];else{const t=S.pt.find(x=>+x.day===d)||S.ptd;P.pt[d]={time:t?t.time:'18:00',part:t?t.part:'하체',min:t&&+t.min?+t.min:60}}dropCd()}
+ else if(g=='yoga'){if(P.yoga[d]!=null)delete P.yoga[d];else{const y=yDef(d);if(!y)return toast('그 요일에는 요가 수업이 없어요');P.yoga[d]=y.id}}
+ else if(g=='pil'){if(P.pil[d]!=null)delete P.pil[d];else P.pil[d]=pilDef(d)}
+ else{const a=P[g],i=a.indexOf(d);i<0?a.push(d):a.splice(i,1);if(g=='wt')dropCd()}
+ save();R()}
+function cdAddDay(d){const P=plan(wk(cur).cond),ks=Object.keys(S.cardio);if(!ks.length)return toast('운동 설정에서 유산소 종류를 먼저 등록해 주세요');if(!P.pt[d]&&!P.wt.includes(d))return;
+ const a=P.cd[d]=P.cd[d]||[];if(a.length>=5)return toast('하루 유산소는 최대 5개까지예요');a.push({k:ks[0],min:+S.cardio[ks[0]].min||30});save();R()}
+function cdDelDay(d,i){const P=plan(wk(cur).cond),a=P.cd[d];if(!a)return;a.splice(i,1);if(!a.length)delete P.cd[d];save();R()}
+function cdSetDay(d,i,f,v){const P=plan(wk(cur).cond),x=(P.cd[d]||[])[i];if(!x)return;
+ if(f=='k'){if(S.cardio[v])x.k=v}else if(f=='min'){const n=Math.round(+v);if(!isNaN(n))x.min=Math.min(240,Math.max(5,n))}
+ save();R()}
+function planSet(g,d,f,v){const P=plan(wk(cur).cond);if(g=='pt'){if(!P.pt[d])return;if(f=='time'&&!TRE.test(v))return;P.pt[d][f]=v}else if(g=='yoga')P.yoga[d]=v;else if(g=='pil'){if(T30.includes(v))P.pil[d]=v}save()}
+function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl||[];const P=plan(c);bzInit(c);
  const sel=(f,o)=>`<select onchange="setC('${f}',this.value,1)">${o.map(v=>`<option ${c[f]==v?'selected':''}>${v}</option>`).join('')}</select>`;
  const ck=f=>D.map((x,i)=>`<label><input type="checkbox" ${c[f].includes(i)?'checked':''} onchange="tg('${f}',${i})">${x}</label>`).join('');
  const rg=`${md(parse(cur))} ~ ${md(parse(addD(cur,6)))}`;
- let h=`<summary><span>이 주 자동 생성 <span class="mut">${rg} · 조건 입력</span></span></summary><div class="secb">`;
- h+=`<div class="card"><div class="bar"><button onclick="nav(-1)">◀</button><b>${rg}</b><button onclick="nav(1)">▶</button></div><p class="mut" style="margin:0">근무시간은 날짜 타임테이블의 '근무' 일정으로 입력해요. 운동은 '운동 설정'에 맞춰 자동 배치되고, 직접 추가·수정한 일정과 완료 기록은 다시 생성해도 유지돼요.</p></div>`;
+ const dps=(g,on,k,dis)=>`<div class="dp">${D.map((x,d)=>`<button class="${on.includes(d)?'on':''}" ${dis&&dis(d)?'disabled':''} onclick="dayTg('${g}',${d},${k?`'${k}'`:'null'})">${x}</button>`).join('')}</div>`;
+ const grp=(col,title,sub,body)=>`<div class="card exb" style="--cc:${col}"><h2>${title}<small>${sub}</small></h2>${body}</div>`;
+ const cnt=n=>n?`선택 ${n}일`:'선택 없음',ks=Object.keys(S.cardio);
+ const cdRows=d=>{if(!ks.length)return '';const a=P.cd[d]||[];return `<div class="cdrows" style="margin-top:8px">${a.map((x,i)=>`<div class="bz"><select aria-label="유산소 종류" onchange="cdSetDay(${d},${i},'k',this.value)">${ks.map(k=>`<option value="${k}" ${x.k==k?'selected':''}>${esc(S.cardio[k].name)}</option>`).join('')}</select><input type="number" inputmode="numeric" min="5" max="240" step="5" value="${x.min}" aria-label="유산소 시간(분)" style="width:84px;flex:none" onchange="cdSetDay(${d},${i},'min',this.value)"><span class="mut">분</span><button class="sm ghost" onclick="cdDelDay(${d},${i})">삭제</button></div>`).join('')}<button class="sm" onclick="cdAddDay(${d})">+ 유산소 추가</button></div>`};
+ let h=`<summary><span>이 주 자동 생성 <span class="mut">${rg} · 요일 선택</span></span></summary><div class="secb">`;
+ h+=`<div class="card"><div class="bar"><button onclick="nav(-1)">◀</button><b>${rg}</b><button onclick="nav(1)">▶</button></div><p class="mut" style="margin:0">운동별로 이 주에 할 요일을 골라 일정을 짜요. 근무시간은 날짜 타임테이블의 '근무' 일정으로 입력해요. 직접 추가·수정한 일정과 완료 기록은 다시 생성해도 유지돼요.</p></div>`;
  if(w.msgs&&w.msgs.length)h+=`<div class="msg"><b>일정 안내</b>${w.msgs.map(m=>`<p>· ${esc(m)}</p>`).join('')}</div>`;
- h+=`<div class="card"><h2>① 남자친구 퇴근 일정</h2><p class="mut">오후 10시에 퇴근하는 요일을 체크하면 등록한 유산소 중에서 가벼운 운동을 선택 항목으로 추천해요. 하지 않아도 괜찮아요.</p><div class="chips">${ck('late')}</div></div>`;
- h+=`<div class="card"><h2>② 요일별 개인 일정</h2><p class="mut">일정이 있는 날에는 운동을 넣지 않아요. 가벼운 운동을 허용하면 선택 산책만 추천해요. (시간대가 있는 개인 일정은 타임테이블에서 추가해요)</p>${D.map((x,i)=>`<div class="row" style="margin-bottom:6px"><span class="chips"><label><input type="checkbox" ${c.busy.includes(i)?'checked':''} onchange="tg('busy',${i})">${x}</label></span><input type="text" placeholder="예: 가족 모임, 야근" value="${esc(c.pst[i]||'')}" oninput="setPs(${i},this)" style="flex:1;min-width:120px"><span class="chips"><label><input type="checkbox" ${c.pl.includes(i)?'checked':''} onchange="tg('pl',${i})">가벼운 운동 허용</label></span></div>`).join('')}</div>`;
- h+=`<div class="card"><h2>③ 컨디션</h2><div class="f"><label>전반적인 컨디션${sel('c',['좋음','보통','피곤함'])}</label><label>하체 부종${sel('sw',['없음','약간','심함'])}</label><label>근육통${sel('so',['없음','약간','심함'])}</label><label>수면 상태${sel('sl',['좋음','보통','부족'])}</label></div><p class="mut" style="margin:10px 0 2px">휴식으로 지정할 요일</p><div class="chips">${ck('rest')}</div><div class="chips" style="margin-top:10px"><label><input type="checkbox" ${c.simple?'checked':''} onchange="setC('simple',this.checked,1)">일정이 바쁨 (선택 운동 줄이기)</label><label><input type="checkbox" ${c.xy?'checked':''} onchange="setC('xy',this.checked,1)">여유 있으면 추가 요가 1회</label></div></div>`;
+ h+=`<div class="card"><h2>① 운동 요일 정하기</h2><p class="mut" style="margin:0">요일을 누르면 선택되고, 다시 누르면 해제돼요. 선택한 요일 수가 이 주의 운동 횟수예요.</p></div>`;
+ const pd=Object.keys(P.pt).map(Number).sort((a,b)=>a-b),wd=[...P.wt].sort((a,b)=>a-b),ud=[...new Set([...pd,...wd])].sort((a,b)=>a-b);
+ const sub=(t,n,x)=>`<h3 style="margin:14px 0 8px">${t}<small>${n?`선택 ${n}일`:'선택 없음'}${x||''}</small></h3>`;
+ h+=grp('#2f7d5b','웨이트',`PT ${pd.length}일 · 개인 웨이트 ${wd.length}일`,
+  sub('PT',pd.length,' · 최우선 반영')+dps('pt',pd)+pd.map(d=>{const p=P.pt[d];return `<div class="slot"><div class="sl">${D[d]}요일 PT</div><div class="f"><label>시작 시간<input type="time" value="${esc(p.time)}" onchange="planSet('pt',${d},'time',this.value)"></label><label>수업 시간<select onchange="planSet('pt',${d},'min',+this.value)">${[30,45,60,90,120].map(m=>`<option value="${m}" ${p.min==m?'selected':''}>${m}분</option>`).join('')}</select></label><label>운동 부위<select onchange="planSet('pt',${d},'part',this.value)">${PTPARTS.map(t=>`<option ${p.part==t?'selected':''}>${t}</option>`).join('')}</select></label></div></div>`}).join('')
+  +sub('개인 웨이트',wd.length)+dps('wt',wd)+(wd.length?`<p class="mut" style="margin:8px 0 0">개인 웨이트 시간은 운동 설정에서 정한 값으로 들어가요.</p>`:'')
+  +sub('유산소',ud.reduce((n,d)=>n+((P.cd[d]||[]).length?1:0),0),' · 선택')
+  +(ud.length?(ks.length?ud.map(d=>`<div class="slot"><div class="sl">${D[d]}요일 · ${[P.pt[d]?'PT':'',P.wt.includes(d)?'개인 웨이트':''].filter(Boolean).join(' + ')} 뒤에</div>${cdRows(d)}</div>`).join(''):'<p class="mut" style="margin:0">유산소는 운동 설정에서 종류를 먼저 등록해 주세요.</p>'):'<p class="mut" style="margin:0">PT나 개인 웨이트 요일을 고르면 그날 뒤에 유산소를 붙일 수 있어요.</p>'));
+ const pdl=Object.keys(P.pil).map(Number).sort((a,b)=>a-b);
+ h+=grp('#f2a65a','필라테스',cnt(pdl.length)+' · 1시간 수업',dps('pil',pdl)+pdl.map(d=>`<div class="slot"><div class="sl">${D[d]}요일 필라테스</div><div class="f"><label>시작 시간 (30분 단위)<select onchange="planSet('pil',${d},'time',this.value)">${T30.map(t=>`<option value="${t}" ${P.pil[d]==t?'selected':''}>${t} ~ ${t30end(t)}</option>`).join('')}</select></label></div></div>`).join(''));
+ const yd=Object.keys(P.yoga).map(Number).sort((a,b)=>a-b);
+ h+=grp('#8f6fe0','요가',cnt(yd.length)+' · 시간표에 수업이 있는 요일만 선택돼요',S.yoga.length?dps('yoga',yd,null,d=>!S.yoga.some(y=>y.day==d))+yd.map(d=>{const cl=S.yoga.filter(y=>y.day==d).sort((a,b)=>a.time.localeCompare(b.time));return `<div class="slot"><div class="sl">${D[d]}요일 수업</div><div class="f"><label style="grid-column:1/-1"><select onchange="planSet('yoga',${d},'id',this.value)">${cl.map(y=>`<option value="${y.id}" ${P.yoga[d]==y.id?'selected':''}>${esc(y.time)} ${esc(y.name)}</option>`).join('')}</select></label></div></div>`}).join(''):'<p class="mut" style="margin:0">요가 시간표에 등록된 수업이 없어요. 운동 설정에서 시간표를 확인해 주세요.</p>');
+ h+=`<div class="card"><h2>② 개인 일정</h2><p class="mut">있는 날만 추가해요. 개인 일정이 있는 날도 직접 고른 운동은 그대로 넣고, 안내 메시지로 알려드려요. (시간대가 있는 개인 일정은 날짜 타임테이블에서 추가해요)</p>${c.bz.map((b,i)=>`<div class="bz"><select onchange="bzSet(${i},'day',this.value)">${D.map((x,d)=>`<option value="${d}" ${b.day==d?'selected':''}>${x}요일</option>`).join('')}</select><input type="text" placeholder="예: 가족 모임, 야근" value="${esc(b.txt||'')}" oninput="bzSet(${i},'txt',this.value,1)"><button class="sm ghost" onclick="bzDel(${i})">삭제</button></div>`).join('')}<button class="sm" onclick="bzAdd()">+ 개인 일정 추가</button></div>`;
+ h+=`<div class="card"><h2>③ 컨디션</h2><div class="f"><label>전반적인 컨디션${sel('c',['좋음','보통','피곤함'])}</label><label>하체 부종${sel('sw',['없음','약간','심함'])}</label><label>근육통${sel('so',['없음','약간','심함'])}</label><label>수면 상태${sel('sl',['좋음','보통','부족'])}</label></div><p class="mut" style="margin:10px 0 2px">휴식으로 지정할 요일</p><div class="chips">${ck('rest')}</div></div>`;
  h+=`<div class="card"><div class="row"><button class="pri" onclick="genNow(false)">일정 생성</button><button class="ghost" onclick="genNow(true)">처음부터 새로 생성</button></div><p class="mut">"일정 생성"은 직접 수정·추가·삭제한 일정과 완료 기록을 유지해요. "처음부터 새로 생성"은 이 주를 모두 지우고 다시 만들어요.</p></div>`;
  return h+'</div>'}
-function pilDay(d){const a=S.pil.days,i=a.indexOf(d);i<0?a.push(d):a.splice(i,1);save()}
 function exp(){const b=new Blob([JSON.stringify({S,W},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='my-balance-'+key(new Date())+'.json';a.click()}
 function imp(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o.S||!o.W)throw 0;S=o.S;W=o.W;normS();save();R();toast('가져오기 완료')}catch(e){toast('올바른 파일이 아니에요')}};r.readAsText(f)}
 function rst(){if(!confirm('모든 데이터를 삭제하고 기본값으로 되돌릴까요?'))return;localStorage.removeItem(K);S=defS();normS();W={};cur=key(mon(new Date()));msel=key(new Date());mc=new Date(new Date().getFullYear(),new Date().getMonth(),1);generate(cur);R();toast('초기화했어요')}
 /* 요가 시간표 */
 const ktime=t=>{const h=+t.slice(0,2);return (h<12?'오전 ':'오후 ')+((h+11)%12+1)+':'+t.slice(3)};
 function vYoga(){const cols=[0,1,2,3,4,...[5,6].filter(d=>S.yoga.some(y=>y.day==d))],ts=[...new Set(S.yoga.map(y=>y.time))].sort();
- let h=`<div class="card"><h2>STELLA YOGA 주간 시간표 (대전 죽동)</h2><p class="mut">수업을 누르면 수정·삭제하거나 달력에 추가할 수 있고, 빈 칸(＋)을 누르면 수업을 추가할 수 있어요. 플라잉요가는 주 1회 우선 추천돼요.</p><table class="yw"><tr><th></th>${cols.map(d=>`<th>${D[d]}</th>`).join('')}</tr>`;
+ let h=`<div class="card"><h2>STELLA YOGA 주간 시간표 (대전 죽동)</h2><p class="mut">수업을 누르면 수정·삭제하거나 달력에 추가할 수 있고, 빈 칸(＋)을 누르면 수업을 추가할 수 있어요. 요일을 고르면 그날 플라잉 수업이 먼저 선택돼요.</p><table class="yw"><tr><th></th>${cols.map(d=>`<th>${D[d]}</th>`).join('')}</tr>`;
  ts.forEach(t=>{h+=`<tr><td class="yt0">${ktime(t)}</td>${cols.map(d=>{const y=S.yoga.find(z=>z.day==d&&z.time==t);return y?`<td class="yc" style="background:${T[y.name.includes('플라잉')?'flying':'yoga'][1]}" onclick="yEd('${y.id}')">${esc(y.name)}</td>`:`<td class="yc e" onclick="yEd(null,${d},'${t}')">＋</td>`}).join('')}</tr>`});
  h+=`</table><div class="row" style="margin-top:10px"><button class="pri sm" onclick="yEd(null,0,'19:40')">수업 추가</button><span class="mut">색: 플라잉 = 라벤더 · 그 외 = 분홍</span></div></div>`;
  h+=`<div class="card"><h2>프로그램 설명</h2>${YD.map(x=>`<p style="margin:3px 0"><b>${x[0]}</b> · ${x[1]}</p>`).join('')}<p class="mut">0/1/2 숫자는 단계(초급~고급), AD는 어드밴스예요.</p></div>`;return h}
@@ -469,28 +508,29 @@ function yEd(id,d,t){const y=id?S.yoga.find(x=>x.id==id):{day:d,time:t,name:''};
 function ySave(){const n=document.getElementById('y_n').value.trim(),t=document.getElementById('y_t').value,d=+document.getElementById('y_d').value;if(!n||!t)return toast('수업명과 시간을 입력해 주세요');
  if(YE){const y=S.yoga.find(x=>x.id==YE);y.name=n;y.time=t;y.day=d}else S.yoga.push({id:uid(),day:d,time:t,name:n});save();document.getElementById('dlg').close();R();toast('저장했어요')}
 function yUp(id,f,v){S.yoga.find(y=>y.id==id)[f]=v;save();R()}
-function yDel(id){S.yoga=S.yoga.filter(y=>y.id!=id);if(S.flyPref==id)S.flyPref='';save();R()}
+function yDel(id){S.yoga=S.yoga.filter(y=>y.id!=id);save();R()}
 /* 기록 */
 /* ===== 연간 운동량: 월별 누적 막대 그래프 ===== */
 let LY=new Date().getFullYear(),LM=null;
 const YC={pt:'#2f7d5b',weight:'#8fbf9f',pilates:'#f2a65a',flying:'#8f6fe0',yoga:'#e48bc0',cardio:'#5ea3d8'};
-function yearData(y){const M=Array.from({length:12},()=>({done:{},dn:0,plan:0,min:0}));
- Object.keys(W).forEach(wk=>{const its=W[wk]&&W[wk].items;if(!its)return;its.forEach(i=>{if(!SH[i.type]||i.status=='rest')return;const d=parse(addD(wk,i.day));if(d.getFullYear()!=y)return;const m=M[d.getMonth()];m.plan++;if(i.status=='done'){m.done[i.type]=(m.done[i.type]||0)+1;m.dn++;if(i.type=='cardio')m.min+=+i.min||0}})});return M}
+function yearData(y){const M=Array.from({length:12},()=>({done:{},dn:0,plan:0,min:0,ds:new Set()}));
+ Object.keys(W).forEach(wk=>{const its=W[wk]&&W[wk].items;if(!its)return;its.forEach(i=>{if(!SH[i.type]||i.status=='rest')return;const d=parse(addD(wk,i.day));if(d.getFullYear()!=y)return;const m=M[d.getMonth()];m.plan++;if(i.status=='done'){m.ds.add(d.getDate());m.done[i.type]=(m.done[i.type]||0)+1;m.dn++;if(i.type=='cardio')m.min+=+i.min||0}})});return M}
 function lyNav(n){const v=LY+n;if(v<2000||v>2100)return;LY=v;LM=null;R()}
 function ymSel(m){LM=LM===m?null:m;R()}
 function ymGo(m){mc=new Date(LY,m,1);tab='month';R();window.scrollTo(0,0)}
-function monthCard(){if(LM==null)return '';const y=LY,m=LM,f=(new Date(y,m,1).getDay()+6)%7,n=new Date(y,m+1,0).getDate(),nw=Math.floor((n-1+f)/7)+1,Wk=Array.from({length:nw},()=>({dn:0,plan:0}));
- Object.keys(W).forEach(wk=>{const its=W[wk]&&W[wk].items;if(!its)return;its.forEach(i=>{if(!SH[i.type]||i.status=='rest')return;const d=parse(addD(wk,i.day));if(d.getFullYear()!=y||d.getMonth()!=m)return;const b=Wk[Math.floor((d.getDate()-1+f)/7)];b.plan++;if(i.status=='done')b.dn++})});
- const tp=Wk.reduce((a,b)=>a+b.plan,0),td=Wk.reduce((a,b)=>a+b.dn,0);
- return `<div class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${m+1}월 주차별 달성률</h2><button class="sm" onclick="ymGo(${m})">달력 보기</button></div>`+(tp?`<p class="mut" style="margin:6px 0 12px">월 전체 ${Math.round(td/tp*100)}% (${td}/${tp}회)</p>`:'<p class="mut" style="margin:6px 0 0">이 달에는 일정이 없어요.</p>')+(tp?Wk.map((b,i)=>{const r=b.plan?Math.round(b.dn/b.plan*100):0;return `<div class="wkr" role="img" aria-label="${i+1}주 ${b.plan?r+'%, '+b.dn+'/'+b.plan+'회':'일정 없음'}"><span class="wkl">${i+1}주</span><div class="wkt"><i style="width:${r}%"></i></div><span class="wkv">${b.plan?r+'% <small>'+b.dn+'/'+b.plan+'</small>':'-'}</span></div>`}).join(''):'')+`</div>`}
+function monthCard(){if(LM==null)return '';const y=LY,m=LM,f=(new Date(y,m,1).getDay()+6)%7,n=new Date(y,m+1,0).getDate(),nw=Math.floor((n-1+f)/7)+1,Wk=Array.from({length:nw},()=>({dn:0,plan:0})),dd=new Set();
+ Object.keys(W).forEach(wk=>{const its=W[wk]&&W[wk].items;if(!its)return;its.forEach(i=>{if(!SH[i.type]||i.status!='done')return;const d=parse(addD(wk,i.day));if(d.getFullYear()!=y||d.getMonth()!=m)return;dd.add(d.getDate())})});
+ for(let x=1;x<=n;x++){const b=Wk[Math.floor((x-1+f)/7)];b.plan++;if(dd.has(x))b.dn++}
+ const td=dd.size,pc=Math.round(td/n*100);
+ return `<div class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${m+1}월 운동한 날</h2><button class="sm" onclick="ymGo(${m})">달력 보기</button></div><p class="mut" style="margin:6px 0 12px">한 달 ${n}일 중 ${td}일 운동 · <b>${pc}%</b></p>`+Wk.map((b,i)=>{const r=Math.round(b.dn/b.plan*100);return `<div class="wkr" role="img" aria-label="${i+1}주 ${b.plan}일 중 ${b.dn}일 운동, ${r}%"><span class="wkl">${i+1}주</span><div class="wkt"><i style="width:${r}%"></i></div><span class="wkv">${r}% <small>${b.dn}/${b.plan}일</small></span></div>`}).join('')+`<p class="mut" style="margin:8px 0 0">완료 체크한 운동이 하나라도 있는 날을 운동한 날로 세요. 휴식·개인 일정은 제외해요.</p></div>`}
 function yearCard(){const M=yearData(LY),ty=Object.keys(SH),H=150,now=new Date(),cm=now.getFullYear()==LY?now.getMonth():-1;
  const tot=M.reduce((a,m)=>a+m.dn,0),pl=M.reduce((a,m)=>a+m.plan,0),mn=M.reduce((a,m)=>a+m.min,0),act=M.filter(m=>m.dn>0).length,best=M.reduce((b,m,i)=>m.dn>M[b].dn?i:b,0),mx=Math.max(1,...M.map(m=>Math.max(m.plan,m.dn)));
- const st=[['월평균',act?(tot/act).toFixed(1)+'회':'-'],['달성률',pl?Math.round(tot/pl*100)+'%':'-']];
+ const yd=new Date(LY,1,29).getMonth()==1?366:365,xd=M.reduce((a,m)=>a+m.ds.size,0),st=[['월평균',act?(tot/act).toFixed(1)+'회':'-'],['운동한 날 비율',Math.round(xd/yd*100)+'% ('+xd+'/'+yd+'일)']];
  let h=`<div class="card"><div class="bar"><button onclick="lyNav(-1)" aria-label="이전 해">◀</button><b>${LY}년</b><button onclick="lyNav(1)" aria-label="다음 해">▶</button></div><div class="stats">${st.map(x=>`<div class="stat"><b style="font-size:24px">${x[1]}</b><span>${x[0]}</span></div>`).join('')}</div>`;
  if(!pl)return h+`<p class="mut" style="margin:16px 0 0">${LY}년에는 아직 일정이 없어요.</p></div>`;
  h+=`<div class="ych" role="list">`+M.map((m,i)=>{const th=Math.round(Math.max(m.plan,m.dn)/mx*H),seg=ty.filter(t=>m.done[t]).map(t=>`<i style="height:${m.done[t]/mx*H}px;background:${YC[t]}"></i>`).join(''),lb=ty.filter(t=>m.done[t]).map(t=>MCL[t]+' '+m.done[t]+'회').join(', ');
-  return `<div class="ycol${i==cm?' cur':''}${i===LM?' sel':''}" role="listitem" tabindex="0" aria-pressed="${i===LM}" onclick="ymSel(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ymSel(${i})}" aria-label="${i+1}월 완료 ${m.dn}회 / 계획 ${m.plan}회${lb?' ('+lb+')':''}"><div class="ybw"><span class="yv">${m.dn?m.dn:(m.plan?'0':'')}</span><div class="ytr" style="height:${th}px">${seg}</div></div><span class="yl">${i+1}월</span></div>`}).join('')+`</div>`;
- h+=`<div class="chips" style="margin-top:12px">${ty.map(t=>`<span class="mut" style="display:inline-flex;align-items:center;gap:6px"><i class="dot" style="background:${YC[t]};margin:0"></i>${MCL[t]}</span>`).join('')}</div><p class="mut" style="margin:8px 0 0">색 막대는 완료한 운동, 연한 배경은 계획된 전체 운동이에요. 월을 누르면 아래에 주차별 달성률이 나와요.</p></div>`;
+  return `<div class="ycol${i==cm?' cur':''}${i===LM?' sel':''}" role="listitem" tabindex="0" aria-pressed="${i===LM}" onclick="ymSel(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ymSel(${i})}" aria-label="${i+1}월 완료 ${m.dn}회 / 계획 ${m.plan}회, 운동한 날 ${m.ds.size}일${lb?' ('+lb+')':''}"><div class="ybw"><span class="yv">${m.dn?m.dn:(m.plan?'0':'')}</span><div class="ytr" style="height:${th}px">${seg}</div></div><span class="yl">${i+1}월</span></div>`}).join('')+`</div>`;
+ h+=`<div class="chips" style="margin-top:12px">${ty.map(t=>`<span class="mut" style="display:inline-flex;align-items:center;gap:6px"><i class="dot" style="background:${YC[t]};margin:0"></i>${MCL[t]}</span>`).join('')}</div><p class="mut" style="margin:8px 0 0">색 막대는 완료한 운동, 연한 배경은 계획된 전체 운동이에요. 월을 누르면 아래에 그 달의 운동한 날 비율이 나와요.</p></div>`;
  return h}
 function vLog(){return yearCard()+monthCard()}
 let mc=new Date(new Date().getFullYear(),new Date().getMonth(),1),msel=key(new Date());
