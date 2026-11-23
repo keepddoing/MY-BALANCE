@@ -123,12 +123,13 @@ dialog#ckDlg{width:min(400px,96vw);max-height:92vh;padding:0;overflow:hidden}
 .mch-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}.mch-h b{font-size:15px}
 .mch{display:flex;gap:6px;margin-top:4px}
 .mchy{display:flex;flex-direction:column;justify-content:space-between;height:140px;margin-top:20px;font-size:11px;color:var(--mut);text-align:right;min-width:16px}
-.mchp{position:relative;flex:1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;padding-top:20px}
+.mchp{position:relative;flex:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding-top:20px}
 .mcg{position:absolute;left:0;right:0;top:20px;height:140px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
 .mcg i{display:block;height:0;border-top:1px dashed var(--line)}.mcg i:last-child{border-top:1px solid #cfcfcf}
 .mcc{position:relative;display:flex;flex-direction:column;align-items:center;min-width:0}
 .mcbw{height:140px;width:100%;display:flex;align-items:flex-end;justify-content:center}
 .mcb{position:relative;width:min(70%,44px);min-height:4px;border-radius:8px 8px 0 0;box-shadow:inset 0 0 0 1px rgba(255,56,92,.28);overflow:visible}
+.mcs{position:absolute;inset:0;display:flex;flex-direction:column-reverse;border-radius:8px 8px 0 0;overflow:hidden}.mcs i{display:block;flex:none;width:100%}
 .mcv{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);margin-bottom:3px;font-size:12px;font-weight:700;white-space:nowrap;color:var(--ink)}.mcv small{font-weight:400;color:var(--mut);font-size:10px}
 .mcv.mz{position:static;transform:none;align-self:flex-end;margin:0 0 3px;color:var(--mut);font-weight:400}
 .mcl{margin-top:6px;font-size:11px;line-height:1.25;text-align:center;color:var(--ink);word-break:keep-all;overflow-wrap:break-word}
@@ -528,12 +529,14 @@ function yearCard(){const M=yearData(LY),ty=Object.keys(SH),H=150,now=new Date()
  const yd=new Date(LY,1,29).getMonth()==1?366:365,xd=M.reduce((a,m)=>a+m.ds.size,0),st=[['월평균',act?(tot/act).toFixed(1)+'회':'-'],['운동한 날 비율',Math.round(xd/yd*100)+'% ('+xd+'/'+yd+'일)']];
  let h=`<div class="card"><div class="bar"><button onclick="lyNav(-1)" aria-label="이전 해">◀</button><b>${LY}년</b><button onclick="lyNav(1)" aria-label="다음 해">▶</button></div><div class="stats">${st.map(x=>`<div class="stat"><b style="font-size:24px">${x[1]}</b><span>${x[0]}</span></div>`).join('')}</div>`;
  if(!pl)return h+`<p class="mut" style="margin:16px 0 0">${LY}년에는 아직 일정이 없어요.</p></div>`;
- h+=`<div class="ych" role="list">`+M.map((m,i)=>{const th=Math.round(Math.max(m.plan,m.dn)/mx*H),seg=ty.filter(t=>m.done[t]).map(t=>`<i style="height:${m.done[t]/mx*H}px;background:${YC[t]}"></i>`).join(''),lb=ty.filter(t=>m.done[t]).map(t=>MCL[t]+' '+m.done[t]+'회').join(', ');
+ h+=`<div class="ych" role="list">`+M.map((m,i)=>{const th=Math.round(Math.max(m.plan,m.dn)/mx*H),seg=ty.filter(t=>m.done[t]).map(t=>`<i style="height:${m.done[t]/mx*H}px;background:${YC[t]}"></i>`).join(''),lb=LG.filter(g=>gSum(m.done,g)).map(g=>g[0]+' '+gSum(m.done,g)+'회'+gSub(m.done,g)).join(', ');
   return `<div class="ycol${i==cm?' cur':''}${i===LM?' sel':''}" role="listitem" tabindex="0" aria-pressed="${i===LM}" onclick="ymSel(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ymSel(${i})}" aria-label="${i+1}월 완료 ${m.dn}회 / 계획 ${m.plan}회, 운동한 날 ${m.ds.size}일${lb?' ('+lb+')':''}"><div class="ybw"><span class="yv">${m.dn?m.dn:(m.plan?'0':'')}</span><div class="ytr" style="height:${th}px">${seg}</div></div><span class="yl">${i+1}월</span></div>`}).join('')+`</div>`;
- h+=`<div class="chips" style="margin-top:12px">${ty.map(t=>`<span class="mut" style="display:inline-flex;align-items:center;gap:6px"><i class="dot" style="background:${YC[t]};margin:0"></i>${MCL[t]}</span>`).join('')}</div><p class="mut" style="margin:8px 0 0">색 막대는 완료한 운동, 연한 배경은 계획된 전체 운동이에요. 월을 누르면 아래에 그 달의 운동한 날 비율이 나와요.</p></div>`;
+ h+=`<div class="chips" style="margin-top:12px">${LG.map(g=>g[1].length>1?`<span class="mut" style="display:inline-flex;align-items:center;gap:6px">웨이트<small>(</small>${g[1].map(t=>`<span style="display:inline-flex;align-items:center;gap:4px"><i class="dot" style="background:${YC[t]};margin:0"></i>${t=='pt'?'PT':'개인'}</span>`).join('')}<small>)</small></span>`:`<span class="mut" style="display:inline-flex;align-items:center;gap:6px"><i class="dot" style="background:${YC[g[1][0]]};margin:0"></i>${g[0]}</span>`).join('')}</div><p class="mut" style="margin:8px 0 0">색 막대는 완료한 운동, 연한 배경은 계획된 전체 운동이에요. 월을 누르면 아래에 그 달의 운동한 날 비율이 나와요.</p></div>`;
  return h}
 function vLog(){return yearCard()+monthCard()}
 let mc=new Date(new Date().getFullYear(),new Date().getMonth(),1),msel=key(new Date());
+const LG=[['웨이트',['pt','weight']],['필라테스',['pilates']],['플라잉',['flying']],['요가',['yoga']],['유산소',['cardio']]];
+const gSum=(c,g)=>g[1].reduce((a,t)=>a+(c[t]||0),0),gSub=(c,g)=>g[1].length>1?' (PT '+(c.pt||0)+'회, 개인 '+(c.weight||0)+'회)':'';
 const SH={pt:'PT',weight:'웨이트',pilates:'필라',flying:'플라잉',yoga:'요가',cardio:'유산소'};
 const dayItems=k=>{const d=parse(k),w=W[key(mon(d))];return w?w.items.filter(i=>i.day==(d.getDay()+6)%7&&!['rest','personal'].includes(i.type)).sort((a,b)=>(a.time||'99').localeCompare(b.time||'99')):[]};
 function mnav(n){mc=new Date(mc.getFullYear(),mc.getMonth()+n,1);R()}
@@ -542,10 +545,11 @@ function pickDay(k){msel=k;cur=key(mon(parse(k)));R();dayItems(k).length?openCk(
 function logGo(k){msel=k;cur=k;const d=parse(k);mc=new Date(d.getFullYear(),d.getMonth(),1);tab='month';R();openDay()}
 /* ===== 월간 기록: 세로형 막대 그래프 ===== */
 const MCL={pt:'PT',weight:'개인운동',pilates:'필라테스',flying:'플라잉',yoga:'요가',cardio:'유산소'};
-function mChart(cnt){const ty=Object.keys(SH),mx=Math.max(1,...ty.map(t=>cnt[t]||0)),sd=ty.reduce((a,t)=>a+(cnt[t]||0),0);
+function mChart(cnt){const mx=Math.max(1,...LG.map(g=>gSum(cnt,g))),sd=LG.reduce((a,g)=>a+gSum(cnt,g),0);
  return `<div class="mch-h"><b>이번 달 운동 기록</b><span class="mut">완료 <b style="color:var(--primary)">${sd}회</b></span></div>
-<div class="mch" role="img" aria-label="${esc(ty.map(t=>(MCL[t]||tn(t))+' '+(cnt[t]||0)+'회').join(', '))}"><div class="mchy"><span>${mx}</span><span>0</span></div><div class="mchp"><div class="mcg"><i></i><i></i><i></i></div>${ty.map(t=>{const d=cnt[t]||0;
-  return `<div class="mcc"><div class="mcbw">${d?`<div class="mcb" style="height:${d/mx*100}%;background:${T[t][1]}"><span class="mcv">${d}</span></div>`:`<span class="mcv mz">0</span>`}</div><span class="mcl">${esc(MCL[t]||tn(t))}</span></div>`}).join('')}</div></div>`}
+<div class="mch" role="img" aria-label="${esc(LG.map(g=>g[0]+' '+gSum(cnt,g)+'회'+gSub(cnt,g)).join(', '))}"><div class="mchy"><span>${mx}</span><span>0</span></div><div class="mchp"><div class="mcg"><i></i><i></i><i></i></div>${LG.map(g=>{const d=gSum(cnt,g),st=g[1].length>1;
+  return `<div class="mcc"><div class="mcbw">${d?`<div class="mcb" style="height:${d/mx*100}%;${st?'':'background:'+T[g[1][0]][1]}">${st?`<div class="mcs">${g[1].filter(t=>cnt[t]).map(t=>`<i style="height:${cnt[t]/d*100}%;background:${YC[t]}"></i>`).join('')}</div>`:''}<span class="mcv">${d}</span></div>`:`<span class="mcv mz">0</span>`}</div><span class="mcl">${esc(g[0])}</span></div>`}).join('')}</div></div>
+<div class="chips" style="margin:8px 0 0;gap:12px"><span class="mut" style="display:inline-flex;align-items:center;gap:6px;font-size:12px">웨이트 구분 :</span>${['pt','weight'].map(t=>`<span class="mut" style="display:inline-flex;align-items:center;gap:4px;font-size:12px"><i class="dot" style="background:${YC[t]};margin:0"></i>${t=='pt'?'PT':'개인운동'} ${cnt[t]||0}회</span>`).join('')}</div>`}
 function vMonth(){cur=key(mon(parse(msel)));const y=mc.getFullYear(),m=mc.getMonth(),n=new Date(y,m+1,0).getDate(),off=(new Date(y,m,1).getDay()+6)%7,rows=Math.ceil((off+n)/7),td=key(new Date()),cnt={};
  for(let d=1;d<=n;d++)dayItems(key(new Date(y,m,d))).forEach(i=>{if(i.status=='done')cnt[i.type]=(cnt[i.type]||0)+1});
  let h=`<div class="bar"><button onclick="mnav(-1)">◀</button><b>${y}년 ${m+1}월</b><button onclick="mnav(1)">▶</button><button onclick="mtoday()">오늘</button></div>`;
