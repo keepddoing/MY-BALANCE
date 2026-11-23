@@ -2,9 +2,9 @@
 <html lang="ko"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MY BALANCE – Weekly Fitness Planner</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--primary:#4a154b;--press:#611f69;--tint:#592466;--link:#1264a3;--cream:#f4ede4;--lav:#f9f0ff;--lav-d:#efdcfb;--line:#e6e6e6;--ink:#1d1d1d;--mut:#696969;--err:#cc4117;--ok:#007a5a;--mute-on:#d9bdde;--bg:#fff;--card:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--primary:#ff385c;--press:#611f69;--tint:#592466;--link:#1264a3;--cream:#f4ede4;--lav:#f9f0ff;--lav-d:#efdcfb;--line:#e6e6e6;--ink:#1d1d1d;--mut:#696969;--err:#cc4117;--ok:#007a5a;--mute-on:#d9bdde;--bg:#fff;--card:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}html,body{margin:0}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{background:#fff;color:var(--ink);font-family:"Inter","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
@@ -45,7 +45,7 @@ dialog{border:none;border-radius:16px;padding:24px;width:min(440px,94vw);backgro
 .mut{color:var(--mut);font-size:13px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.yt input[type=text]{width:100%}
 @media(max-width:600px){.yt tr:first-child{display:none}.yt tr{display:grid;grid-template-columns:76px 1fr auto;gap:4px 6px;padding:8px 0;border-bottom:1px solid var(--line)}.yt td{border:0;padding:0}.yt td:nth-child(3){grid-column:1/-1;order:5}.yt td:nth-child(4){order:3}}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.cal .ch{text-align:center;font-size:13px;font-weight:700;color:var(--mut)}
-.cd{background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:84px;padding:4px 6px;cursor:pointer;overflow:hidden;font-size:11px}.cd.o{opacity:.4}.cd.t{background:var(--lav);border-color:var(--primary)}.cd.s{box-shadow:rgb(97,31,105) 0 0 0 1px inset;border-color:var(--press)}
+.cd{background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:84px;padding:4px 6px;cursor:pointer;overflow:hidden;font-size:11px}.cd.o{opacity:.4}.cd.t{background:var(--lav);border-color:var(--primary)}.cd.s{box-shadow:#e00b41 0 0 0 1px inset;border-color:var(--press)}
 .cd b{font-size:13px}.mc{display:block;border-radius:6px;padding:0 6px;margin-top:2px;font-size:10px;line-height:1.5;white-space:nowrap;overflow:hidden}.mp{display:inline-block;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--primary);margin:3px 2px 0 0}
 @media(max-width:600px){.cd{min-height:60px;padding:2px 3px}.mc{font-size:9px;padding:0 3px}}
 .foot{background:var(--primary);color:#fff;margin-top:64px;padding:64px 0 32px}
@@ -64,20 +64,20 @@ details.sec[open]>summary::after{transform:rotate(-135deg)}
 .dlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}.dlist .it{margin:0}
 h3{font-size:16px;line-height:1.5;font-weight:700;margin:0 0 8px}h3 small{font-weight:400;font-size:13px;color:var(--mut);margin-left:8px}
 .sub{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}.cat h2+.sub{margin-top:0;padding-top:0;border-top:0}
-.dot{display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid rgba(74,21,75,.25);margin-right:8px;vertical-align:-1px}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid rgba(255,56,92,.25);margin-right:8px;vertical-align:-1px}
 @media(max-width:600px){details.sec>summary{padding:14px 16px;font-size:16px}.secb{padding:0 12px 4px}details.sec>summary .mut{display:block;margin:0}h3 small{display:block;margin:0}}
 .tl{display:grid;grid-template-columns:40px 1fr;margin-top:12px}.tll div{height:40px;font-size:11px;color:var(--mut);text-align:right;padding-right:8px;transform:translateY(-7px)}
 .tlb{position:relative;height:720px;border-left:1px solid var(--line);border-bottom:1px solid var(--line);cursor:copy;background:repeating-linear-gradient(to bottom,transparent 0,transparent 39px,var(--line) 39px,var(--line) 40px)}
 .tle{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--mut);pointer-events:none;font-size:13px}
-.tb{position:absolute;box-sizing:border-box;border-radius:10px;padding:3px 8px;font-size:12px;line-height:1.3;overflow:hidden;border:1px solid rgba(74,21,75,.18);cursor:pointer}.tb b{display:block;padding-right:22px}.tb span{color:var(--mut);font-size:11px}
+.tb{position:absolute;box-sizing:border-box;border-radius:10px;padding:3px 8px;font-size:12px;line-height:1.3;overflow:hidden;border:1px solid rgba(255,56,92,.18);cursor:pointer}.tb b{display:block;padding-right:22px}.tb span{color:var(--mut);font-size:11px}
 .tb.ov{border:2px dashed var(--err)}.tb.dn{border:2px solid var(--ok)}.tb.ch{opacity:.6}
 .tb .ck{position:absolute;right:4px;top:3px;font-style:normal;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:#fffc;font-size:13px}.tb .ck.on{background:var(--ok);color:#fff}
 .tlb{cursor:default;background:repeating-linear-gradient(to bottom,transparent 0,transparent 19px,rgba(0,0,0,.05) 19px,rgba(0,0,0,.05) 20px),repeating-linear-gradient(to bottom,transparent 0,transparent 39px,var(--line) 39px,var(--line) 40px)}
-.tlb.arm{touch-action:none;cursor:crosshair;background-color:rgba(74,21,75,.04)}.tlb.arm .tb{pointer-events:none}
-.gh{position:absolute;left:0;right:3px;z-index:5;box-sizing:border-box;background:rgba(74,21,75,.22);border:2px dashed #4a154b;border-radius:8px;font-size:12px;padding:2px 6px;pointer-events:none;overflow:hidden}
+.tlb.arm{touch-action:none;cursor:crosshair;background-color:rgba(255,56,92,.04)}.tlb.arm .tb{pointer-events:none}
+.gh{position:absolute;left:0;right:3px;z-index:5;box-sizing:border-box;background:rgba(255,56,92,.22);border:2px dashed #ff385c;border-radius:8px;font-size:12px;padding:2px 6px;pointer-events:none;overflow:hidden}
 dialog#dayDlg{width:min(400px,96vw);max-height:92vh;padding:0;overflow:hidden}
 .dd{display:flex;flex-direction:column;max-height:92vh}.ddh{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid var(--line);flex:none}.ddb{overflow-y:auto;padding:12px 16px 20px;-webkit-overflow-scrolling:touch}
-.pk{display:flex;gap:8px;flex-wrap:wrap}.pk button{flex:1;min-width:72px;padding:12px 6px;border-radius:12px;border:2px solid transparent;font-weight:600;color:var(--ink);cursor:pointer}.pk button:not([style]){background:#f3f1ee}.pk button.on{border-color:#4a154b;box-shadow:0 0 0 2px rgba(74,21,75,.2)}
+.pk{display:flex;gap:8px;flex-wrap:wrap}.pk button{flex:1;min-width:72px;padding:12px 6px;border-radius:12px;border:2px solid transparent;font-weight:600;color:var(--ink);cursor:pointer}.pk button:not([style]){background:#f3f1ee}.pk button.on{border-color:#ff385c;box-shadow:0 0 0 2px rgba(255,56,92,.2)}
 @media(max-width:600px){dialog#dayDlg{width:100vw;max-width:100vw;max-height:94vh}.dd{max-height:94vh}}
 .yw{width:100%;border-collapse:separate;border-spacing:4px;table-layout:fixed}.yw th{font-size:12px;color:var(--mut);font-weight:600;padding:4px 0;border:0}.yw td{border:0;padding:0}
 .yw .yt0{width:58px;font-size:11px;color:var(--mut);text-align:right;padding-right:4px;white-space:nowrap}.yw td.yc{border-radius:10px;padding:8px 4px;text-align:center;font-size:12px;line-height:1.3;cursor:pointer;word-break:keep-all;height:58px}.yw td.e{background:#f3f1ee;color:var(--mut)}
@@ -128,16 +128,101 @@ dialog#ckDlg{width:min(400px,96vw);max-height:92vh;padding:0;overflow:hidden}
 .mcg i{display:block;height:0;border-top:1px dashed var(--line)}.mcg i:last-child{border-top:1px solid #cfcfcf}
 .mcc{position:relative;display:flex;flex-direction:column;align-items:center;min-width:0}
 .mcbw{height:140px;width:100%;display:flex;align-items:flex-end;justify-content:center}
-.mcb{position:relative;width:min(70%,44px);min-height:4px;border-radius:8px 8px 0 0;box-shadow:inset 0 0 0 1px rgba(74,21,75,.28);overflow:visible}
+.mcb{position:relative;width:min(70%,44px);min-height:4px;border-radius:8px 8px 0 0;box-shadow:inset 0 0 0 1px rgba(255,56,92,.28);overflow:visible}
 .mcv{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);margin-bottom:3px;font-size:12px;font-weight:700;white-space:nowrap;color:var(--ink)}.mcv small{font-weight:400;color:var(--mut);font-size:10px}
 .mcv.mz{position:static;transform:none;align-self:flex-end;margin:0 0 3px;color:var(--mut);font-weight:400}
 .mcl{margin-top:6px;font-size:11px;line-height:1.25;text-align:center;color:var(--ink);word-break:keep-all;overflow-wrap:break-word}
 @media(max-width:600px){.mchp{gap:4px}.mcl{font-size:10.5px}.mcb{width:78%}}
-</style></head><body><div class="hero"><div class="wrap">
-<header><h1>MY BALANCE<small>Weekly Fitness Planner</small></h1><div class="row"><span id="range" class="mut"></span><button onclick="wgExport()">위젯 데이터 저장</button><button class="pri" onclick="nextWeek()">다음 주 운동 일정 만들기</button></div></header>
+.hero .wrap{position:relative}
+.gear{position:absolute;top:-32px;right:20px;width:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#fff;color:var(--primary);box-shadow:inset 0 0 0 1px var(--line)}.gear:hover{background:var(--lav-d)}
+@media(max-width:767px){.gear{top:-20px}}
+dialog#setDlg{width:min(520px,96vw);max-height:92vh;padding:0;overflow:hidden}#setDlg .ddb .card{border-radius:12px}
+@media(max-width:600px){dialog#setDlg{width:100vw;max-width:100vw;max-height:94vh}}
+
+/* ===== Airbnb 디자인 시스템 ===== */
+:root{--primary:#ff385c;--press:#e00b41;--tint:#222222;--link:#222222;--cream:#f7f7f7;--lav:#f7f7f7;--lav-d:#f2f2f2;--line:#dddddd;--ink:#222222;--mut:#6a6a6a;--mute-on:#6a6a6a;--err:#c13515;--sh:rgba(0,0,0,.02) 0 0 0 1px,rgba(0,0,0,.04) 0 2px 6px,rgba(0,0,0,.1) 0 4px 8px}
+body{background:#fff;color:var(--ink);font-family:"Airbnb Cereal VF",Circular,"Inter","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",-apple-system,system-ui,sans-serif}
+.hero{background:#fff;border-bottom:1px solid var(--line);padding:24px 0 20px;margin-bottom:24px}
+@media(max-width:767px){.hero{padding:20px 0 16px}}
+h1{color:var(--primary);font-size:28px;line-height:1.43;font-weight:700;letter-spacing:0}
+h1 small{color:var(--mut);font-size:14px;line-height:1.43;font-weight:400;letter-spacing:0;margin-top:0}
+@media(max-width:767px){h1{font-size:28px}}
+#range{color:var(--mut)}
+h2{font-size:20px;line-height:1.2;font-weight:600;letter-spacing:-.18px}
+h3{font-weight:600}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+button{background:#fff;color:var(--ink);border-radius:8px;font-weight:500;letter-spacing:0;padding:10px 20px;box-shadow:inset 0 0 0 1px var(--ink)}
+button:hover{background:#f7f7f7}
+button.pri{background:var(--primary);color:#fff;box-shadow:none;padding:13px 24px;border-radius:8px}button.pri:hover{background:var(--press)}
+button.ghost,button.ghost.sm{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}button.ghost:hover{background:#f7f7f7}
+button.on{background:#f7f7f7;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+button.sm{border-radius:8px;padding:4px 12px;font-size:13px}button.sm.pri{padding:6px 16px}
+.foot button.out{border-radius:8px}
+.gear{top:-2px;right:20px;border-radius:50%;padding:0;background:#f2f2f2;color:var(--ink);box-shadow:none}.gear:hover{background:#ebebeb}
+.tabs{gap:0;border-bottom:1px solid var(--line);padding:0;margin-bottom:24px}
+.tabs button,.tabs button.on{background:none;box-shadow:none;border-radius:0;color:var(--mut);font-weight:600;padding:14px 20px;border-bottom:2px solid transparent}
+.tabs button:hover{background:#f7f7f7;color:var(--ink)}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--ink)}
+.card,.day,details.sec,details.sec>summary{border-radius:14px}
+.card,.day,details.sec{border-color:var(--line)}
+.secb .card{border-radius:14px}
+.stat,.msg{background:#f7f7f7;border-radius:14px}.stat b{color:var(--ink)}
+details.sec>summary::after{border-right-color:var(--ink);border-bottom-color:var(--ink)}
+select,input[type=text],input[type=time],input[type=number],input[type=url],input[type=password],textarea{border-radius:8px;border-color:var(--line);min-height:44px}
+select:focus,input[type=text]:focus,input[type=time]:focus,input[type=number]:focus,input[type=url]:focus,input[type=password]:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.it select{min-height:0}
+dialog{border-radius:14px;box-shadow:var(--sh)}dialog::backdrop{background:rgba(0,0,0,.5)}
+.toast{background:var(--ink);box-shadow:var(--sh)}
+.foot{background:#fff;color:var(--ink);border-top:1px solid var(--line);margin-top:48px;padding:48px 0 32px}
+.foot h2{color:var(--ink);font-size:22px;line-height:1.2;font-weight:600;letter-spacing:-.44px}
+.foot p{color:var(--mut);font-size:14px}.foot p.legal{border-top:1px solid var(--line);font-size:13px}
+.foot button.out{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}.foot button.out:hover{background:#f7f7f7}
+.foot :focus-visible{outline-color:var(--ink)}
+.ych{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;margin-top:20px}
+.ycol{display:flex;flex-direction:column;align-items:center;cursor:pointer;border-radius:8px;padding:4px 0 6px;min-width:0}.ycol:hover{background:#f7f7f7}
+.ybw{height:180px;width:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.yv{font-size:12px;font-weight:700;line-height:1.5;margin-bottom:2px}
+.ytr{width:min(72%,32px);background:#f2f2f2;border-radius:6px 6px 0 0;display:flex;flex-direction:column-reverse;overflow:hidden}.ytr i{display:block;flex:none}
+.yl{margin-top:6px;font-size:12px;color:var(--mut)}.ycol.cur .yl{color:var(--ink);font-weight:700}
+@media(max-width:600px){.ych{gap:2px}.ytr{width:78%}.yl{font-size:10px}.yv{font-size:10.5px}}
+.ycol.sel{background:#f7f7f7;box-shadow:inset 0 0 0 1px var(--ink)}
+.wkr{display:grid;grid-template-columns:36px 1fr 84px;align-items:center;gap:10px;margin:8px 0}.wkl{font-size:14px;font-weight:600}
+.wkt{height:14px;border-radius:9999px;background:#f2f2f2;overflow:hidden}.wkt i{display:block;height:100%;background:var(--primary);border-radius:9999px;min-width:0}
+.wkv{font-size:14px;font-weight:700;text-align:right}.wkv small{font-weight:400;color:var(--mut);font-size:12px}
+</style><style>
+/* 운동 설정 가독성 개선 */
+.setnav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.setnav button{display:inline-flex;align-items:center;gap:6px}
+details.cat2{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--cc,#ccc);border-radius:14px;margin-bottom:16px;overflow:hidden;scroll-margin-top:12px}
+details.cat2>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+details.cat2>summary::-webkit-details-marker{display:none}
+details.cat2>summary .st{display:flex;flex-direction:column;gap:2px;min-width:0}
+details.cat2>summary .st b{font-size:18px;font-weight:700;color:var(--ink)}
+details.cat2>summary .st span{font-size:14px;color:var(--mut);line-height:1.45}
+details.cat2>summary::after{content:'›';font-size:24px;line-height:1;color:var(--mut);transform:rotate(90deg);transition:transform .15s;flex:none}
+details.cat2[open]>summary::after{transform:rotate(-90deg)}
+details.cat2[open]>summary{border-bottom:1px solid var(--line)}
+.cat2b{padding:16px 20px 20px}
+.cat2b>.sub:first-child{margin-top:0;padding-top:0;border-top:0}
+.cat2b h3{font-size:16px;font-weight:700;color:var(--ink)}
+.cat2b .f label{font-size:14px;font-weight:600;color:var(--ink)}
+.cat2b .hint{display:block;font-weight:400;font-size:12.5px;color:var(--mut);line-height:1.4}
+.ptc,.cdedit{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#fafafa}
+.ptch{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.ptch b{font-size:15px}.ptch b small{font-weight:400;font-size:12.5px;color:var(--mut);margin-left:8px}
+.ptc .f{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:700px){.ptc .f{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.cdchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.cdchip{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:90px;padding:8px 16px;font-size:14px;font-weight:600;box-shadow:none}
+.cdchip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+@media(max-width:600px){details.cat2>summary{padding:14px 16px}.cat2b{padding:14px 14px 18px}}
+</style>
+</head><body><div class="hero"><div class="wrap">
+<button class="gear" onclick="openSet()" aria-label="설정" title="설정"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+<header><h1>MY BALANCE<small>Weekly Fitness Planner</small></h1><div class="row"><span id="range" class="mut"></span><button class="pri" onclick="nextWeek()">다음 주 운동 일정 만들기</button></div></header>
 </div></div>
 <div class="wrap"><nav class="tabs" id="tabs"></nav><main id="main"></main>
-<dialog id="dlg"></dialog><dialog id="dayDlg"></dialog><dialog id="timeDlg"></dialog><dialog id="ckDlg"></dialog><div class="toast" id="toast"></div></div>
+<dialog id="dlg"></dialog><dialog id="dayDlg"></dialog><dialog id="timeDlg"></dialog><dialog id="ckDlg"></dialog><dialog id="setDlg" aria-label="설정"></dialog><div class="toast" id="toast"></div></div>
 <footer class="foot"><div class="wrap"><h2>다음 주 운동 일정, 미리 짜 두세요</h2><p>근무·PT·요가 시간표와 컨디션을 입력하면 한 주 일정을 만들어 드려요.</p><button class="out" onclick="nextWeek()">다음 주 운동 일정 만들기</button><p class="legal">모든 데이터는 이 브라우저에만 저장돼요.</p></div></footer>
 <script>
 const D=['월','화','수','목','금','토','일'];
@@ -157,7 +242,7 @@ function defYoga(){const y=[];AM.forEach((r,d)=>r.forEach((n,i)=>y.push({id:uid(
 function defS(){return{pt:[{day:0,time:'18:00',part:'하체'},{day:2,time:'18:00',part:'등'}],ptFill:true,pil:{days:[0,2,4,5],time:'10:00',wtime:'19:00'},flyPref:'',cardio:defCardio(),yoga:defYoga()}}
 const defC=()=>({wk:{0:[7,16],1:[7,16],2:[7,16],3:[7,16],4:[7,16]},ds:{},pst:{},pl:[],c:'좋음',sw:'없음',so:'없음',sl:'좋음',note:'',busy:[],rest:[6],late:[],simple:false,xy:false,shift:'A'});
 let S,W,cur,tab='month',EDONE=false,UI={gen:false};
-function load(){try{const o=JSON.parse(localStorage.getItem(K));if(o&&o.S&&o.W){S=o.S;W=o.W;normS();return}}catch(e){}S=defS();W={}}
+function load(){try{const o=JSON.parse(localStorage.getItem(K));if(o&&o.S&&o.W){S=o.S;W=o.W;normS();return}}catch(e){}S=defS();normS();W={}}
 function save(){try{localStorage.setItem(K,JSON.stringify({S,W}));if(!wgBoot&&wgCfg())localStorage.setItem('mb-rev',String(Date.now()));wgSched()}catch(e){toast('저장 공간을 확인해 주세요')}}
 function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1800)}
 const mon=d=>{const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return x};
@@ -181,22 +266,22 @@ function gen(c){
  const okT=(d,t)=>{const w=wkh(c,d);if(!w)return true;const x=+t.slice(0,2)+t.slice(3)/60;return x>=w[1]+1||x+1.5<=w[0]};
  const wtime=d=>{const w=wkh(c,d);return w?pad(Math.min(Math.floor(w[1])+1,22))+':30':'10:00'};
  const wdFree=()=>[0,1,2,3,4,5].filter(d=>free(d)&&!has(d,i=>i.type!='rest')).map(d=>D[d]).join('·');
- S.pt.forEach(p=>{if(p.day===''||p.day==null)return;const d=+p.day;add({day:d,time:p.time,type:'pt',part:p.part,place:'월평동 헬스장'});const wx=wkh(c,d);if(wx&&+p.time.slice(0,2)<wx[1])M.push(`${D[d]}요일 PT 시간이 근무시간(${wx[0]}~${wx[1]}시)과 겹쳐요. PT 시간이나 근무시간을 확인해 주세요.`);
+ S.pt.forEach(p=>{if(p.day===''||p.day==null)return;const d=+p.day;add({day:d,time:p.time,type:'pt',part:p.part,place:PLC('pt'),dur:(+p.min||60)/60});const wx=wkh(c,d);if(wx&&+p.time.slice(0,2)<wx[1])M.push(`${D[d]}요일 PT 시간이 근무시간(${wx[0]}~${wx[1]}시)과 겹쳐요. PT 시간이나 근무시간을 확인해 주세요.`);
   if(busy.has(d))M.push(`${D[d]}요일에 개인 일정이 있지만 PT가 우선이라 그대로 두었어요.`);
   if(rest.has(d)){rest.delete(d);M.push(`${D[d]}요일은 휴식일이었지만 PT 일정이 있어 휴식일에서 제외했어요.`)}});
  const nPT=I.length;
- const al=S.pil.days||[];let best=null,bs=99;
- al.forEach(d=>{if(!free(d)||has(d,i=>i.type=='pt'))return;let s=d==5?0:2;if(has(d-1,i=>i.type=='pt'&&low(i.part)))s+=5;if(has(d-1,i=>i.type=='pt')||has(d+1,i=>i.type=='pt'))s+=1;if(s<bs){bs=s;best=d}});
- if(best!=null){add({day:best,time:best==5?S.pil.time:S.pil.wtime,type:'pilates',part:'코어',place:'월평동 헬스장'});
-  if(best!=5&&al.includes(5))M.push('토요일에 '+(busy.has(5)?'개인 일정이 있어':'휴식 지정 등으로 배치가 어려워')+' 필라테스를 '+D[best]+'요일로 옮겼어요.')}
+ const al=S.pil.days||[],pf=S.pil.pref??5;let best=null,bs=99;
+ al.forEach(d=>{if(!free(d)||has(d,i=>i.type=='pt'))return;let s=d==pf?0:2;if(has(d-1,i=>i.type=='pt'&&low(i.part)))s+=5;if(has(d-1,i=>i.type=='pt')||has(d+1,i=>i.type=='pt'))s+=1;if(s<bs){bs=s;best=d}});
+ if(best!=null){add({day:best,time:best>=5?S.pil.time:S.pil.wtime,type:'pilates',part:S.pil.part||'코어',place:PLC('pilates'),dur:(+S.pil.min||60)/60});
+  if(best!=pf&&al.includes(pf))M.push(D[pf]+'요일에 '+(busy.has(pf)?'개인 일정이 있어':'휴식 지정 등으로 배치가 어려워')+' 필라테스를 '+D[best]+'요일로 옮겼어요.')}
  else M.push(`필라테스 가능 요일(${al.map(d=>D[d]).join('·')||'없음'})이 PT·개인 일정·휴식일과 겹쳐 이번 주는 제외했어요.`+(wdFree()?` 대체 가능한 요일: ${wdFree()} (직접 추가할 수 있어요)`:''));
  const relax=tired||sl;
  const fl=S.yoga.filter(y=>y.day<=4&&okT(y.day,y.time)&&free(y.day)&&!has(y.day,i=>i.type=='pt'||i.type=='pilates')&&(relax?/센트모션|경추|골반/.test(y.name):y.name.includes('플라잉')));
  let fb=null,fs=99;fl.forEach(y=>{let s=0;if(has(y.day-1,i=>i.type=='pt'&&low(i.part)))s+=4;if(has(y.day-1,i=>i.type=='pilates')||has(y.day+1,i=>i.type=='pilates'))s+=2;if(has(y.day-1,i=>i.type=='pt')||has(y.day+1,i=>i.type=='pt'))s+=1;if(y.id==S.flyPref&&!relax)s-=10;if(s<fs){fs=s;fb=y}});
- if(fb){add({day:fb.day,time:fb.time,type:relax?'yoga':'flying',place:'대전 죽동 STELLA YOGA',memo:fb.name});if(relax)M.push(`컨디션(피곤함/수면 부족)을 고려해 플라잉 대신 이완 중심 수업(${fb.name})을 제안했어요. 원하면 일정 수정에서 플라잉으로 바꿀 수 있어요.`)}
+ if(fb){add({day:fb.day,time:fb.time,type:relax?'yoga':'flying',place:PLC('yoga'),memo:fb.name});if(relax)M.push(`컨디션(피곤함/수면 부족)을 고려해 플라잉 대신 이완 중심 수업(${fb.name})을 제안했어요. 원하면 일정 수정에서 플라잉으로 바꿀 수 있어요.`)}
  else{const fd=[...new Set(S.yoga.filter(y=>y.name.includes('플라잉')&&y.day<=4&&y.time>='18:00').map(y=>D[y.day]))].join('·');M.push((relax?'이완 요가':'플라잉요가')+'를 넣을 수 있는 저녁 수업이 없어 이번 주는 제외했어요.'+(fd&&!relax?` 플라잉 저녁 수업 요일(${fd})이 PT·필라테스·개인 일정과 겹쳐요. PT 요일을 조정하거나 직접 추가해 보세요.`:''))}
- let n=(nPT<2&&S.ptFill)?3-nPT:1;
- if(nPT<2&&!S.ptFill)M.push('PT가 주 2회보다 적지만 개인 웨이트로 채우지 않도록 설정되어 있어요.');
+ let n=(nPT<S.wt.ptMin&&S.ptFill)?Math.max(1,S.wt.target-nPT):S.wt.n;
+ if(nPT<S.wt.ptMin&&!S.ptFill)M.push(`PT가 주 ${S.wt.ptMin}회보다 적지만 개인 웨이트로 채우지 않도록 설정되어 있어요.`);
  let light=false;
  if(tired){light=true;if(n>1)n--;M.push('피곤함: 개인 웨이트 강도를 낮추고 횟수를 줄였어요.')}
  if(sl){light=true;n=Math.min(n,1);M.push('수면 부족: 개인 웨이트를 줄이고 휴식·가벼운 스트레칭을 권해요.')}
@@ -208,20 +293,21 @@ function gen(c){
   if(b2>=10)M.push(D[bd]+'요일 개인 웨이트가 PT와 연속될 수밖에 없어 강도를 낮추길 권해요.');
   const nb=[bd-1,bd+1].flatMap(x=>I.filter(i=>i.day==x&&['pt','weight'].includes(i.type)).map(i=>i.part));
   const part=(sw||nb.some(low))?'상체':(nb.length?'둔근':'전신');
-  add({day:bd,time:wtime(bd),type:'weight',part,place:'월평동 헬스장',memo:light?'가볍게 (강도 낮춤)':''})}
+  add({day:bd,time:S.wt.time||wtime(bd),dur:S.wt.dur,type:'weight',part,place:PLC('weight'),memo:light?'가볍게 (강도 낮춤)':''})}
  if(sw)M.push('하체 부종이 심해 고강도 하체와 추가 유산소를 줄였어요. 컨디션에 따라 직접 조정하셔도 좋아요.');
  if(so)M.push('근육통이 심해 같은 부위 운동 간격을 벌렸어요.');
  if(c.xy&&c.c=='좋음'&&!c.simple){let yb=null,ys=99;
   S.yoga.filter(y=>y.day<=4&&okT(y.day,y.time)&&!y.name.includes('플라잉')&&free(y.day)&&!has(y.day,i=>['pt','weight','pilates','flying'].includes(i.type))).forEach(y=>{let s=/센트모션|골반|하타/.test(y.name)?0:2;if(has(y.day-1,i=>i.type=='pt'&&low(i.part)))s+=2;if(y.id==S.xyPref)s-=5;if(s<ys){ys=s;yb=y}});
-  if(yb)add({day:yb.day,time:yb.time,type:'yoga',place:'대전 죽동 STELLA YOGA',memo:yb.name,opt:true});else M.push('추가 요가를 넣을 여유 있는 저녁 수업이 없어 제외했어요.')}
+  if(yb)add({day:yb.day,time:yb.time,type:'yoga',place:PLC('yoga'),memo:yb.name,opt:true});else M.push('추가 요가를 넣을 여유 있는 저녁 수업이 없어 제외했어요.')}
  if(!c.simple)(c.late||[]).forEach(d=>{
   if(!free(d)&&!has(d,i=>i.type=='pt')){M.push(D[d]+'요일은 개인 일정/휴식일이라 유산소를 넣지 않았어요.');return}
   if(has(d,i=>['yoga','flying'].includes(i.type))){M.push(D[d]+'요일은 요가 후 월평동 이동이 번거로워 유산소를 넣지 않았어요.');return}
   const pt=I.find(i=>i.day==d&&i.type=='pt');
   if(pt&&(low(pt.part)||c.c!='좋음')){M.push(D[d]+'요일은 PT 후 22시 퇴근이지만 유산소는 생략하는 편이 좋아 넣지 않았어요(원하면 추가 가능).');return}
-  const gentle=sw||tired||sl||!!pt||has(d,i=>i.type=='weight');
-  add({day:d,time:S.cardio[gentle?'tread':'bike'].time,type:'cardio',place:'월평동 헬스장',min:S.cardio[gentle?'tread':'bike'].min,part:S.cardio[gentle?'tread':'bike'].name,memo:'22시 퇴근 대기 · 선택',opt:true})});
- if(!c.simple)(c.pl||[]).forEach(d=>{if(busy.has(d)&&!rest.has(d)&&!has(d,i=>i.type!='rest'))add({day:d,time:S.cardio.walk.time,type:'cardio',part:S.cardio.walk.name,min:S.cardio.walk.min,memo:'개인 일정이 있는 날 · 가볍게(선택)',opt:true})});
+  const gentle=sw||tired||sl||!!pt||has(d,i=>i.type=='weight'),cc=cdR(gentle?'tread':'bike');
+  if(!cc){M.push(D[d]+'요일 유산소는 자동 추천에 지정된 운동이 없어 넣지 않았어요.');return}
+  add({day:d,time:cc.time,type:'cardio',place:cc.place||PLC('cardio'),min:cc.min,part:cc.name,memo:'22시 퇴근 대기 · 선택',opt:true})});
+ const wc=cdR('walk');if(!c.simple&&wc)(c.pl||[]).forEach(d=>{if(busy.has(d)&&!rest.has(d)&&!has(d,i=>i.type!='rest'))add({day:d,time:wc.time,type:'cardio',place:wc.place||'',part:wc.name,min:wc.min,memo:'개인 일정이 있는 날 · 가볍게(선택)',opt:true})});
  if(sl&&!c.simple){for(let d=1;d<6;d++)if(free(d)&&!I.some(i=>i.day==d)){add({day:d,time:'20:00',type:'yoga',part:'가벼운 스트레칭',place:'집',memo:'가벼운 스트레칭 10~15분',opt:true});break}}
  for(let d=0;d<7;d++)if(!I.some(i=>i.day==d)&&!busy.has(d))add({day:d,type:'rest',status:'rest',memo:d==6?'기본 휴식일 · 가벼운 산책 선택':'회복 · 가벼운 산책 선택'});
  return{items:I,msgs:M}}
@@ -238,9 +324,9 @@ function generate(k,full){const w=wk(k),pd=[...new Set(w.items.filter(i=>i.type=
  w.items=[...keep,...gi];w.msgs=M;save()}
 /* ---------- 화면 ---------- */
 const TABS=[['month','월간 달력'],['set','운동 설정'],['yoga','요가 시간표'],['log','운동 기록']];
-function R(){document.getElementById('tabs').innerHTML=TABS.map(t=>`<button class="${tab==t[0]?'on':''}" onclick="tab='${t[0]}';R()">${t[1]}</button>`).join('');
+function R(){document.getElementById('tabs').innerHTML=TABS.filter(t=>t[0]!='yoga').map(t=>`<button class="${(tab==t[0]||(tab=='yoga'&&t[0]=='set'))?'on':''}" onclick="tab='${t[0]}';R()">${t[1]}</button>`).join('');
  const s=parse(cur),e=parse(addD(cur,6));document.getElementById('range').textContent=`${s.getFullYear()}.${md(s)} ~ ${md(e)}`;
- document.getElementById('main').innerHTML={month:vMonth,set:vSet,yoga:vYoga,log:vLog}[tab]();if(tab=='month')document.getElementById('range').textContent=mc.getFullYear()+'년 '+(mc.getMonth()+1)+'월';if(document.getElementById('dayDlg').open)renderDay();if(document.getElementById('timeDlg').open)renderTime();if(document.getElementById('ckDlg').open)renderCk()}
+ document.getElementById('main').innerHTML={month:vMonth,set:vSet,yoga:vYoga,log:vLog}[tab]();if(tab=='month')document.getElementById('range').textContent=mc.getFullYear()+'년 '+(mc.getMonth()+1)+'월';if(document.getElementById('dayDlg').open)renderDay();if(document.getElementById('timeDlg').open)renderTime();if(document.getElementById('ckDlg').open)renderCk();if(document.getElementById('setDlg').open)renderSet()}
 function stats(w){const dn=t=>w.items.filter(i=>i.type==t&&i.status=='done').length;
  return{weight:dn('weight'),pt:dn('pt'),pil:dn('pilates'),yoga:dn('flying')+dn('yoga'),cardio:w.items.filter(i=>i.type=='cardio'&&i.status=='done').reduce((a,i)=>a+(+i.min||0),0),rest:new Set(w.items.filter(i=>i.type=='rest'||i.status=='rest').map(i=>i.day)).size}}
 const statHtml=w=>{const t=stats(w);return`<div class="stats">${[['웨이트',t.weight+'회'],['PT',t.pt+'회'],['필라테스',t.pil+'회'],['요가',t.yoga+'회'],['유산소',t.cardio+'분'],['휴식일',t.rest+'일']].map(x=>`<div class="stat"><b>${x[1]}</b><span>${x[0]}</span></div>`).join('')}</div>`};
@@ -264,22 +350,94 @@ function setRest(d){if(wk(cur).items.some(i=>i.day==d&&isEx(i)))return toast(RES
 
 
 function dataCard(){return `<div class="card"><h2>데이터 관리</h2><div class="row"><button onclick="exp()">JSON 내보내기</button><label class="mut"><input type="file" accept=".json" onchange="imp(this.files[0])" style="max-width:200px"></label><button class="ghost" onclick="rst()">전체 데이터 초기화</button></div><p class="mut">모든 데이터는 이 브라우저의 LocalStorage에만 저장돼요.</p></div>`}
-const defCardio=()=>({bike:{name:'실내 자전거',time:'21:00',min:30},tread:{name:'트레드밀 걷기',time:'21:00',min:15},walk:{name:'가벼운 산책',time:'19:00',min:20}});
-function normS(){const d=defCardio();S.cardio=S.cardio||{};for(const k in d)S.cardio[k]=Object.assign({},d[k],S.cardio[k]||{})}
-function cdSet(k,f,v){const c=S.cardio[k];if(f=='min')c.min=Math.min(40,Math.max(15,Math.round(+v)||defCardio()[k].min));else c.time=v||defCardio()[k].time;save();R()}
+const defCardio=()=>({});
 const DOT=t=>`<i class="dot" style="background:${T[t][1]}"></i>`;
-function ptBox(){const p=[0,1].map(i=>S.pt[i]||(S.pt[i]={day:'',time:'18:00',part:'하체'}));
- return `<h3>PT<small>주 2회 기본 · 최우선 반영 · 월평동 헬스장</small></h3>`+p.map((x,i)=>`<div class="row" style="margin-bottom:6px"><b>${i+1}회차</b><select onchange="S.pt[${i}].day=this.value===''?'':+this.value;save()"><option value="">없음</option>${D.map((d,j)=>`<option value="${j}" ${x.day!==''&&x.day==j?'selected':''}>${d}요일</option>`).join('')}</select><select onchange="S.pt[${i}].time=this.value;save()">${[['18:00','오후 6시'],['20:00','오후 8시']].map(t=>`<option value="${t[0]}" ${x.time==t[0]?'selected':''}>${t[1]}</option>`).join('')}</select><select onchange="S.pt[${i}].part=this.value;save()">${['하체','둔근','등','어깨','상체','전신'].map(t=>`<option ${x.part==t?'selected':''}>${t}</option>`).join('')}</select><button class="sm ghost" onclick="S.pt[${i}].day='';save();R()">삭제</button></div>`).join('')}
-function wtBox(){return `<h3>개인 웨이트<small>월평동 헬스장</small></h3><div class="chips"><label><input type="checkbox" ${S.ptFill?'checked':''} onchange="S.ptFill=this.checked;save()">PT가 2회보다 적으면 개인 웨이트로 대체</label></div><p class="mut" style="margin:8px 0 0">PT가 없는 날 중에서 같은 부위가 이어지지 않게 자동 배치하고, 시간은 근무 종료 후로 정해져요. 부위는 PT 부위와 컨디션(부종·근육통)에 맞춰 정해져요.</p>`}
-function cdBox(){const c=S.cardio,L=[['bike','실내 자전거','22시 퇴근 대기일에 컨디션이 좋으면 추천해요'],['tread','트레드밀 걷기','컨디션이 좋지 않거나 PT·웨이트 후에는 이 운동으로 가볍게 추천해요'],['walk','가벼운 산책','개인 일정이 있는 날 \'가벼운 운동 허용\'을 켜면 추천해요']];
- return L.map(x=>`<section class="sub"><h3>${x[1]}<small>${x[2]}</small></h3><div class="f"><label>시작 시간<input type="time" value="${c[x[0]].time}" onchange="cdSet('${x[0]}','time',this.value)"></label><label>운동 시간(분, 15~40)<input type="number" min="15" max="40" value="${c[x[0]].min}" onchange="cdSet('${x[0]}','min',this.value)"></label></div></section>`).join('')}
-function pilBox(){return `<p class="mut" style="margin:0 0 8px">주 1회 · 월평동 헬스장 · 가능한 요일 — 토요일에 일정이 없으면 토요일을 우선 추천하고, 약속이 있으면 월·수·금 중에서 배치해요.</p><div class="chips">${[0,2,4,5].map(d=>`<label><input type="checkbox" ${S.pil.days.includes(d)?'checked':''} onchange="pilDay(${d})">${D[d]}</label>`).join('')}</div><div class="f" style="margin-top:8px"><label>토요일 수업 시간<input type="time" value="${S.pil.time}" onchange="S.pil.time=this.value;save()"></label><label>평일 수업 시간<input type="time" value="${S.pil.wtime}" onchange="S.pil.wtime=this.value;save()"></label></div>`}
 const yOpt=(f,fn)=>S.yoga.filter(fn).map(y=>`<option value="${y.id}" ${S[f]==y.id?'selected':''}>${D[y.day]} ${y.time} ${esc(y.name)}</option>`).join('');
-function flyBox(){return `<h3>플라잉 요가<small>대전 죽동 STELLA YOGA · 주 1회</small></h3><div class="f"><label>선호 플라잉 수업<select onchange="S.flyPref=this.value;save()"><option value="">자동 선택</option>${yOpt('flyPref',y=>y.name.includes('플라잉'))}</select></label></div><p class="mut" style="margin:8px 0 0">피곤하거나 수면이 부족하면 플라잉 대신 이완 중심 수업을 제안해요.</p>`}
-function yogaBox(){return `<h3>일반 요가<small>대전 죽동 STELLA YOGA</small></h3><div class="f"><label>추가 요가 선호 수업<select onchange="S.xyPref=this.value;save()"><option value="">자동 선택</option>${yOpt('xyPref',y=>!y.name.includes('플라잉'))}</select></label></div><p class="mut" style="margin:8px 0 0">일정 만들기의 '여유 있으면 추가 요가 1회'를 켜면 이 수업이 우선 배치돼요. 수업 시간표 수정·추가는 '요가 시간표' 탭에서 할 수 있어요. 일정 수정 창에서도 수업을 골라 넣을 수 있어요.</p>`}
+function flyBox(){return `<h3>플라잉 요가<small>주 1회</small></h3><div class="f"><label>선호 플라잉 수업<select onchange="S.flyPref=this.value;save()"><option value="">자동 선택</option>${yOpt('flyPref',y=>y.name.includes('플라잉'))}</select></label></div><p class="mut" style="margin:8px 0 0">피곤하거나 수면이 부족하면 플라잉 대신 이완 중심 수업을 제안해요.</p>`}
+function yogaBox(){return `<h3>일반 요가</h3><div class="f"><label>추가 요가 선호 수업<select onchange="S.xyPref=this.value;save()"><option value="">자동 선택</option>${yOpt('xyPref',y=>!y.name.includes('플라잉'))}</select></label></div><p class="mut" style="margin:8px 0 0">일정 만들기의 '여유 있으면 추가 요가 1회'를 켜면 이 수업이 우선 배치돼요. 수업 시간표 수정·추가는 '요가 시간표' 탭에서 할 수 있어요. 일정 수정 창에서도 수업을 골라 넣을 수 있어요.</p>`}
 const catCard=(t,title,body)=>`<div class="card cat"><h2>${DOT(t)}${title}</h2>${body}</div>`;
-function setCats(){return catCard('pt','웨이트',`<section class="sub">${ptBox()}</section><section class="sub">${wtBox()}</section>`)+catCard('cardio','유산소',cdBox())+catCard('pilates','필라테스',pilBox())+catCard('flying','요가',`<section class="sub">${flyBox()}</section><section class="sub">${yogaBox()}</section>`)}
-function vSet(){return setCats()+wgCard()+dataCard()}
+const PTPARTS=['하체','둔근','등','어깨','상체','전신','코어'];
+const DEFPL={pt:'월평동 헬스장',weight:'월평동 헬스장',cardio:'월평동 헬스장',pilates:'월평동 헬스장',yoga:'대전 죽동 STELLA YOGA'};
+const PLC=t=>(S&&S.places&&S.places[t])||DEFPL[t];
+function plSet(t,v){if(!DEFPL[t])return;S.places[t]=String(v).trim().slice(0,30)||DEFPL[t];save();R()}
+const plInp=t=>`<label style="grid-column:1/-1">운동 장소<input type="text" maxlength="30" value="${esc(PLC(t))}" onchange="plSet('${t}',this.value)"></label>`;
+const TRE=/^\d{2}:\d{2}$/;
+function normS(){const d=defCardio();S.cardio=S.cardio&&typeof S.cardio=='object'?S.cardio:defCardio();
+ Object.keys(S.cardio).forEach(k=>{if(!/^[A-Za-z0-9]{1,12}$/.test(k)||!S.cardio[k]||typeof S.cardio[k]!='object'){delete S.cardio[k];return}const c=S.cardio[k],b=d[k]||{};c.name=String(c.name||b.name||'유산소').slice(0,20);c.place=typeof c.place=='string'?c.place.trim().slice(0,30):'';c.time=TRE.test(c.time)?c.time:(b.time||'20:00');c.min=Math.min(120,Math.max(5,Math.round(+c.min)||b.min||20))});
+ const r0=S.cdRole&&typeof S.cdRole=='object'?S.cdRole:{};S.cdRole={};['bike','tread','walk'].forEach(r=>{S.cdRole[r]=typeof r0[r]=='string'&&S.cardio[r0[r]]?r0[r]:(r0[r]===''?'':(S.cardio[r]?r:''))});
+ const g0=typeof S.gym=='string'&&S.gym.trim()?S.gym.trim().slice(0,30):'월평동 헬스장',pl0=S.places&&typeof S.places=='object'?S.places:{};S.places={};for(const t in DEFPL){const v=typeof pl0[t]=='string'&&pl0[t].trim()?pl0[t].trim().slice(0,30):(t=='yoga'?DEFPL.yoga:g0);S.places[t]=v}delete S.gym;
+ if(!Array.isArray(S.pt))S.pt=[];
+ S.pt=S.pt.filter(p=>p&&typeof p=='object').slice(0,7).map(p=>({day:p.day===''||p.day==null?'':Math.min(6,Math.max(0,Math.round(+p.day)||0)),time:TRE.test(p.time)?p.time:'18:00',part:PTPARTS.includes(p.part)?p.part:'하체',min:[30,45,60,90,120].includes(+p.min)?+p.min:60}));
+ const cl=(v,a,b,df)=>{v=+v;return isNaN(v)?df:Math.min(b,Math.max(a,Math.round(v)))};
+ const w=Object.assign({ptMin:2,target:3,n:1,time:'',dur:1},S.wt&&typeof S.wt=='object'?S.wt:{});
+ S.wt={ptMin:cl(w.ptMin,0,7,2),target:cl(w.target,1,7,3),n:cl(w.n,0,3,1),time:TRE.test(w.time)?w.time:'',dur:[.5,.75,1,1.5,2].includes(+w.dur)?+w.dur:1};
+ const p=Object.assign({days:[0,2,4,5],time:'10:00',wtime:'19:00',pref:5,min:60,part:'코어'},S.pil&&typeof S.pil=='object'?S.pil:{});
+ const pr=p.pref!=null&&p.pref!==''&&Number.isInteger(+p.pref)&&+p.pref>=0&&+p.pref<=6?+p.pref:5;
+ S.pil={days:Array.isArray(p.days)?[...new Set(p.days.map(Number).filter(x=>Number.isInteger(x)&&x>=0&&x<=6))]:[0,2,4,5],time:TRE.test(p.time)?p.time:'10:00',wtime:TRE.test(p.wtime)?p.wtime:'19:00',pref:pr,min:[30,45,60,90].includes(+p.min)?+p.min:60,part:PARTS.includes(p.part)?p.part:'코어'}}
+const CDR=[['bike','22시 퇴근 대기일에 컨디션이 좋을 때 추천'],['tread','컨디션이 좋지 않거나 PT·웨이트 후에 가볍게 추천'],['walk',"개인 일정이 있는 날 '가벼운 운동 허용'을 켜면 추천"]];
+const cdR=r=>S.cardio[S.cdRole[r]]||null;
+const cdSub=()=>{const a=Object.values(S.cardio).map(c=>[c.name,c.name]);return a.length?a:[['유산소','유산소']]};
+function cdSet(k,f,v){const c=S.cardio[k];if(!c)return;const d=defCardio()[k]||{};
+ if(f=='min')c.min=Math.min(120,Math.max(5,Math.round(+v)||d.min||20));
+ else if(f=='name')c.name=String(v).trim().slice(0,20)||d.name||'유산소';
+ else if(f=='place')c.place=String(v).trim().slice(0,30);
+ else c.time=TRE.test(v)?v:(d.time||'20:00');
+ save();R()}
+function cdAdd(){const nm=(document.getElementById('cd_n').value||'').trim().slice(0,20),tm0=document.getElementById('cd_t').value,mn=Math.round(+document.getElementById('cd_m').value),pl=(document.getElementById('cd_p').value||'').trim().slice(0,30);
+ if(!nm)return toast('유산소 운동 이름을 입력해 주세요');
+ if(Object.keys(S.cardio).length>=12)return toast('유산소 종류는 최대 12개까지예요');
+ if(Object.values(S.cardio).some(c=>c.name==nm))return toast('같은 이름의 유산소가 이미 있어요');
+ const first=!Object.keys(S.cardio).length,k='c'+uid();
+ S.cardio[k]={name:nm,place:pl||PLC('cardio'),time:TRE.test(tm0)?tm0:'20:00',min:Math.min(120,Math.max(5,mn||20))};UI.cdSel=k;
+ if(first)CDR.forEach(r=>{if(!S.cdRole[r[0]])S.cdRole[r[0]]=k});
+ save();R()}
+function cdDel(k){if(!S.cardio[k])return;if(!confirm('"'+S.cardio[k].name+'" 유산소를 삭제할까요?\n(이미 만든 일정은 그대로 유지돼요)'))return;delete S.cardio[k];if(UI.cdSel==k)UI.cdSel=null;const f=Object.keys(S.cardio)[0]||'';CDR.forEach(r=>{if(S.cdRole[r[0]]==k)S.cdRole[r[0]]=f});save();R()}
+function cdSel(k){if(S.cardio[k]){UI.cdSel=k;R()}}
+function cdRoleSet(r,k){if(!CDR.some(x=>x[0]==r))return;S.cdRole[r]=S.cardio[k]?k:'';save();R()}
+function ptBox(){return `<h3>PT<small>최우선 반영</small></h3><div class="f" style="margin-bottom:8px">${plInp('pt')}</div>`+(S.pt.length?S.pt.map((x,i)=>`<div class="ptc"><div class="ptch"><b>${i+1}회차</b><button class="sm ghost" onclick="ptDel(${i})">삭제</button></div><div class="f"><label>요일<select onchange="ptSet(${i},'day',this.value)"><option value="">없음</option>${D.map((d,j)=>`<option value="${j}" ${x.day!==''&&x.day==j?'selected':''}>${d}요일</option>`).join('')}</select></label><label>시작 시간<input type="time" value="${esc(x.time)}" onchange="ptSet(${i},'time',this.value)"></label><label>수업 시간<select onchange="ptSet(${i},'min',this.value)">${[30,45,60,90,120].map(m=>`<option value="${m}" ${x.min==m?'selected':''}>${m}분</option>`).join('')}</select></label><label>운동 부위<select onchange="ptSet(${i},'part',this.value)">${PTPARTS.map(t=>`<option ${x.part==t?'selected':''}>${t}</option>`).join('')}</select></label></div></div>`).join(''):'<p class="mut" style="margin:0 0 6px">등록된 PT가 없어요.</p>')+`<div class="row"><button class="sm ghost" onclick="ptAdd()">+ PT 회차 추가</button></div>`}
+function ptSet(i,f,v){const p=S.pt[i];if(!p)return;
+ if(f=='day'){if(v==='')p.day='';else{const n=+v;if(!Number.isInteger(n)||n<0||n>6)return;p.day=n;if(S.pt.some((q,j)=>j!=i&&q.day===n))toast('같은 요일에 PT가 2회 이상 있어요')}}
+ else if(f=='time'){if(TRE.test(v))p.time=v}
+ else if(f=='min'){const n=+v;if([30,45,60,90,120].includes(n))p.min=n}
+ else if(f=='part'){if(PTPARTS.includes(v))p.part=v}
+ save();R()}
+function ptAdd(){if(S.pt.length>=7)return toast('PT는 최대 7회까지예요');S.pt.push({day:'',time:'18:00',part:'하체',min:60});save();R()}
+function ptDel(i){S.pt.splice(i,1);save();R()}
+function wtBox(){const w=S.wt,nm=(f,l,a,b)=>`<label>${l}<input type="number" min="${a}" max="${b}" value="${w[f]}" onchange="wtSet('${f}',this.value)"></label>`;
+ return `<h3>개인 웨이트</h3><div class="f" style="margin-bottom:8px">${plInp('weight')}</div><div class="chips"><label><input type="checkbox" ${S.ptFill?'checked':''} onchange="S.ptFill=this.checked;save()">PT가 부족하면 개인 웨이트로 대체</label></div><div class="f" style="margin-top:8px">${nm('ptMin','PT 기준 횟수(주)',0,7)}${nm('target','대체 시 주 총 웨이트 횟수',1,7)}${nm('n','PT가 충분할 때 개인 웨이트(주)',0,3)}<label>시작 시간<input type="time" value="${esc(w.time)}" onchange="wtSet('time',this.value)"></label><label>운동 시간<select onchange="wtSet('dur',this.value)">${[[.5,'30분'],[.75,'45분'],[1,'60분'],[1.5,'90분'],[2,'120분']].map(x=>`<option value="${x[0]}" ${w.dur==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></label></div><p class="mut" style="margin:8px 0 0">시작 시간을 비워 두면 근무 종료 후로 자동 정해져요. 부위는 PT 부위와 컨디션(부종·근육통)에 맞춰 정해져요.</p>`}
+function wtSet(f,v){const w=S.wt;
+ if(f=='time')w.time=TRE.test(v)?v:'';
+ else if(f=='dur'){const n=+v;if([.5,.75,1,1.5,2].includes(n))w.dur=n}
+ else{const r={ptMin:[0,7],target:[1,7],n:[0,3]}[f],n=Math.round(+v);if(!r||isNaN(n))return;w[f]=Math.min(r[1],Math.max(r[0],n))}
+ save();R()}
+function cdEdit(k){const x=S.cardio[k],u=CDR.some(r=>S.cdRole[r[0]]==k);
+ return `<div class="cdedit"><div class="ptch"><b>${esc(x.name)}${u?'<small>자동 추천에 사용 중</small>':''}</b><button class="sm ghost" onclick="cdDel('${k}')">삭제</button></div><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" maxlength="20" value="${esc(x.name)}" onchange="cdSet('${k}','name',this.value)"></label><label style="grid-column:1/-1">운동 장소<input type="text" maxlength="30" value="${esc(x.place||PLC('cardio'))}" placeholder="예: 월평동 헬스장, 집, 공원" onchange="cdSet('${k}','place',this.value)"></label><label>시작 시간<input type="time" value="${esc(x.time)}" onchange="cdSet('${k}','time',this.value)"></label><label>운동 시간(분)<input type="number" min="5" max="120" step="5" value="${+x.min||20}" onchange="cdSet('${k}','min',this.value)"></label></div></div>`}
+function cdBox(){const c=S.cardio,ks=Object.keys(c),sel=c[UI.cdSel]?UI.cdSel:(ks[0]||''),
+ CT={bike:'퇴근 대기일 · 컨디션 좋을 때',tread:'컨디션 낮음 · PT/웨이트 후',walk:'개인 일정이 있는 날'};
+ let h=`<section class="sub"><h3>유산소 직접 입력<small>운동 이름·시간을 입력해 추가해요</small></h3><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" id="cd_n" maxlength="20" placeholder="예: 러닝머신 걷기, 실내 자전거, 계단 오르기" onkeydown="if(event.key=='Enter')cdAdd()"></label><label style="grid-column:1/-1">운동 장소<input type="text" id="cd_p" maxlength="30" value="${esc(PLC('cardio'))}" placeholder="예: 월평동 헬스장, 집, 공원"></label><label>시작 시간<input type="time" id="cd_t" value="20:00"></label><label>운동 시간(분)<input type="number" id="cd_m" min="5" max="120" step="5" value="20"></label></div><div class="row" style="margin-top:8px"><button class="sm" onclick="cdAdd()">+ 추가</button></div></section>`;
+ h+=`<section class="sub"><h3>등록된 유산소<small>${ks.length?'눌러서 선택하고 수정해요':''}</small></h3>`+(ks.length?`<div class="cdchips">${ks.map(k=>`<button class="cdchip ${k==sel?'on':''}" onclick="cdSel('${k}')">${esc(c[k].name)}</button>`).join('')}</div>${cdEdit(sel)}`:'<p class="mut" style="margin:0">등록된 유산소가 없어요. 위에서 직접 입력해 추가해 주세요.</p>')+`</section>`;
+ h+=`<section class="sub"><h3>자동 일정에 쓸 유산소<small>일정 생성 시 상황별로 추천할 운동을 골라요</small></h3><div class="f">${CDR.map(r=>`<label style="grid-column:1/-1">${CT[r[0]]||r[0]}<span class="hint">${r[1]}</span><select onchange="cdRoleSet('${r[0]}',this.value)"><option value="">사용 안 함</option>${ks.map(k=>`<option value="${k}" ${S.cdRole[r[0]]==k?'selected':''}>${esc(c[k].name)}</option>`).join('')}</select></label>`).join('')}</div></section>`;
+ return h}
+function pilBox(){const p=S.pil,tf=(f,l)=>`<label>${l}<input type="time" value="${esc(p[f])}" onchange="pilSet('${f}',this.value)"></label>`;
+ return `<p class="mut" style="margin:0 0 8px">주 1회 · 가능한 요일 중 우선 요일을 먼저 추천하고, 일정이 있으면 다른 가능 요일로 옮겨 배치해요.</p><div class="f" style="margin-bottom:8px">${plInp('pilates')}</div><div class="chips">${D.map((x,d)=>`<label><input type="checkbox" ${p.days.includes(d)?'checked':''} onchange="pilDay(${d})">${x}</label>`).join('')}</div><div class="f" style="margin-top:8px"><label>우선 요일<select onchange="pilSet('pref',this.value)">${D.map((x,d)=>`<option value="${d}" ${p.pref==d?'selected':''}>${x}요일</option>`).join('')}</select></label>${tf('time','주말(토·일) 수업 시간')}${tf('wtime','평일 수업 시간')}<label>수업 시간<select onchange="pilSet('min',this.value)">${[30,45,60,90].map(m=>`<option value="${m}" ${p.min==m?'selected':''}>${m}분</option>`).join('')}</select></label></div>`}
+function pilSet(f,v){const p=S.pil;
+ if(f=='time'||f=='wtime'){if(TRE.test(v))p[f]=v}
+ else if(f=='pref'){const n=Math.round(+v);if(n>=0&&n<=6)p.pref=n}
+ else if(f=='min'){const n=+v;if([30,45,60,90].includes(n))p.min=n}
+ else if(f=='part'){if(PARTS.includes(v))p.part=v}
+ save();R()}
+const catBox=(id,col,title,sum,body)=>`<details class="cat2" id="cat-${id}" style="--cc:${col}" ${(UI.so||{})[id]?'open':''} ontoggle="(UI.so=UI.so||{})['${id}']=this.open"><summary><div class="st"><b>${title}</b><span>${esc(sum)}</span></div></summary><div class="cat2b">${body}</div></details>`;
+function setGo(t){UI.so=UI.so||{};UI.so[t]=true;R();const e=document.getElementById('cat-'+t);if(e)e.scrollIntoView({behavior:'smooth',block:'start'})}
+function setCats(){const p=S.pil,pts=S.pt.map(x=>x.day===''?'':D[x.day]).filter(Boolean).join('·'),ks=Object.values(S.cardio).map(c=>c.name);
+ const items=[
+  ['pt','#2f7d5b','웨이트',`PT ${S.pt.length}회${pts?' ('+pts+')':''} · 개인 웨이트 주 ${S.wt.n}회`,`<section class="sub">${ptBox()}</section><section class="sub">${wtBox()}</section>`],
+  ['cardio','#5ea3d8','유산소',ks.length?ks.join(' · '):'등록된 운동 없음',cdBox()],
+  ['pilates','#f2a65a','필라테스',`${p.days.map(d=>D[d]).join('·')||'요일 미지정'} 중 주 1회 · 우선 ${D[p.pref]}요일`,pilBox()],
+  ['yoga','#8f6fe0','요가',`수업 ${S.yoga.length}개 등록`,`<div class="row" style="justify-content:flex-end;margin-bottom:8px"><button class="sm" onclick="tab='yoga';R();window.scrollTo(0,0)">요가 시간표 보기 ›</button></div><div class="f" style="margin-bottom:12px">${plInp('yoga')}</div><section class="sub" style="margin-top:0">${flyBox()}</section><section class="sub">${yogaBox()}</section>`]];
+ return `<div class="setnav">${items.map(x=>`<button class="sm ghost" onclick="setGo('${x[0]}')"><i class="dot" style="background:${x[1]}"></i>${x[2]}</button>`).join('')}</div>`+items.map(x=>catBox(x[0],x[1],x[2],x[3],x[4])).join('')}
+function vSet(){return setCats()}
+function renderSet(){document.getElementById('setDlg').innerHTML=`<div class="dd"><div class="ddh"><b style="font-size:18px">설정</b><button class="sm" onclick="document.getElementById('setDlg').close()">닫기</button></div><div class="ddb">${wgCard()}${dataCard()}</div></div>`}
+function openSet(){renderSet();const d=document.getElementById('setDlg');if(!d.open)d.showModal()}
 function wgCard(){const c=wgCfg()||{url:'',token:''};return `<div class="card"><h2>iPhone 위젯 · 기기 간 일정 공유</h2><p class="mut" style="margin:0 0 8px">같은 URL과 토큰을 입력한 기기끼리 일정이 자동으로 공유되고, 위젯에도 반영돼요. (구글 아이디 로그인이 아니라 URL·토큰으로 연결돼요)</p><div class="row" style="flex-direction:column;align-items:stretch;gap:8px"><input id="wgu" type="url" placeholder="웹 앱 URL (https://script.google.com/…)" value="${esc(c.url)}" autocomplete="off" spellcheck="false" style="width:100%"><input id="wgt" type="password" placeholder="토큰 (Apps Script에 넣은 문자열, 8자 이상)" value="${esc(c.token)}" autocomplete="off" style="width:100%"><div class="row"><button class="pri" onclick="wgSaveCfg()">저장하고 동기화 켜기</button><button onclick="wgSync(true)">지금 동기화</button></div><div class="row"><button class="ghost" onclick="wgForcePull()">서버 일정으로 이 기기 바꾸기</button><button class="ghost" onclick="wgForcePush()">이 기기 일정으로 서버 덮어쓰기</button></div></div><p class="mut" id="wgst">${c.url?'체크·일정 변경 시 자동으로 동기화돼요':'설정하지 않으면 동기화되지 않아요'}</p><p class="mut">두 기기에서 동시에 수정하지 마세요. 나중에 저장한 쪽이 반영돼요.</p><div class="row"><button onclick="wgExport()">수동으로 파일 저장</button></div></div>`}
 function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl||[];
  const sel=(f,o)=>`<select onchange="setC('${f}',this.value,1)">${o.map(v=>`<option ${c[f]==v?'selected':''}>${v}</option>`).join('')}</select>`;
@@ -288,7 +446,7 @@ function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl
  let h=`<summary><span>이 주 자동 생성 <span class="mut">${rg} · 조건 입력</span></span></summary><div class="secb">`;
  h+=`<div class="card"><div class="bar"><button onclick="nav(-1)">◀</button><b>${rg}</b><button onclick="nav(1)">▶</button></div><p class="mut" style="margin:0">근무시간은 날짜 타임테이블의 '근무' 일정으로 입력해요. 운동은 '운동 설정'에 맞춰 자동 배치되고, 직접 추가·수정한 일정과 완료 기록은 다시 생성해도 유지돼요.</p></div>`;
  if(w.msgs&&w.msgs.length)h+=`<div class="msg"><b>일정 안내</b>${w.msgs.map(m=>`<p>· ${esc(m)}</p>`).join('')}</div>`;
- h+=`<div class="card"><h2>① 남자친구 퇴근 일정</h2><p class="mut">오후 10시에 퇴근하는 요일을 체크하면 월평동 헬스장에서 가벼운 유산소(15~40분)를 선택 항목으로 추천해요. 하지 않아도 괜찮아요.</p><div class="chips">${ck('late')}</div></div>`;
+ h+=`<div class="card"><h2>① 남자친구 퇴근 일정</h2><p class="mut">오후 10시에 퇴근하는 요일을 체크하면 등록한 유산소 중에서 가벼운 운동을 선택 항목으로 추천해요. 하지 않아도 괜찮아요.</p><div class="chips">${ck('late')}</div></div>`;
  h+=`<div class="card"><h2>② 요일별 개인 일정</h2><p class="mut">일정이 있는 날에는 운동을 넣지 않아요. 가벼운 운동을 허용하면 선택 산책만 추천해요. (시간대가 있는 개인 일정은 타임테이블에서 추가해요)</p>${D.map((x,i)=>`<div class="row" style="margin-bottom:6px"><span class="chips"><label><input type="checkbox" ${c.busy.includes(i)?'checked':''} onchange="tg('busy',${i})">${x}</label></span><input type="text" placeholder="예: 가족 모임, 야근" value="${esc(c.pst[i]||'')}" oninput="setPs(${i},this)" style="flex:1;min-width:120px"><span class="chips"><label><input type="checkbox" ${c.pl.includes(i)?'checked':''} onchange="tg('pl',${i})">가벼운 운동 허용</label></span></div>`).join('')}</div>`;
  h+=`<div class="card"><h2>③ 컨디션</h2><div class="f"><label>전반적인 컨디션${sel('c',['좋음','보통','피곤함'])}</label><label>하체 부종${sel('sw',['없음','약간','심함'])}</label><label>근육통${sel('so',['없음','약간','심함'])}</label><label>수면 상태${sel('sl',['좋음','보통','부족'])}</label></div><p class="mut" style="margin:10px 0 2px">휴식으로 지정할 요일</p><div class="chips">${ck('rest')}</div><div class="chips" style="margin-top:10px"><label><input type="checkbox" ${c.simple?'checked':''} onchange="setC('simple',this.checked,1)">일정이 바쁨 (선택 운동 줄이기)</label><label><input type="checkbox" ${c.xy?'checked':''} onchange="setC('xy',this.checked,1)">여유 있으면 추가 요가 1회</label></div></div>`;
  h+=`<div class="card"><div class="row"><button class="pri" onclick="genNow(false)">일정 생성</button><button class="ghost" onclick="genNow(true)">처음부터 새로 생성</button></div><p class="mut">"일정 생성"은 직접 수정·추가·삭제한 일정과 완료 기록을 유지해요. "처음부터 새로 생성"은 이 주를 모두 지우고 다시 만들어요.</p></div>`;
@@ -296,7 +454,7 @@ function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl
 function pilDay(d){const a=S.pil.days,i=a.indexOf(d);i<0?a.push(d):a.splice(i,1);save()}
 function exp(){const b=new Blob([JSON.stringify({S,W},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='my-balance-'+key(new Date())+'.json';a.click()}
 function imp(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o.S||!o.W)throw 0;S=o.S;W=o.W;normS();save();R();toast('가져오기 완료')}catch(e){toast('올바른 파일이 아니에요')}};r.readAsText(f)}
-function rst(){if(!confirm('모든 데이터를 삭제하고 기본값으로 되돌릴까요?'))return;localStorage.removeItem(K);S=defS();W={};cur=key(mon(new Date()));msel=key(new Date());mc=new Date(new Date().getFullYear(),new Date().getMonth(),1);generate(cur);R();toast('초기화했어요')}
+function rst(){if(!confirm('모든 데이터를 삭제하고 기본값으로 되돌릴까요?'))return;localStorage.removeItem(K);S=defS();normS();W={};cur=key(mon(new Date()));msel=key(new Date());mc=new Date(new Date().getFullYear(),new Date().getMonth(),1);generate(cur);R();toast('초기화했어요')}
 /* 요가 시간표 */
 const ktime=t=>{const h=+t.slice(0,2);return (h<12?'오전 ':'오후 ')+((h+11)%12+1)+':'+t.slice(3)};
 function vYoga(){const cols=[0,1,2,3,4,...[5,6].filter(d=>S.yoga.some(y=>y.day==d))],ts=[...new Set(S.yoga.map(y=>y.time))].sort();
@@ -313,8 +471,28 @@ function ySave(){const n=document.getElementById('y_n').value.trim(),t=document.
 function yUp(id,f,v){S.yoga.find(y=>y.id==id)[f]=v;save();R()}
 function yDel(id){S.yoga=S.yoga.filter(y=>y.id!=id);if(S.flyPref==id)S.flyPref='';save();R()}
 /* 기록 */
-function vLog(){const ks=Object.keys(W).filter(k=>W[k].items.length).sort().reverse();let h='<div class="card"><h2>주간 운동 기록</h2><p class="mut">일정을 다시 생성해도 완료한 기록은 남아 있어요.</p></div>';
- ks.forEach(k=>{const w=W[k],c=w.cond,e=parse(addD(k,6));h+=`<div class="card"><div class="row" style="justify-content:space-between"><b>${md(parse(k))} ~ ${md(e)}</b><button class="sm" onclick="logGo('${k}')">보기</button></div>${statHtml(w)}<p class="mut">컨디션 ${c.c} · 부종 ${c.sw} · 근육통 ${c.so} · 수면 ${c.sl}${c.note?' · 개인 일정: '+esc(c.note):''}</p></div>`});return h}
+/* ===== 연간 운동량: 월별 누적 막대 그래프 ===== */
+let LY=new Date().getFullYear(),LM=null;
+const YC={pt:'#2f7d5b',weight:'#8fbf9f',pilates:'#f2a65a',flying:'#8f6fe0',yoga:'#e48bc0',cardio:'#5ea3d8'};
+function yearData(y){const M=Array.from({length:12},()=>({done:{},dn:0,plan:0,min:0}));
+ Object.keys(W).forEach(wk=>{const its=W[wk]&&W[wk].items;if(!its)return;its.forEach(i=>{if(!SH[i.type]||i.status=='rest')return;const d=parse(addD(wk,i.day));if(d.getFullYear()!=y)return;const m=M[d.getMonth()];m.plan++;if(i.status=='done'){m.done[i.type]=(m.done[i.type]||0)+1;m.dn++;if(i.type=='cardio')m.min+=+i.min||0}})});return M}
+function lyNav(n){const v=LY+n;if(v<2000||v>2100)return;LY=v;LM=null;R()}
+function ymSel(m){LM=LM===m?null:m;R()}
+function ymGo(m){mc=new Date(LY,m,1);tab='month';R();window.scrollTo(0,0)}
+function monthCard(){if(LM==null)return '';const y=LY,m=LM,f=(new Date(y,m,1).getDay()+6)%7,n=new Date(y,m+1,0).getDate(),nw=Math.floor((n-1+f)/7)+1,Wk=Array.from({length:nw},()=>({dn:0,plan:0}));
+ Object.keys(W).forEach(wk=>{const its=W[wk]&&W[wk].items;if(!its)return;its.forEach(i=>{if(!SH[i.type]||i.status=='rest')return;const d=parse(addD(wk,i.day));if(d.getFullYear()!=y||d.getMonth()!=m)return;const b=Wk[Math.floor((d.getDate()-1+f)/7)];b.plan++;if(i.status=='done')b.dn++})});
+ const tp=Wk.reduce((a,b)=>a+b.plan,0),td=Wk.reduce((a,b)=>a+b.dn,0);
+ return `<div class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${m+1}월 주차별 달성률</h2><button class="sm" onclick="ymGo(${m})">달력 보기</button></div>`+(tp?`<p class="mut" style="margin:6px 0 12px">월 전체 ${Math.round(td/tp*100)}% (${td}/${tp}회)</p>`:'<p class="mut" style="margin:6px 0 0">이 달에는 일정이 없어요.</p>')+(tp?Wk.map((b,i)=>{const r=b.plan?Math.round(b.dn/b.plan*100):0;return `<div class="wkr" role="img" aria-label="${i+1}주 ${b.plan?r+'%, '+b.dn+'/'+b.plan+'회':'일정 없음'}"><span class="wkl">${i+1}주</span><div class="wkt"><i style="width:${r}%"></i></div><span class="wkv">${b.plan?r+'% <small>'+b.dn+'/'+b.plan+'</small>':'-'}</span></div>`}).join(''):'')+`</div>`}
+function yearCard(){const M=yearData(LY),ty=Object.keys(SH),H=150,now=new Date(),cm=now.getFullYear()==LY?now.getMonth():-1;
+ const tot=M.reduce((a,m)=>a+m.dn,0),pl=M.reduce((a,m)=>a+m.plan,0),mn=M.reduce((a,m)=>a+m.min,0),act=M.filter(m=>m.dn>0).length,best=M.reduce((b,m,i)=>m.dn>M[b].dn?i:b,0),mx=Math.max(1,...M.map(m=>Math.max(m.plan,m.dn)));
+ const st=[['월평균',act?(tot/act).toFixed(1)+'회':'-'],['달성률',pl?Math.round(tot/pl*100)+'%':'-']];
+ let h=`<div class="card"><div class="bar"><button onclick="lyNav(-1)" aria-label="이전 해">◀</button><b>${LY}년</b><button onclick="lyNav(1)" aria-label="다음 해">▶</button></div><div class="stats">${st.map(x=>`<div class="stat"><b style="font-size:24px">${x[1]}</b><span>${x[0]}</span></div>`).join('')}</div>`;
+ if(!pl)return h+`<p class="mut" style="margin:16px 0 0">${LY}년에는 아직 일정이 없어요.</p></div>`;
+ h+=`<div class="ych" role="list">`+M.map((m,i)=>{const th=Math.round(Math.max(m.plan,m.dn)/mx*H),seg=ty.filter(t=>m.done[t]).map(t=>`<i style="height:${m.done[t]/mx*H}px;background:${YC[t]}"></i>`).join(''),lb=ty.filter(t=>m.done[t]).map(t=>MCL[t]+' '+m.done[t]+'회').join(', ');
+  return `<div class="ycol${i==cm?' cur':''}${i===LM?' sel':''}" role="listitem" tabindex="0" aria-pressed="${i===LM}" onclick="ymSel(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ymSel(${i})}" aria-label="${i+1}월 완료 ${m.dn}회 / 계획 ${m.plan}회${lb?' ('+lb+')':''}"><div class="ybw"><span class="yv">${m.dn?m.dn:(m.plan?'0':'')}</span><div class="ytr" style="height:${th}px">${seg}</div></div><span class="yl">${i+1}월</span></div>`}).join('')+`</div>`;
+ h+=`<div class="chips" style="margin-top:12px">${ty.map(t=>`<span class="mut" style="display:inline-flex;align-items:center;gap:6px"><i class="dot" style="background:${YC[t]};margin:0"></i>${MCL[t]}</span>`).join('')}</div><p class="mut" style="margin:8px 0 0">색 막대는 완료한 운동, 연한 배경은 계획된 전체 운동이에요. 월을 누르면 아래에 주차별 달성률이 나와요.</p></div>`;
+ return h}
+function vLog(){return yearCard()+monthCard()}
 let mc=new Date(new Date().getFullYear(),new Date().getMonth(),1),msel=key(new Date());
 const SH={pt:'PT',weight:'웨이트',pilates:'필라',flying:'플라잉',yoga:'요가',cardio:'유산소'};
 const dayItems=k=>{const d=parse(k),w=W[key(mon(d))];return w?w.items.filter(i=>i.day==(d.getDay()+6)%7&&!['rest','personal'].includes(i.type)).sort((a,b)=>(a.time||'99').localeCompare(b.time||'99')):[]};
@@ -364,7 +542,7 @@ const exLabel=a=>a.cat=='weight'?tn(a.type)+' · '+a.part:{cardio:'유산소',pi
 function openDay(){renderDay();const d=document.getElementById('dayDlg');if(!d.open)d.showModal()}
 function closeDay(){ARM=null;DRG=null;document.getElementById('dayDlg').close()}
 (function(){const out=(d,e)=>{const r=d.getBoundingClientRect();return e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom};
- ['dayDlg','timeDlg','dlg','ckDlg'].forEach(id=>{const d=document.getElementById(id);d.addEventListener('click',e=>{if(e.target===d&&out(d,e)){id=='dayDlg'?closeDay():d.close()}})});
+ ['dayDlg','timeDlg','dlg','ckDlg','setDlg'].forEach(id=>{const d=document.getElementById(id);d.addEventListener('click',e=>{if(e.target===d&&out(d,e)){id=='dayDlg'?closeDay():d.close()}})});
  document.getElementById('dayDlg').addEventListener('close',()=>{ARM=null;DRG=null});document.getElementById('timeDlg').addEventListener('close',()=>{ARM=null;DRG=null;MV=null})})();
 function notes(k){const d=parse(k),w=W[key(mon(d))];if(!w)return '';const di=(d.getDay()+6)%7,n=w.items.filter(i=>i.day==di&&(i.type=='rest'||i.type=='personal'));
  return n.slice(0,2).map(i=>`<span class="mc" style="background:${T[i.type][1]}">${i.type=='rest'?'휴식':esc(i.memo||'개인 일정')}</span>`).join('')+(n.length>2?`<span class="mut">+${n.length-2}</span>`:'')}
@@ -411,7 +589,7 @@ function yogaPop(){const di=(parse(msel).getDay()+6)%7,cl=S.yoga.filter(y=>y.day
  document.getElementById('dlg').innerHTML=`<h2>${D[di]}요일 요가 시간표</h2><p class="mut" style="margin:0 0 10px">수업을 누르면 그 시간에 자동으로 추가돼요</p>${cl.length?`<div class="pk big">${cl.map(y=>`<button style="background:${T[y.name.includes('플라잉')?'flying':'yoga'][1]}" onclick="yogaAdd('${y.id}')">${esc(y.name)}<small>${ktime(y.time)}</small></button>`).join('')}</div>`:'<p class="mut">이 요일에는 등록된 요가 수업이 없어요. 요가 시간표 탭에서 수업을 추가할 수 있어요.</p>'}<div class="row" style="margin-top:14px"><button onclick="exPop()">이전</button><button class="ghost" onclick="document.getElementById('dlg').close()">닫기</button></div>`;dlgOpen()}
 function yogaAdd(id){const y=S.yoga.find(x=>x.id==id),di=(parse(msel).getDay()+6)%7,w=wk(curK());
  if(w.items.some(i=>i.day==di&&i.time==y.time&&(i.type=='yoga'||i.type=='flying')&&i.memo==y.name))return toast('이미 추가된 수업이에요');
- const dr=dropRest(w,di);w.items.push({id:uid(),u:1,add:1,status:'todo',day:di,time:y.time,dur:1.17,type:y.name.includes('플라잉')?'flying':'yoga',part:'',place:'대전 죽동 STELLA YOGA',min:'',memo:y.name});
+ const dr=dropRest(w,di);w.items.push({id:uid(),u:1,add:1,status:'todo',day:di,time:y.time,dur:1.17,type:y.name.includes('플라잉')?'flying':'yoga',part:'',place:PLC('yoga'),min:'',memo:y.name});
  ARM=null;document.getElementById('dlg').close();save();R();toast((dr?'휴식 삭제 · ':'')+`${y.name} ${ktime(y.time)} 수업을 추가했어요`);openTime()}
 function wOk(){if(!WSEL.type||!WSEL.part)return toast('운동 유형과 부위를 모두 선택해 주세요');{const c=wtConflict(wk(curK()),(parse(msel).getDay()+6)%7,WSEL.type);if(c)return toast(wtMsg(c))}ARM={k:'ex',cat:'weight',type:WSEL.type,part:WSEL.part};document.getElementById('dlg').close();openTime()}
 function personalPop(){const di=(parse(msel).getDay()+6)%7,ex=wk(curK()).items.filter(i=>i.day==di&&i.type=='personal');document.getElementById('dlg').innerHTML=`<h2>개인 일정</h2>${ex.length?`<div class="mut" style="margin-bottom:4px">표시된 일정 (누르면 수정·삭제)</div><div class="chips" style="margin-bottom:12px">${ex.map(i=>`<button class="sm ghost" style="background:${T.personal[1]}" onclick="document.getElementById('dlg').close();editEv('${i.id}')">${esc(i.memo||'개인 일정')}</button>`).join('')}</div>`:''}<p class="mut" style="margin:0 0 8px">달력에 표시할 일정 이름을 입력하세요</p><input type="text" id="f_pn" placeholder="예: 병원, 약속, 여행" style="width:100%" onkeydown="if(event.key=='Enter')nameOk()"><div class="row" style="margin-top:14px"><button class="pri" onclick="nameOk()">확인</button><button class="ghost" onclick="document.getElementById('dlg').close()">취소</button></div>`;dlgOpen();setTimeout(()=>{const x=document.getElementById('f_pn');x&&x.focus()},60)}
@@ -428,7 +606,7 @@ function mk(s,e,name){const A=ARM,sd=parse(msel),di=(sd.getDay()+6)%7,w=wk(curK(
   const v={id:uid(),u:1,add:1,status:'todo',day:di,time:tv(s),dur,type:'',part:'',place:'',min:'',memo:''};
   if(t=='rest'){v.type='rest';v.status='rest'}
   else if(t=='personal'){v.type='personal';v.memo=name}
-  else{v.place=A.cat=='yoga'?'대전 죽동 STELLA YOGA':'월평동 헬스장';
+  else{v.place=PLC(A.cat=='yoga'?'yoga':A.cat=='weight'?A.type:A.cat);
    if(A.cat=='weight'){v.type=A.type;v.part=A.part}
    else if(A.cat=='cardio'){v.type='cardio';v.min=Math.round(dur*60)}
    else if(A.cat=='pilates')v.type='pilates';
@@ -505,9 +683,9 @@ async function wgSync(manual){const c=wgCfg();if(!c||wgBusy)return;wgBusy=true;
   if(!o||o.ok===false){wgStat('토큰이 맞지 않아요. 토큰을 확인해 주세요');return}
   const srv=o.rev||0,loc=wgRev();
   if(srv>loc){
-   if(document.querySelector('dialog[open]'))return;
+   if(document.querySelector('dialog[open]:not(#setDlg)'))return;
    if(wgPause&&manual!==true)return;
-   if(loc===0&&!confirm('서버에 저장된 일정이 있어요.\n이 기기의 일정을 서버 일정으로 바꿀까요?\n\n확인: 서버 일정 사용 (이 기기 일정은 사라져요)\n취소: 보류 (운동 설정 탭에서 직접 선택)')){wgPause=true;wgStat('동기화 보류 중 — 운동 설정 탭의 버튼으로 선택해 주세요');return}
+   if(loc===0&&!confirm('서버에 저장된 일정이 있어요.\n이 기기의 일정을 서버 일정으로 바꿀까요?\n\n확인: 서버 일정 사용 (이 기기 일정은 사라져요)\n취소: 보류 (우측 상단 ⚙ 설정에서 직접 선택)')){wgPause=true;wgStat('동기화 보류 중 — 설정(⚙)의 버튼으로 선택해 주세요');return}
    if(wgApply(o)){wgPause=false;wgReady=true;wgStat('서버 일정으로 업데이트했어요')}return}
   if(wgPause&&manual!==true)return;
   if(srv===0&&loc===0){try{localStorage.setItem('mb-rev',String(Date.now()))}catch(e){}}
@@ -533,11 +711,11 @@ function delIt0(w,it){if(it.type!='rest'&&!it.add){w.del=w.del||[];w.del.push({d
 const SUB={weight:[['pt','PT'],['weight','개인운동']],cardio:[['실내 자전거','실내 자전거'],['트레드밀 걷기','트레드밀 걷기'],['가벼운 산책','가벼운 산책']],yoga:[['flying','플라잉 요가'],['yoga','일반 요가']]};
 let E=null;
 function openEd(src,st){const sd=parse(msel),di=(sd.getDay()+6)%7,w=wk(curK());
- let g='ex',cat='weight',sub='weight',s=st??18,e=Math.min(24,s+1),place='월평동 헬스장',memo='',part='전신',stat='todo',all=true,id=null;
+ let g='ex',cat='weight',sub='weight',s=st??18,e=Math.min(24,s+1),place=PLC('weight'),memo='',part='전신',stat='todo',all=true,id=null;
  if(src&&src.k=='work'){g='work';const x=wkh(w.cond,di)||[9,18];s=x[0];e=x[1];id='work'}
  else if(src){id=src.id;const t=src.type;place=src.place||'';memo=src.memo||'';part=src.part||'';stat=src.status=='rest'?'todo':src.status;all=!src.time;
   if(src.time){s=st0(src);e=s+durOf(src)}
-  if(t=='pt'||t=='weight'){cat='weight';sub=t}else if(t=='cardio'){cat='cardio';sub=part||'실내 자전거'}else if(t=='pilates'){cat='pilates';sub=''}else if(t=='flying'||t=='yoga'){cat='yoga';sub=t}else g=t}
+  if(t=='pt'||t=='weight'){cat='weight';sub=t}else if(t=='cardio'){cat='cardio';sub=part||'유산소'}else if(t=='pilates'){cat='pilates';sub=''}else if(t=='flying'||t=='yoga'){cat='yoga';sub=t}else g=t}
  E={id,di,sub};
  const o=(a,v)=>a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
  document.getElementById('dlg').innerHTML=`<h2>일정 수정</h2><div class="f">
@@ -550,13 +728,13 @@ function openEd(src,st){const sd=parse(msel),di=(sd.getDay()+6)%7,w=wk(curK());
  <div style="display:none"><input type="hidden" id="f_g" value="${g}"><input type="hidden" id="f_date" value="${msel}"><div id="f_allw"><input type="checkbox" id="f_all" ${all?'checked':''}></div><div id="f_pre"></div><label id="f_clsw"><select id="f_cls" onchange="pickCls()"></select></label><label id="f_placew"><input type="text" id="f_place" value="${esc(place)}"></label></div></div>
  <div class="row" style="margin-top:12px"><button class="pri" onclick="saveEv()">저장</button><button onclick="document.getElementById('dlg').close()">닫기</button>${id?`<button class="ghost" onclick="delEv()">삭제</button>`:''}</div>`;
  document.getElementById('dlg').showModal();fillF()}
-function fillF(){const g=f_g.value,ex=g=='ex',c=f_cat.value,sb=SUB[c],rest=g=='rest',hide=(rest||g=='personal')&&f_all.checked,show=(id,v)=>document.getElementById(id).style.display=v?'':'none';
- const c0=E.sub||f_sub.value;if(sb)f_sub.innerHTML=sb.map(x=>`<option value="${x[0]}" ${x[0]==c0?'selected':''}>${x[1]}</option>`).join('');E.sub=null;
+function fillF(){const g=f_g.value,ex=g=='ex',c=f_cat.value,sb=c=='cardio'?cdSub():SUB[c],rest=g=='rest',hide=(rest||g=='personal')&&f_all.checked,show=(id,v)=>document.getElementById(id).style.display=v?'':'none';
+ const c0=E.sub||f_sub.value;let sbx=sb;if(c=='cardio'&&E.sub&&E.sub!='weight'&&E.sub!='pt'&&!sb.some(x=>x[0]==E.sub))sbx=[...sb,[E.sub,E.sub]];if(sbx)f_sub.innerHTML=sbx.map(x=>`<option value="${x[0]}" ${x[0]==c0?'selected':''}>${x[1]}</option>`).join('');E.sub=null;
  show('f_catw',ex);show('f_subw',ex&&sb);show('f_partw',ex&&c=='weight');show('f_clsw',ex&&c=='yoga');show('f_placew',ex||g=='personal');show('f_memow',g!='work');show('f_donew',ex);show('f_allw',rest);show('f_pre',g=='work');show('f_sw',!hide);show('f_ew',!hide);
  f_memol.textContent=g=='personal'?'제목':ex&&c=='yoga'?'수업명 / 메모':'메모';
- if(ex){const pl=c=='yoga'?'대전 죽동 STELLA YOGA':'월평동 헬스장';if(!f_place.value||/^(월평동 헬스장|대전 죽동 STELLA YOGA)$/.test(f_place.value))f_place.value=pl}
+ if(ex){const ci=c=='cardio'?Object.values(S.cardio).find(x=>x.name==f_sub.value):null,pl=ci&&ci.place?ci.place:PLC(c=='yoga'?'yoga':c=='weight'?(f_sub.value=='pt'?'pt':'weight'):c);if(!f_place.value||Object.values(S.places).includes(f_place.value)||Object.values(S.cardio).some(x=>x.place==f_place.value)||/^(월평동 헬스장|대전 죽동 STELLA YOGA)$/.test(f_place.value))f_place.value=pl}
  if(ex&&c=='yoga'){const d=parse(f_date.value),di=(d.getDay()+6)%7,fl=f_sub.value=='flying';f_cls.innerHTML='<option value="">직접 입력</option>'+S.yoga.filter(y=>y.day==di&&(y.name.includes('플라잉')==fl)).map(y=>`<option value="${y.id}">${y.time} ${esc(y.name)}</option>`).join('')}}
-function pickCls(){const y=S.yoga.find(x=>x.id==f_cls.value);if(y){f_s.value=y.time;f_e.value=tv(tm(y.time)+70/60);f_memo.value=y.name;f_place.value='대전 죽동 STELLA YOGA'}}
+function pickCls(){const y=S.yoga.find(x=>x.id==f_cls.value);if(y){f_s.value=y.time;f_e.value=tv(tm(y.time)+70/60);f_memo.value=y.name;f_place.value=PLC('yoga')}}
 function autoEnd(){if(f_g.value=='ex'&&f_cat.value=='weight'&&f_s.value)f_e.value=tv(Math.min(24,tm(f_s.value)+1))}
 function wPre(t){f_s.value=t=='A'?'07:00':'08:00';f_e.value=t=='A'?'16:00':'17:00'}
 function saveEv(){const id=E.id,g=f_g.value,nd=parse(f_date.value);if(isNaN(nd))return toast('날짜를 확인해 주세요');
@@ -576,7 +754,7 @@ function saveEv(){const id=E.id,g=f_g.value,nd=parse(f_date.value);if(isNaN(nd))
  msel=f_date.value;mc=new Date(nd.getFullYear(),nd.getMonth(),1);cur=nk;save();document.getElementById('dlg').close();R();toast((RD?'휴식 삭제 · ':'')+'저장했어요')}
 function delEv(){const id=E.id,w=wk(curK());if(id=='work'){matWk(w.cond);delete w.cond.wk[E.di]}else delIt0(w,w.items.find(i=>i.id==id));save();document.getElementById('dlg').close();R();toast('삭제했어요')}
 function yAdd(id){const y=S.yoga.find(x=>x.id==id),t=new Date();t.setHours(0,0,0,0);t.setDate(t.getDate()+(y.day-((t.getDay()+6)%7)+7)%7);
- dropRest(wk(key(mon(t))),y.day);wk(key(mon(t))).items.push({id:uid(),u:1,add:1,status:'todo',day:y.day,time:y.time,dur:1.17,type:y.name.includes('플라잉')?'flying':'yoga',part:'',place:'대전 죽동 STELLA YOGA',min:'',memo:y.name});
+ dropRest(wk(key(mon(t))),y.day);wk(key(mon(t))).items.push({id:uid(),u:1,add:1,status:'todo',day:y.day,time:y.time,dur:1.17,type:y.name.includes('플라잉')?'flying':'yoga',part:'',place:PLC('yoga'),min:'',memo:y.name});
  save();tab='month';msel=key(t);cur=key(mon(t));mc=new Date(t.getFullYear(),t.getMonth(),1);R();openDay();toast(`${t.getMonth()+1}월 ${t.getDate()}일 타임테이블에 추가했어요`)}
 wgBoot=true;load();cur=key(mon(new Date()));if(!wk(cur).items.length)generate(cur);R();wgBoot=false;wgSync();
 </script></body></html>
