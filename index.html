@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MY BALANCE – Weekly Fitness Planner</title>
+<title>MY BALANCE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--primary:#ff385c;--press:#611f69;--tint:#592466;--link:#1264a3;--cream:#f4ede4;--lav:#f9f0ff;--lav-d:#efdcfb;--line:#e6e6e6;--ink:#1d1d1d;--mut:#696969;--err:#cc4117;--ok:#007a5a;--mute-on:#d9bdde;--bg:#fff;--card:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -134,6 +134,44 @@ dialog#ckDlg{width:min(400px,96vw);max-height:92vh;padding:0;overflow:hidden}
 .mcd{min-height:54px;border:1px solid var(--line);border-radius:10px;padding:4px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
 .mcd>span{font-size:12px;line-height:1.1;color:var(--mut)}.mcd.has>span{color:var(--ink);font-weight:600}.mcd.today{box-shadow:inset 0 0 0 1.5px var(--ink)}
 .mdots{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;max-width:100%}.mdots i{display:block;width:9px;height:9px;border-radius:50%}
+/* ===== 주간 일정 (요약 · 카드 · 상세) ===== */
+.wsbar{display:flex;align-items:center;gap:8px;margin:4px 0 16px}.wsbar b{flex:1;text-align:center;font-size:17px;letter-spacing:-.2px}.wsbar b small{display:block;font-size:12px;font-weight:700;color:var(--primary)}
+.wsum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:20px}
+.wst{background:var(--cream);border-radius:14px;padding:14px 16px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.wst>small{font-size:12px;color:var(--mut)}.wst>b{font-size:24px;line-height:1.25;letter-spacing:-.2px}.wst>span{font-size:12px;color:var(--mut)}
+.wsk{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:2px}.wsk span{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600}.wsk i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.wst .wsb{align-self:flex-start;font-size:13px;padding:3px 12px}.wst button{align-self:flex-start;margin-top:6px}
+.wsg{display:grid;grid-template-columns:1fr;gap:12px}
+@media(max-width:699px){.wsum{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.wsum .wst:nth-child(2){grid-column:1/-1;order:3}.wsum .wst:nth-child(3){order:2}.wsum .wst:nth-child(4){grid-column:1/-1;order:4}.wst{padding:12px 14px}.wst>b{font-size:22px}}
+@media(min-width:700px){.wsg{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:1100px){.wsg{grid-template-columns:repeat(7,minmax(0,1fr))}}
+.wsc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 12px;cursor:pointer;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:120px;transition:box-shadow .15s,border-color .15s}
+.wsc:hover{box-shadow:rgba(0,0,0,.02) 0 0 0 1px,rgba(0,0,0,.04) 0 2px 6px,rgba(0,0,0,.1) 0 4px 8px}
+.wsc.today{border-color:var(--primary);box-shadow:inset 0 0 0 1px var(--primary)}.wsc.dro{background:var(--lav);border-color:var(--primary)}
+.wsh{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}.wsd b{font-size:20px;line-height:1.2;letter-spacing:-.2px}.wsd span{display:block;font-size:12px;color:var(--mut);margin-top:1px}
+.wsb{font-size:11px;font-weight:700;padding:2px 9px;border-radius:90px;white-space:nowrap;flex:none;display:inline-block}
+.wsb.fix{background:#e3f3ec;color:#17724f}.wsb.plan{background:#eaf1fb;color:#2f5f9e}.wsb.chg{background:#fff1dc;color:#9a5a00}.wsb.rest{background:#f1f1f1;color:var(--mut)}
+.wsl{display:flex;flex-direction:column;gap:12px;min-width:0}
+.wsi{border-left:3px solid var(--tc,#ccc);padding-left:9px;min-width:0}.wsi[draggable=true]{cursor:grab}
+.wsn{font-weight:700;font-size:14px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wsi.dn .wsn{text-decoration:line-through;opacity:.6}
+.wss{font-size:12px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wsp{font-size:12px;color:var(--mut);margin-top:3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.wsmore{font-size:12px;color:var(--mut)}
+.wsleg{margin:14px 0 0;font-size:12px;color:var(--mut);line-height:1.6}
+.wsmsg{background:var(--lav);border-radius:12px;padding:10px 16px;margin:16px 0;font-size:14px}.wsmsg summary{cursor:pointer;font-weight:700}.wsmsg p{margin:4px 0}
+.wsplan{margin:16px 0 8px;border:1px solid var(--line);border-radius:14px;padding:0 16px 8px}.wsplan>summary{cursor:pointer;padding:14px 0;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px}.wsplan>summary::-webkit-details-marker{display:none}
+.wsplan>summary::after{content:'';flex:none;width:8px;height:8px;border-right:2px solid var(--primary);border-bottom:2px solid var(--primary);transform:rotate(45deg);transition:transform .2s}.wsplan[open]>summary::after{transform:rotate(-135deg)}
+.wsempty{background:var(--cream);border-radius:14px;padding:24px;text-align:center;color:var(--mut);font-size:14px;margin-bottom:8px}
+dialog#wdDlg{width:min(460px,96vw);max-height:92vh;padding:0;overflow:hidden}
+@media(max-width:600px){dialog#wdDlg{width:100vw;max-width:100vw;max-height:92vh;margin:auto 0 0 0;border-radius:16px 16px 0 0}}
+.wdi{border:1px solid var(--line);border-left:4px solid var(--tc,#ccc);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.wdi h4{margin:0;font-size:16px;line-height:1.4;overflow-wrap:anywhere}.wdr{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.wdk{display:grid;grid-template-columns:64px 1fr;gap:6px 10px;font-size:13px;margin:10px 0 0}.wdk dt{color:var(--mut)}.wdk dd{margin:0;overflow-wrap:anywhere}
+.wda{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.wda select{font-size:12.5px;min-height:32px;padding:4px 8px}
+.wdf{display:flex;gap:8px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);flex:none}.wdf button{flex:1;padding:12px 16px}
+.wdc{margin:0 0 4px;padding-left:16px}.wdc li{margin:2px 0}
+.wswhy ul{margin:0 0 12px;padding-left:18px;font-size:13.5px;line-height:1.7}.wswhy li{margin:2px 0}
+@media(prefers-reduced-motion:reduce){.wsc,.wsplan>summary::after{transition:none}}
 .mcs{position:absolute;inset:0;display:flex;flex-direction:column-reverse;border-radius:8px 8px 0 0;overflow:hidden}.mcs i{display:block;flex:none;width:100%}
 .mcv{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);margin-bottom:3px;font-size:12px;font-weight:700;white-space:nowrap;color:var(--ink)}.mcv small{font-weight:400;color:var(--mut);font-size:10px}
 .mcv.mz{position:static;transform:none;align-self:flex-end;margin:0 0 3px;color:var(--mut);font-weight:400}
@@ -238,13 +276,50 @@ details.cat2[open]>summary{border-bottom:1px solid var(--line)}
 .bz{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-left:4px solid #e0a64f;border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fafafa}
 .bz select{flex:none}.bz input[type=text]{flex:1;min-width:120px}
 </style>
-</head><body><div class="hero"><div class="wrap">
-<button class="gear" onclick="openSet()" aria-label="설정" title="설정"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
-<header><h1>MY BALANCE<small>Weekly Fitness Planner</small></h1><div class="row"><span id="range" class="mut"></span><button class="pri" onclick="nextWeek()">다음 주 운동 일정 만들기</button></div></header>
-</div></div>
-<div class="wrap"><nav class="tabs" id="tabs"></nav><main id="main"></main>
-<dialog id="dlg"></dialog><dialog id="dayDlg"></dialog><dialog id="timeDlg"></dialog><dialog id="ckDlg"></dialog><dialog id="setDlg" aria-label="설정"></dialog><div class="toast" id="toast"></div></div>
-<footer class="foot"><div class="wrap"><h2>다음 주 운동 일정, 미리 짜 두세요</h2><p>근무·PT·요가 시간표와 컨디션을 입력하면 한 주 일정을 만들어 드려요.</p><button class="out" onclick="nextWeek()">다음 주 운동 일정 만들기</button><p class="legal">모든 데이터는 이 브라우저에만 저장돼요.</p></div></footer>
+<style>
+/* ===== 일정 편집: 고정 · 완료 · 재생성 · 휴식 전환 ===== */
+.toast{width:max-content;max-width:90vw;text-align:center;white-space:normal}
+.wsr{display:flex;align-items:center;justify-content:space-between;gap:4px}.wsr .wsn{flex:1;min-width:0}.wsic{display:flex;gap:2px;flex:none}
+button.ic{padding:0;min-height:0;width:28px;height:28px;border-radius:50%;box-shadow:none;background:transparent;font-size:13px;line-height:1;opacity:.4;display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+button.ic:hover{opacity:1;background:#f2f2f2}button.ic.on{opacity:1;background:#fff1f3;box-shadow:inset 0 0 0 1px var(--primary)}
+button.ic.ck.on{background:var(--ok);color:#fff;box-shadow:none}
+.wsi.dn{border-left-color:var(--ok)}.wsc.alld{background:#f3faf6;border-color:#b9dcc8}
+.wdi.dn{background:#f3faf6;border-left-color:var(--ok)}
+.wsbar2{height:6px;border-radius:9999px;background:#e6e6e6;overflow:hidden;margin-top:4px}.wsbar2 i{display:block;height:100%;background:var(--ok);border-radius:9999px;transition:width .25s}
+.wspc{font-size:14px;font-weight:700;color:var(--ok)}
+.wsbal p{margin:4px 0}
+@media(prefers-reduced-motion:reduce){.wsbar2 i{transition:none}}
+</style>
+<style>
+:root{--primary:#ff385c;--press:#e31c5f;--lav:#fff1f3;--lav-d:#ffe0e5;--cream:#f7f7f7;--tint:#c9c9c9;--ink:#222;--mut:#6a6a6a;--line:#ebebeb;padding:0}
+body{background:#fff;padding-bottom:40px}
+button{background:#f7f7f7;min-height:44px;padding:10px 20px;font-weight:600;box-shadow:inset 0 0 0 1px var(--line)}button:hover{background:#efefef}
+button.pri{background:var(--primary);box-shadow:none}button.pri:hover{background:var(--press)}button.ghost{background:#fff}button.sm{min-height:36px;padding:6px 14px}
+.top{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:10px 20px;padding-top:calc(10px + env(safe-area-inset-top,0px))}
+.logo{font-weight:800;font-size:20px;color:var(--primary);letter-spacing:-.3px}.nv{display:flex;gap:4px;margin:0 auto}.nv button{background:none;box-shadow:none;color:var(--mut);padding:10px 20px}.nv button.on{background:#f7f7f7;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}.ics{display:flex;gap:6px}.ico{min-width:44px;padding:0;font-size:20px;border-radius:50%;background:#fff}
+main{margin-top:16px}h2.pg,h3.pg{margin:8px 0 12px}
+.bar b{font-size:20px}.bar button{min-width:44px}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--mut);margin:0 0 12px}.lg .dot{margin-right:4px}
+.cal{gap:4px}.cd{min-height:104px;padding:6px 8px;border-radius:12px;font-size:11px}.cd b{font-size:14px;display:inline-block}.cd.t b{background:var(--primary);color:#fff;border-radius:50%;min-width:24px;text-align:center;padding:1px 4px}.cd:hover{background:#fafafa}
+.cd .wk{display:block;font-size:10px;color:var(--mut);font-style:normal;margin-top:1px}.mc{font-size:11px;padding:1px 6px;margin-top:3px}
+dialog.sh{padding:0;border:0;border-radius:20px;width:min(520px,100vw);max-height:92vh;overflow:hidden}dialog.sh.wide{width:min(680px,100vw)}.sh .dd{max-height:92vh}.ddh button{min-width:44px}
+.xl0{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.xr{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 14px;border:1px solid var(--line);border-left:6px solid var(--c);border-radius:14px;min-height:64px}.xr.dn .xi b{text-decoration:line-through;opacity:.6}
+.xk{display:flex;padding:8px 4px}.xk input{width:26px;height:26px}.xi{flex:1;min-width:0;cursor:pointer;padding:6px 0}.xi b{display:block}.xi small{color:var(--mut);font-size:13px}.xr .ic{width:44px;height:44px;opacity:.6;font-size:18px}
+.xf{display:flex;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);flex:none}.xf button{flex:1;min-height:52px;font-size:16px}
+.xl{font-weight:700;font-size:16px;margin:20px 0 8px}.xl:first-child{margin-top:4px}.xs{margin:12px 0 6px;font-size:13px;color:var(--mut)}
+.sh .pk button{min-height:52px;padding:10px 6px;font-size:15px}.sh .pk.big button{min-height:64px;font-size:17px}
+.xin{width:100%;margin:8px 0;min-height:48px;font-size:16px}.xa{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:15px;min-height:44px}.xa input{width:22px;height:22px}
+.xtm{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}.xtm small{color:var(--mut)}.xtm input{width:100%;min-height:48px;font-size:18px;font-weight:700;margin:2px 0 6px}
+#xsum{font-weight:700;color:var(--primary);margin:6px 0}.xt .tl.sm{width:100%;margin:6px 0 0}.xt .tl.sm .tll div{height:36px}.xt .tl.sm .tlb{height:648px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,var(--line) 35px,var(--line) 36px)}.xt .tb{pointer-events:none;opacity:.5}.xt .tb .ck{display:none}
+.xd{margin:10px 0}.xd summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600}
+.toast[popover]{border:0;margin:0;inset:auto auto calc(24px + env(safe-area-inset-bottom,0px)) 50%;overflow:visible}
+@media(max-width:700px){.top{padding:8px 14px}.nv{position:fixed;left:0;right:0;bottom:0;z-index:6;margin:0;background:#fff;border-top:1px solid var(--line);padding:6px 10px calc(6px + env(safe-area-inset-bottom,0px))}.nv button{flex:1;padding:10px 4px}body{padding-bottom:84px}.top .ics{margin-left:auto}.cd{min-height:78px;padding:3px 4px}.mc{font-size:9.5px;padding:0 3px}.cd .wk{font-size:9px}dialog.sh{width:100vw;max-width:100vw;margin:auto 0 0;border-radius:20px 20px 0 0;max-height:94vh}.sh .dd{max-height:94vh}}
+</style>
+</head><body>
+<header class="top"><span class="logo">MY BALANCE</span><nav class="nv" id="tabs"></nav><span class="ics"><button class="ico" onclick="xBk('data')" aria-label="데이터 백업·복원" title="데이터 백업·복원">💾</button><button class="ico" onclick="xBk('sync')" aria-label="기기 간 일정 공유" title="기기 간 일정 공유">🔄</button></span></header>
+<main class="wrap" id="main"></main>
+<dialog id="sh" class="sh"></dialog><dialog id="bk" class="sh"></dialog><dialog id="dlg"></dialog><div class="toast" id="toast" popover="manual"></div>
 <script>
 const D=['월','화','수','목','금','토','일'];
 const T={weight:['웨이트','#e3ecdf'],pt:['PT','#cfe1c8'],pilates:['필라테스','#ffe8d6'],flying:['플라잉요가','#e9d8ff'],yoga:['일반 요가','#f4dff0'],cardio:['유산소','#f4ede4'],rest:['휴식','#efefef'],work:['근무','#dfe3ea'],personal:['개인 일정','#f6edc8']};
@@ -261,11 +336,11 @@ const AM=[['플라잉 0/1','센트모션요가'],['골반테라피','비트 1/2'
 const PM=[['비트 1/2','센트모션요가','경추테라피'],['플라잉 0','아쉬탕가 0','플라잉 1/2'],['아쉬탕가 0','하타 AD','아쉬탕가 1'],['센트모션요가','플라잉 1','골반테라피'],['하타 AD','골반테라피',null]];
 function defYoga(){const y=[];AM.forEach((r,d)=>r.forEach((n,i)=>y.push({id:uid(),day:d,time:['09:30','10:40'][i],name:n})));PM.forEach((r,d)=>r.forEach((n,i)=>n&&y.push({id:uid(),day:d,time:['18:30','19:40','20:50'][i],name:n})));return y}
 function defS(){return{pt:[{day:0,time:'18:00',part:'하체'},{day:2,time:'18:00',part:'등'}],ptd:{time:'18:00',min:60,part:'하체'},wt:{time:'',dur:1},pil:{time:'10:00',wtime:'19:00',min:60,part:'코어'},cardio:defCardio(),yoga:defYoga()}}
-const defC=()=>({wk:{0:[7,16],1:[7,16],2:[7,16],3:[7,16],4:[7,16]},ds:{},pst:{},pl:[],c:'좋음',sw:'없음',so:'없음',sl:'좋음',note:'',busy:[],rest:[6],late:[],simple:false,xy:false,shift:'A'});
-let S,W,cur,tab='month',EDONE=false,UI={gen:false};
+const defC=()=>({wk:{},ds:{},pst:{},pl:[],c:'좋음',sw:'없음',so:'없음',sl:'좋음',note:'',busy:[],rest:[6],late:[],simple:false,xy:false,shift:'A'});
+let S,W,cur,tab='month',EDONE=false,UI={gen:false,pl:{}};
 function load(){try{const o=JSON.parse(localStorage.getItem(K));if(o&&o.S&&o.W){S=o.S;W=o.W;normS();return}}catch(e){}S=defS();normS();W={}}
 function save(){try{localStorage.setItem(K,JSON.stringify({S,W}));if(!wgBoot&&wgCfg())localStorage.setItem('mb-rev',String(Date.now()));wgSched()}catch(e){toast('저장 공간을 확인해 주세요')}}
-function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1800)}
+let toastT=null;function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('on'),Math.max(1800,Math.min(5000,String(t).length*70)))}
 const mon=d=>{const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return x};
 const key=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const parse=k=>{const[a,b,c]=k.split('-').map(Number);return new Date(a,b-1,c)};
@@ -339,21 +414,27 @@ function gen(c){
  for(let d=0;d<7;d++)if(!I.some(i=>i.day==d)&&!busy.has(d))add({day:d,type:'rest',status:'rest',memo:d==6?'기본 휴식일 · 가벼운 산책 선택':'회복 · 가벼운 산책 선택'});
  return{items:I,msgs:M}}
 function generate(k,full){const w=wk(k),_pl=plan(w.cond),pd=[...new Set(w.items.filter(i=>i.type=='personal'&&(!i.time||(st0(i)<22&&st0(i)+durOf(i)>17))).map(i=>i.day))],r=gen(Object.assign({},w.cond,{busy:[...new Set([...w.cond.busy,...pd])]})),M=r.msgs;
- const keep=full?[]:w.items.filter(i=>i.u||i.status=='done'||i.status=='chg'||(i.status=='rest'&&i.type!='rest'));
- if(full)w.del=[];const del=w.del||[];
- let gi=r.items.filter(n=>!del.some(x=>x.day==n.day&&x.type==n.type));
+ const pinA=w.items.filter(i=>i.pin&&isEx(i)),keep=full===true?pinA:full==='all'?w.items.filter(i=>(i.pin&&isEx(i))||i.status=='done'||(i.type=='rest'&&i.u)||i.type=='personal'):w.items.filter(i=>i.u||i.pin||i.status=='done'||i.status=='chg'||(i.status=='rest'&&i.type!='rest'));
+ if(full){w.del=[];w.fx={}}const del=w.del||[];
+ if(full===true)w.mvOut=[];const mo=w.mvOut||[];let gi=r.items.filter(n=>!del.some(x=>x.day==n.day&&x.type==n.type)&&!mo.some(x=>x.day==n.day&&x.type==n.type&&(n.type!='cardio'||x.part==(n.part||''))));
  keep.forEach(o=>{if(o.type=='rest')return;let ix=gi.findIndex(n=>n.type==o.type&&n.day==(o.od??o.day));if(ix<0)ix=gi.findIndex(n=>n.type==o.type&&n.day==o.day);if(ix>=0)gi.splice(ix,1)});
  const ur=keep.filter(o=>o.type=='rest'&&o.u).map(o=>o.day);
  if(ur.length)M.push('휴식일로 직접 지정하신 요일('+ur.map(d=>D[d]).join('·')+')에는 새 운동을 넣지 않았어요.');
  gi=gi.filter(n=>!ur.includes(n.day)&&!(n.type=='rest'&&keep.some(o=>o.day==n.day)));
+ const pk=keep.filter(o=>o.pin&&isEx(o));
+ if(pk.length){const b0=gi.length;gi=gi.filter(n=>!(isWt(n)&&pk.some(o=>isWt(o)&&o.day==n.day))&&!(n.type=='pilates'&&pk.some(o=>o.type=='pt'&&o.day==n.day))&&!(n.type=='pt'&&pk.some(o=>o.type=='pilates'&&o.day==n.day)));
+  if(gi.length<b0)M.push('고정된 일정과 같은 날 겹치는 PT·웨이트·필라테스는 새로 넣지 않았어요.');
+  let mv=0;gi.forEach(n=>{if(n.time&&shiftOver(n,pk))mv++});if(mv)M.push(`고정된 일정과 시간이 겹치는 ${mv}개는 고정 일정 뒤로 옮겼어요.`);
+  pk.forEach(o=>{const x=wkh(w.cond,o.day);if(x&&o.time&&st0(o)<x[1]&&st0(o)+durOf(o)>x[0])M.push(`고정된 ${D[o.day]}요일 ${nmOf(o)}이(가) 근무시간(${x[0]}~${x[1]}시)과 겹쳐요.`);if((w.cond.rest||[]).includes(o.day))M.push(`${D[o.day]}요일은 휴식일로 지정했지만 고정 일정이 있어 그대로 두었어요.`)});
+  M.push(`고정한 일정 ${pk.length}개는 그대로 유지했어요.`)}
  const ku=keep.filter(o=>o.u).length;if(ku)M.push(`직접 수정·추가하신 일정 ${ku}개는 그대로 유지했어요.`);
  if(del.length)M.push('이전에 삭제하신 일정('+del.map(x=>D[x.day]+' '+T[x.type][0]).join(', ')+')은 다시 만들지 않았어요. 되돌리려면 "처음부터 새로 생성"을 누르세요.');
- w.items=[...keep,...gi];w.msgs=M;S.pt=Object.keys(w.cond.plan.pt).map(d=>{const p=w.cond.plan.pt[d];return{day:+d,time:TRE.test(p.time)?p.time:'18:00',part:PTPARTS.includes(p.part)?p.part:'하체',min:[30,45,60,90,120].includes(+p.min)?+p.min:60}});save()}
+ w.items=[...keep,...gi];w.msgs=M;ppFix(w,M);S.pt=Object.keys(w.cond.plan.pt).map(d=>{const p=w.cond.plan.pt[d];return{day:+d,time:TRE.test(p.time)?p.time:'18:00',part:PTPARTS.includes(p.part)?p.part:'하체',min:[30,45,60,90,120].includes(+p.min)?+p.min:60}});save()}
 /* ---------- 화면 ---------- */
 const TABS=[['month','월간 달력'],['set','운동 설정'],['yoga','요가 시간표'],['log','운동 기록']];
 function R(){document.getElementById('tabs').innerHTML=TABS.filter(t=>t[0]!='yoga').map(t=>`<button class="${(tab==t[0]||(tab=='yoga'&&t[0]=='set'))?'on':''}" onclick="tab='${t[0]}';R()">${t[1]}</button>`).join('');
  const s=parse(cur),e=parse(addD(cur,6));document.getElementById('range').textContent=`${s.getFullYear()}.${md(s)} ~ ${md(e)}`;
- document.getElementById('main').innerHTML={month:vMonth,set:vSet,yoga:vYoga,log:vLog}[tab]();if(tab=='month')document.getElementById('range').textContent=mc.getFullYear()+'년 '+(mc.getMonth()+1)+'월';if(document.getElementById('dayDlg').open)renderDay();if(document.getElementById('timeDlg').open)renderTime();if(document.getElementById('ckDlg').open)renderCk();if(document.getElementById('setDlg').open)renderSet()}
+ document.getElementById('main').innerHTML={month:vMonth,set:vSet,yoga:vYoga,log:vLog}[tab]();if(tab=='month')document.getElementById('range').textContent=mc.getFullYear()+'년 '+(mc.getMonth()+1)+'월';if(document.getElementById('dayDlg').open)renderDay();if(document.getElementById('timeDlg').open)renderTime();if(document.getElementById('wdDlg').open)renderWd();if(document.getElementById('ckDlg').open)renderCk();if(document.getElementById('setDlg').open)renderSet()}
 function stats(w){const dn=t=>w.items.filter(i=>i.type==t&&i.status=='done').length;
  return{weight:dn('weight'),pt:dn('pt'),pil:dn('pilates'),yoga:dn('flying')+dn('yoga'),cardio:w.items.filter(i=>i.type=='cardio'&&i.status=='done').reduce((a,i)=>a+(+i.min||0),0),rest:new Set(w.items.filter(i=>i.type=='rest'||i.status=='rest').map(i=>i.day)).size}}
 const statHtml=w=>{const t=stats(w);return`<div class="stats">${[['웨이트',t.weight+'회'],['PT',t.pt+'회'],['필라테스',t.pil+'회'],['요가',t.yoga+'회'],['유산소',t.cardio+'분'],['휴식일',t.rest+'일']].map(x=>`<div class="stat"><b>${x[1]}</b><span>${x[0]}</span></div>`).join('')}</div>`};
@@ -362,9 +443,9 @@ function nav(n){cur=addD(cur,7*n);msel=addD(msel,7*n);const d=parse(msel);mc=new
 function secGo(id){const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}
 function openSec(n){tab='month';UI[n]=true;R();secGo('sec-'+n)}
 
-function openPlan(){openSec('gen')}
+function openPlan(){xGen()}
 function nextWeek(){cur=addD(key(mon(new Date())),7);msel=cur;const nd=parse(cur);mc=new Date(nd.getFullYear(),nd.getMonth(),1);const w=wk(cur);if(!w.items.length){const pc=wk(key(mon(new Date()))).cond;w.cond.shift=pc.shift;if(pc.wk)w.cond.wk=JSON.parse(JSON.stringify(pc.wk))}openPlan()}
-function genNow(full){if(full&&!confirm('이 주의 수정·완료 기록까지 모두 지우고 처음부터 새로 만들까요?'))return;generate(cur,full);tab='month';R();toast('일정을 생성했어요')}
+function genNow(full){if(full&&!confirm('이 주의 수정·완료 기록까지 모두 지우고 처음부터 새로 만들까요?\n(📌 고정한 일정은 유지돼요)'))return;generate(cur,full);(UI.pl=UI.pl||{})[cur]=false;tab='month';xGenClose();R();toast('일정을 생성했어요')}
 function regen(){genNow(false)}function resetWeek(){genNow(true)}
 function setDs(d,v){const c=wk(cur).cond;c.ds=c.ds||{};v?c.ds[d]=v:delete c.ds[d];save()}
 function setPs(i,el){const c=wk(cur).cond;c.pst=c.pst||{};c.pst[i]=el.value;if(el.value.trim()&&!c.busy.includes(i)){c.busy.push(i);el.closest('.row').querySelector('input').checked=true}save()}
@@ -384,7 +465,7 @@ const PTPARTS=['하체','둔근','등','어깨','상체','전신','코어'];
 const DEFPL={pt:'월평동 헬스장',weight:'월평동 헬스장',cardio:'월평동 헬스장',pilates:'월평동 헬스장',yoga:'대전 죽동 STELLA YOGA'};
 const PLC=t=>(S&&S.places&&S.places[t])||DEFPL[t];
 function plSet(t,v){if(!DEFPL[t])return;S.places[t]=String(v).trim().slice(0,30)||DEFPL[t];save();R()}
-const plInp=t=>`<label style="grid-column:1/-1">운동 장소<input type="text" maxlength="30" value="${esc(PLC(t))}" onchange="plSet('${t}',this.value)"></label>`;
+const plInp=t=>``;
 const TRE=/^\d{2}:\d{2}$/;
 function normS(){const d=defCardio();S.cardio=S.cardio&&typeof S.cardio=='object'?S.cardio:defCardio();
  Object.keys(S.cardio).forEach(k=>{if(!/^[A-Za-z0-9]{1,12}$/.test(k)||!S.cardio[k]||typeof S.cardio[k]!='object'){delete S.cardio[k];return}const c=S.cardio[k],b=d[k]||{};c.name=String(c.name||b.name||'유산소').slice(0,20);c.place=typeof c.place=='string'?c.place.trim().slice(0,30):'';c.time=TRE.test(c.time)?c.time:(b.time||'20:00');c.min=Math.min(120,Math.max(5,Math.round(+c.min)||b.min||20))});
@@ -407,7 +488,7 @@ function cdSet(k,f,v){const c=S.cardio[k];if(!c)return;const d=defCardio()[k]||{
  else if(f=='place')c.place=String(v).trim().slice(0,30);
  else c.time=TRE.test(v)?v:(d.time||'20:00');
  save();R()}
-function cdAdd(){const nm=(document.getElementById('cd_n').value||'').trim().slice(0,20),pl=(document.getElementById('cd_p').value||'').trim().slice(0,30);
+function cdAdd(){const nm=(document.getElementById('cd_n').value||'').trim().slice(0,20),pl=((document.getElementById('cd_p')||{}).value||'').trim().slice(0,30);
  if(!nm)return toast('유산소 운동 이름을 입력해 주세요');
  if(Object.keys(S.cardio).length>=12)return toast('유산소 종류는 최대 12개까지예요');
  if(Object.values(S.cardio).some(c=>c.name==nm))return toast('같은 이름의 유산소가 이미 있어요');
@@ -427,9 +508,9 @@ function wtSet(f,v){const w=S.wt;
  else if(f=='dur'){const n=+v;if([.5,.75,1,1.5,2].includes(n))w.dur=n}
  save();R()}
 function cdEdit(k){const x=S.cardio[k];
- return `<div class="cdedit"><div class="ptch"><b>${esc(x.name)}</b><button class="sm ghost" onclick="cdDel('${k}')">삭제</button></div><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" maxlength="20" value="${esc(x.name)}" onchange="cdSet('${k}','name',this.value)"></label><label style="grid-column:1/-1">운동 장소<input type="text" maxlength="30" value="${esc(x.place||PLC('cardio'))}" placeholder="예: 월평동 헬스장, 집, 공원" onchange="cdSet('${k}','place',this.value)"></label></div></div>`}
+ return `<div class="cdedit"><div class="ptch"><b>${esc(x.name)}</b><button class="sm ghost" onclick="cdDel('${k}')">삭제</button></div><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" maxlength="20" value="${esc(x.name)}" onchange="cdSet('${k}','name',this.value)"></label></div></div>`}
 function cdBox(){const c=S.cardio,ks=Object.keys(c),sel=c[UI.cdSel]?UI.cdSel:(ks[0]||'');
- let h=`<section class="sub"><h3>유산소 종류 추가<small>직접 입력해서 등록해요</small></h3><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" id="cd_n" maxlength="20" placeholder="예: 러닝머신 걷기, 실내 자전거, 계단 오르기" onkeydown="if(event.key=='Enter')cdAdd()"></label><label style="grid-column:1/-1">운동 장소<input type="text" id="cd_p" maxlength="30" value="${esc(PLC('cardio'))}" placeholder="예: 월평동 헬스장, 집, 공원"></label></div><div class="row" style="margin-top:8px"><button class="sm" onclick="cdAdd()">+ 추가</button></div></section>`;
+ let h=`<section class="sub"><h3>유산소 종류 추가<small>직접 입력해서 등록해요</small></h3><div class="f"><label style="grid-column:1/-1">운동 이름<input type="text" id="cd_n" maxlength="20" placeholder="예: 러닝머신 걷기, 실내 자전거, 계단 오르기" onkeydown="if(event.key=='Enter')cdAdd()"></label></div><div class="row" style="margin-top:8px"><button class="sm" onclick="cdAdd()">+ 추가</button></div></section>`;
  h+=`<section class="sub"><h3>등록된 유산소<small>${ks.length?'눌러서 선택하고 수정해요':''}</small></h3>`+(ks.length?`<div class="cdchips">${ks.map(k=>`<button class="cdchip ${k==sel?'on':''}" onclick="cdSel('${k}')">${esc(c[k].name)}</button>`).join('')}</div>${cdEdit(sel)}`:'<p class="mut" style="margin:0">등록된 유산소가 없어요. 위에서 직접 입력해 추가해 주세요.</p>')+`</section>`;
  return h}
 function pilBox(){const p=S.pil,tf=(f,l)=>`<label>${l}<select onchange="pilSet('${f}',this.value)">${T30.map(t=>`<option value="${t}" ${p[f]==t?'selected':''}>${t}</option>`).join('')}</select></label>`;
@@ -445,9 +526,8 @@ function setCats(){const ks=Object.values(S.cardio).map(c=>c.name),lab={pt:'PT',
   ['weight','#6fae85','개인 웨이트',`${S.wt.time||'근무 후 자동'} · ${Math.round(S.wt.dur*60)}분`,wtBox()],
   ['pilates','#f2a65a','필라테스',`평일 ${S.pil.wtime} · 주말 ${S.pil.time} · 1시간`,pilBox()],
   ['cardio','#5ea3d8','유산소',ks.length?ks.join(' · '):'등록된 운동 없음',cdBox()],
-  ['yoga','#8f6fe0','요가',`시간표에 수업 ${S.yoga.length}개`,`<p class="mut" style="margin:0 0 10px">요가는 시간표의 수업을 요일별로 골라 쓰니까, 수업 시간표를 먼저 정리해 두세요.</p><div class="row"><button class="sm" onclick="tab='yoga';R();window.scrollTo(0,0)">요가 시간표 보기 ›</button></div>`],
-  ['place','#9a9a9a','운동 장소',['pt','weight','pilates','yoga'].map(t=>lab[t]+' '+PLC(t)).join(' · '),`<div class="f">${['pt','weight','pilates','yoga'].map(t=>`<label style="grid-column:1/-1">${lab[t]} 장소<input type="text" maxlength="30" value="${esc(PLC(t))}" onchange="plSet('${t}',this.value)"></label>`).join('')}</div><span class="hint">유산소 장소는 유산소 종류마다 따로 설정해요.</span>`]];
- return `<div class="setnav">${items.map(x=>`<button class="sm ghost" onclick="setGo('${x[0]}')"><i class="dot" style="background:${x[1]}"></i>${x[2]}</button>`).join('')}</div>`+`<p class="mut" style="margin:0 0 12px">운동 횟수는 따로 정하지 않아요. '다음 주 운동 일정 만들기'에서 매주 운동별로 요일을 고르면, 고른 요일 수만큼 일정이 만들어져요. 유산소는 웨이트·PT 요일에 선택해서 추가하고, 종류와 시간(분)은 그날마다 입력해요.</p>`+items.map(x=>catBox(x[0],x[1],x[2],x[3],x[4])).join('')}
+  ['yoga','#8f6fe0','요가',`시간표에 수업 ${S.yoga.length}개`,`<p class="mut" style="margin:0 0 10px">요가는 시간표의 수업을 요일별로 골라 쓰니까, 수업 시간표를 먼저 정리해 두세요.</p><div class="row"><button class="sm" onclick="tab='yoga';R();window.scrollTo(0,0)">요가 시간표 보기 ›</button></div>`]];
+ return `<div class="setnav">${items.map(x=>`<button class="sm ghost" onclick="setGo('${x[0]}')"><i class="dot" style="background:${x[1]}"></i>${x[2]}</button>`).join('')}</div>`+`<p class="mut" style="margin:0 0 12px">운동 횟수는 따로 정하지 않아요. 이 화면의 주간 일정에서 매주 운동별로 요일을 고르면, 고른 요일 수만큼 일정이 만들어져요. 유산소는 웨이트·PT 요일에 선택해서 추가하고, 종류와 시간(분)은 그날마다 입력해요.</p>`+items.map(x=>catBox(x[0],x[1],x[2],x[3],x[4])).join('')}
 function vSet(){return setCats()}
 function renderSet(){document.getElementById('setDlg').innerHTML=`<div class="dd"><div class="ddh"><b style="font-size:18px">설정</b><button class="sm" onclick="document.getElementById('setDlg').close()">닫기</button></div><div class="ddb">${wgCard()}${dataCard()}</div></div>`}
 function openSet(){renderSet();const d=document.getElementById('setDlg');if(!d.open)d.showModal()}
@@ -470,7 +550,103 @@ function cdSetDay(d,i,f,v){const P=plan(wk(cur).cond),x=(P.cd[d]||[])[i];if(!x)r
  if(f=='k'){if(S.cardio[v])x.k=v}else if(f=='min'){const n=Math.round(+v);if(!isNaN(n))x.min=Math.min(240,Math.max(5,n))}
  save();R()}
 function planSet(g,d,f,v){const P=plan(wk(cur).cond);if(g=='pt'){if(!P.pt[d])return;if(f=='time'&&!TRE.test(v))return;P.pt[d][f]=v}else if(g=='yoga')P.yoga[d]=v;else if(g=='pil'){if(T30.includes(v))P.pil[d]=v}save()}
-function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl||[];const P=plan(c);bzInit(c);
+
+/* ===== 다음 주 운동 일정: 요약 · 주간 카드 · 하루 상세 ===== */
+const WSK={fix:'확정',plan:'예정',chg:'미확정',rest:'휴식'};
+const fxSig=(w,d)=>w.items.filter(i=>i.day==d&&isEx(i)).map(i=>[i.type,i.time||'',i.dur||'',i.min||'',i.part||'',i.memo||'',i.place||''].join('|')).sort().join(';');
+function dayStat(w,d){if(!w.items.some(i=>i.day==d&&isEx(i)))return 'rest';const f=w.fx&&w.fx[d];if(f!=null)return f===fxSig(w,d)?'fix':'chg';return w.items.some(i=>i.day==d&&isEx(i)&&(i.u||i.status=='chg'))?'chg':'plan'}
+const nmOf=i=>i.type=='pt'?'PT'+(i.part?' · '+i.part:''):i.type=='weight'?'개인 웨이트'+(i.part?' · '+i.part:''):i.type=='pilates'?'필라테스':(i.type=='flying'||i.type=='yoga')?(i.memo||tn(i.type)):i.type=='cardio'?(i.part||'유산소'):i.type=='rest'?'휴식':tn(i.type);
+const trOf=i=>i.time?fmt(st0(i))+'–'+tv(st0(i)+durOf(i)):'시간 미정';
+const wsCol=i=>YC[i.type]||'#d6d6d6';
+const wsItems=(w,d)=>w.items.filter(i=>i.day==d&&isEx(i)).sort((a,b)=>(a.time||'99').localeCompare(b.time||'99'));
+let WD=0;
+
+const WCOMP={하체:[['스쿼트',4,'10회'],['레그프레스',3,'12회'],['루마니안 데드리프트',3,'10회'],['레그 컬',3,'12회']],
+ 둔근:[['힙 쓰러스트',4,'10회'],['불가리안 스플릿 스쿼트',3,'10회'],['케이블 킥백',3,'12회'],['힙 어브덕션',3,'15회']],
+ 등:[['랫 풀다운',4,'10회'],['시티드 로우',3,'12회'],['원암 덤벨 로우',3,'10회'],['페이스 풀',3,'15회']],
+ 어깨:[['숄더 프레스',4,'10회'],['사이드 레터럴 레이즈',3,'15회'],['리어 델트 플라이',3,'15회']],
+ 상체:[['랫 풀다운',3,'10회'],['덤벨 숄더 프레스',3,'10회'],['시티드 로우',3,'12회'],['체스트 프레스',3,'12회']],
+ 전신:[['고블릿 스쿼트',3,'12회'],['덤벨 로우',3,'12회'],['체스트 프레스',3,'12회'],['플랭크',3,'30초']],
+ 코어:[['플랭크',3,'30~45초'],['데드버그',3,'12회'],['버드독',3,'10회'],['크런치',3,'15회']]};
+function compOf(i){const lite=/가볍게/.test(i.memo||'');
+ if(isWt(i)){const a=WCOMP[i.part]||WCOMP['전신'];return{list:a.map(x=>x[0]+' '+(lite?Math.max(2,x[1]-1):x[1])+'세트 × '+x[2]),note:lite?'컨디션을 고려해 세트 수를 1세트씩 줄였어요.':(i.type=='pt'?'참고용 구성이에요. 실제 구성은 트레이너와 달라질 수 있어요.':'참고용 추천 구성이에요.')}}
+ if(i.type=='pilates')return{list:['워밍업·호흡 10분','코어·자세 중심 본 수업 40분','스트레칭 10분']};
+ if(i.type=='cardio'){const n=+i.min||30;return{list:n>=20?['워밍업 5분',(n-10)+'분 일정한 속도 (대화 가능한 강도)','쿨다운 5분']:[n+'분 가볍게 (대화 가능한 강도)']}}
+ if(i.type=='flying'||i.type=='yoga')return{list:['시간표 수업 참여','수업 후 가벼운 스트레칭 5분']};
+ if(i.type=='rest')return{list:['가벼운 산책 20~30분','스트레칭 10분']};
+ return{list:[]}}
+const compRow=i=>{const c=compOf(i);return c.list.length?`<dt>${isWt(i)?'운동 구성':'구성'}</dt><dd><ul class="wdc">${c.list.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${c.note?`<span class="mut">${esc(c.note)}</span>`:''}</dd>`:''};
+function whyOf(w){const c=w.cond,P=plan(c),L=[],its=w.items.filter(isEx),nm=a=>a.map(d=>D[d]).join('·'),relax=c.c=='피곤함'||c.sl=='부족';
+ const ptd=Object.keys(P.pt).map(Number).sort((a,b)=>a-b);
+ if(ptd.length)L.push(`PT는 직접 고른 ${nm(ptd)}요일에 먼저 고정하고, 나머지 운동을 PT 일정에 맞춰 배치했어요.`);
+ its.filter(i=>i.type=='weight'&&!i.u).sort((a,b)=>a.day-b.day).forEach(i=>{const nb=[i.day-1,i.day+1].flatMap(x=>its.filter(j=>j.day==x&&isWt(j)).map(j=>j.part));
+  const why=c.sw=='심함'?'하체 부종이 있어 상체 중심으로':nb.some(p=>/하체|둔근|전신/.test(p||''))?'앞뒤 날 하체 운동과 겹치지 않도록 상체 중심으로':nb.length?'앞뒤 날 운동과 이어지는 부위를 피해 둔근 중심으로':'앞뒤 날에 웨이트가 없어 전신으로';
+  L.push(`${D[i.day]}요일 개인 웨이트는 ${why} 구성했어요 (${i.part}).`)});
+ if(its.some(i=>i.type=='weight')){if(S.wt.time)L.push(`개인 웨이트 시작 시간은 운동 설정의 ${S.wt.time}을 사용했어요.`);else if([0,1,2,3,4,5,6].some(d=>wkh(c,d)))L.push('근무가 있는 날은 퇴근 후 1시간쯤 여유를 두고 시작하도록 시간을 잡았어요. 근무가 없는 날은 오전에 배치해요.')}
+ if(its.some(i=>i.type=='cardio'))L.push('유산소는 같은 날 PT·웨이트가 끝난 직후에 이어서 하도록 배치했어요. 시간(분)은 직접 입력한 값이에요.');
+ const yg=its.filter(i=>i.type=='flying'||i.type=='yoga');
+ if(yg.length)L.push(`요가·플라잉은 요가 시간표에서 고른 ${nm([...new Set(yg.map(i=>i.day))])}요일 수업으로 넣었어요.`+(relax?' 피곤하거나 수면이 부족하면 플라잉 대신 이완 수업으로 바꾸고, 바꾼 날은 "일정 안내"에 적어 둬요.':''));
+ if(its.some(i=>i.type=='pilates'))L.push('필라테스는 고른 요일에 1시간 수업(30분 단위 시작)으로 넣었어요.');
+ const rd=[0,1,2,3,4,5,6].filter(d=>!its.some(i=>i.day==d));
+ if(rd.length)L.push(`운동을 고르지 않은 ${nm(rd)}요일은 회복일로 두었어요. 쉬는 날이 있어야 근육 회복과 컨디션 관리에 좋아요.`);
+ if(c.c=='피곤함')L.push('컨디션이 피곤함이라 개인 웨이트 강도를 낮추도록 표시했어요.');
+ if(c.sl=='부족')L.push('수면이 부족해 개인 웨이트 강도를 낮추고 휴식·스트레칭을 권하도록 했어요.');
+ if(c.so=='심함')L.push('근육통이 심해 같은 부위 운동이 이어지지 않는지 확인하도록 안내했어요.');
+ const ed=w.items.filter(i=>i.u&&isEx(i)).length;
+ if(ed)L.push(`직접 수정·추가한 운동 ${ed}건은 일정을 다시 생성해도 그대로 유지돼요.`);
+ if(w.msgs&&w.msgs.length)L.push(`확인이 필요한 안내 ${w.msgs.length}건은 아래 "일정 안내"에 모아 두었어요.`);
+ return L}
+function vGen(){const w=wk(cur),today=key(new Date()),empty=!w.items.length;
+ const rate=weekRate(w),ex=[0,1,2,3,4,5,6].map(d=>wsItems(w,d)),sts=ex.map((l,d)=>dayStat(w,d));
+ const nEx=ex.reduce((a,l)=>a+l.length,0),nDays=sts.filter(x=>x!='rest').length,nFix=sts.filter(x=>x=='fix').length,nChg=sts.filter(x=>x=='chg').length;
+ const restD=[0,1,2,3,4,5,6].filter(d=>sts[d]=='rest'),flat=ex.reduce((a,l)=>a.concat(l),[]);
+ const kinds=LG.map(g=>[g,flat.filter(i=>g[1].includes(i.type)).length]).filter(x=>x[1]);
+ const wdiff=Math.round((parse(cur)-parse(key(mon(new Date()))))/6048e5),lbl={0:'이번 주',1:'다음 주','-1':'지난 주'}[wdiff]||'';
+ const rg=`${md(parse(cur))} ~ ${md(parse(addD(cur,6)))}`;
+ const dot=g=>g[1].length>1?`linear-gradient(90deg,${YC.pt} 50%,${YC.weight} 50%)`:YC[g[1][0]];
+ const fxLab=!nDays?'운동 없음':nFix==nDays?'확정 완료':nFix?'일부 확정':nChg?'확인 필요':'확정 전',fxCls=!nDays?'rest':nFix==nDays?'fix':nChg?'chg':'plan';
+ let h=`<summary><span>${lbl?lbl+' ':''}운동 일정 <span class="mut">${rg}</span></span></summary><div class="secb">`;
+ h+=`<div class="wsbar"><button onclick="nav(-1)" aria-label="이전 주">◀</button><b>${lbl?`<small>${lbl}</small>`:''}${rg}</b><button onclick="nav(1)" aria-label="다음 주">▶</button></div>`;
+ if(empty)h+=`<div class="wsempty">아직 이 주의 운동 일정이 없어요.<br>아래에서 운동할 요일을 고르고 “일정 생성”을 눌러 주세요.</div>`;
+ else{
+  h+=`<div class="wsum"><div class="wst"><small>주간 운동 · 완료율</small><b>${nEx}회 <span class="wspc">${rate.pct}%</span></b><span>완료 ${rate.dn}/${rate.n}회 · 운동하는 날 ${nDays}일</span><div class="wsbar2" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${rate.pct}"><i style="width:${rate.pct}%"></i></div></div>
+<div class="wst"><small>운동 종류</small>${kinds.length?`<div class="wsk">${kinds.map(([g,n])=>`<span><i style="background:${dot(g)}"></i>${esc(g[0])} ${n}</span>`).join('')}</div>`:'<b>-</b>'}</div>
+<div class="wst"><small>회복일</small><b>${restD.length}일</b><span>${restD.length?restD.map(d=>D[d]).join(' · '):'매일 운동'}</span></div>
+<div class="wst"><small>일정 확정</small><span class="wsb ${fxCls}">${fxLab}</span>${nDays?`<span>${nFix}/${nDays}일 확정${nChg?` · 수정됨 ${nChg}일`:''}</span>${nFix==nDays?`<button class="sm ghost" onclick="unfixWeek()">확정 해제</button>`:`<button class="sm pri" onclick="fixWeek()">이 주 일정 확정</button>`}`:''}</div></div>`;
+  const card=d=>{const k=addD(cur,d),dt=parse(k),l=ex[d],st=sts[d],pers=w.items.filter(i=>i.day==d&&i.type=='personal').length;let body;
+   if(st=='rest'){const r=w.items.find(i=>i.day==d&&i.type=='rest');body=`<div class="wsi" style="--tc:#d6d6d6"><div class="wsn">휴식</div><div class="wss">${esc((r&&r.memo&&r.memo!='휴식일 지정')?r.memo:'회복 · 가벼운 산책')}</div><div class="wsp">${esc(goalOf({type:'rest'}))}</div></div>`}
+   else body=l.slice(0,3).map((i,ix)=>`<div class="wsi ${i.status=='done'?'dn':''}" style="--tc:${wsCol(i)}" draggable="true" ondragstart="wsDrag(event,'${i.id}')" ondragend="wsClr()"><div class="wsr"><div class="wsn">${esc(nmOf(i))}</div><span class="wsic"><button class="ic${i.pin?' on':''}" aria-pressed="${!!i.pin}" aria-label="${i.pin?'고정 해제':'일정 고정'}" title="${i.pin?'고정됨 (눌러서 해제)':'고정'}" onclick="togglePin('${i.id}',event)" onkeydown="event.stopPropagation()">📌</button><button class="ic ck${i.status=='done'?' on':''}" aria-pressed="${i.status=='done'}" aria-label="${i.status=='done'?'완료 취소':'완료 체크'}" title="${i.status=='done'?'완료됨':'완료 체크'}" onclick="toggleDone('${i.id}',event)" onkeydown="event.stopPropagation()">✓</button></span></div><div class="wss">${esc(trOf(i))}${i.place?' · '+esc(i.place):''}</div>${ix==0?`<div class="wsp">${esc(goalOf(i))}</div>`:''}</div>`).join('')+(l.length>3?`<div class="wsmore">+${l.length-3}개 더 보기</div>`:'');
+   return `<div class="wsc ${k==today?'today':''} ${st!='rest'&&l.length&&l.every(i=>i.status=='done')?'alld':''}" role="button" tabindex="0" aria-label="${dt.getMonth()+1}월 ${dt.getDate()}일 ${D[d]}요일 ${WSK[st]}, 상세 보기" onclick="openWd(${d})" onkeydown="if(event.target===this&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openWd(${d})}" ondragover="event.preventDefault();this.classList.add('dro')" ondragleave="this.classList.remove('dro')" ondrop="wsDrop(event,${d})"><div class="wsh"><div class="wsd"><b>${D[d]}</b><span>${md(dt)}</span></div><span class="wsb ${st}">${WSK[st]}</span></div><div class="wsl">${body}</div>${pers?`<div class="wsmore">개인 일정 ${pers}건</div>`:''}</div>`};
+  h+=`<div class="wsg">${[0,1,2,3,4,5,6].map(card).join('')}</div>`;
+  h+=`<p class="wsleg"><b>확정</b> 내가 확정한 일정 · <b>예정</b> 자동으로 짠 일정(확정 전) · <b>미확정</b> 수정했거나 확정 후 바뀐 일정<br>카드를 누르면 상세 내용과 수정·이동을 할 수 있어요. 📌로 일정을 고정하면 재생성에서 제외되고, ✓로 완료를 체크해요. PC에서는 운동 줄을 다른 요일 카드로 끌어서 옮길 수 있고, 상세 화면에서 날짜를 골라 다른 주로도 옮길 수 있어요.</p>`;
+  h+=balHtml(w)+`<div class="row" style="margin-top:12px"><button onclick="regenAll()">전체 재생성 (고정·완료 유지)</button></div>`;h+=`<details class="wsplan wswhy"><summary>일정 생성 이유</summary><ul>${whyOf(w).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`}
+ if(w.msgs&&w.msgs.length)h+=`<details class="wsmsg"><summary>일정 안내 ${w.msgs.length}건</summary>${w.msgs.map(m=>`<p>· ${esc(m)}</p>`).join('')}</details>`;
+ UI.pl=UI.pl||{};const po=UI.pl[cur]==null?empty:UI.pl[cur];
+ h+=`<details class="wsplan" ${po?'open':''} ontoggle="(UI.pl=UI.pl||{})[cur]=this.open"><summary>${empty?'운동 요일 정하기 · 일정 생성':'운동 요일·조건 수정 · 다시 생성'}</summary>${vPlanForm()}</details>`;
+ return h+'</div>'}
+function fixWeek(){const w=wk(cur);w.fx=w.fx||{};let n=0;for(let d=0;d<7;d++)if(dayStat(w,d)!='rest'){w.fx[d]=fxSig(w,d);n++}save();R();toast(n?'이 주 일정을 확정했어요':'확정할 운동 일정이 없어요')}
+function unfixWeek(){wk(cur).fx={};save();R();toast('확정을 해제했어요')}
+function fixDay(d,on){const w=wk(cur);w.fx=w.fx||{};if(on)w.fx[d]=fxSig(w,d);else delete w.fx[d];save();R();toast(on?'이 날 일정을 확정했어요':'확정을 해제했어요')}
+function wsDrag(e,id){e.dataTransfer.setData('text/plain',id);e.dataTransfer.effectAllowed='move'}
+function wsClr(){document.querySelectorAll('.wsc.dro').forEach(x=>x.classList.remove('dro'))}
+function wsDrop(e,d){e.preventDefault();const id=e.dataTransfer.getData('text/plain');wsClr();if(id)wsMove(id,d)}
+function wsMove(id,nd){nd=+nd;const w=wk(cur),it=w.items.find(x=>x.id==id);if(!it||isNaN(nd)||nd<0||nd>6||it.day==nd)return;
+ if(isWt(it)){const c=wtConflict(w,nd,it.type,id);if(c)return toast(wtMsg(c))}
+ const mw=moveWarn(w,it,nd);if(mw&&!confirm(mw+'\n\n그래도 옮길까요?'))return;
+ const od=it.day,cdx=isWt(it)&&!w.items.some(x=>x.day==od&&isWt(x)&&x.id!=id)?w.items.filter(x=>x.day==od&&x.type=='cardio'):[];if(it.od==null)it.od=od;dropRest(w,nd,id);it.day=nd;it.u=1;cdx.forEach(x=>{if(x.od==null)x.od=od;x.day=nd;x.u=1});
+ if(!w.items.some(x=>x.day==od&&isEx(x))&&!w.items.some(x=>x.day==od&&x.type=='rest'))w.items.push({id:uid(),day:od,time:'',dur:'',type:'rest',part:'',place:'',min:'',memo:'회복',status:'rest'});
+ save();R();toast(D[nd]+'요일로 옮겼어요'+balTail(w))}
+function openWd(d){WD=d;renderWd();const dl=document.getElementById('wdDlg');if(!dl.open)dl.showModal()}
+function wdDone(id){toggleDone(id)}
+function wdEdit(id){msel=addD(cur,WD);const it=wk(cur).items.find(x=>x.id==id);if(it)openEd(it)}
+function wdAdd(){msel=addD(cur,WD);openEd(null,18)}
+function renderWd(){const w=wk(cur),d=WD,dt=parse(addD(cur,d)),st=dayStat(w,d),l=wsItems(w,d),pers=w.items.filter(i=>i.day==d&&i.type=='personal'),r=w.items.find(i=>i.day==d&&i.type=='rest');
+ const row=(a,b)=>b?`<dt>${a}</dt><dd>${esc(b)}</dd>`:'';
+ const it=i=>`<div class="wdi${i.status=='done'?' dn':''}" style="--tc:${wsCol(i)}"><div class="wdr"><h4>${i.pin?'📌 ':''}${esc(nmOf(i))}</h4><button class="sm ${i.status=='done'?'':'ghost'}" aria-pressed="${i.status=='done'}" onclick="wdDone('${i.id}')">${i.status=='done'?'✓ 완료':'완료 체크'}</button></div><dl class="wdk">${row('시간',trOf(i))}${i.time?row('예상 시간',Math.round(durOf(i)*60)+'분'):''}${row('장소',i.place)}${isWt(i)?row('부위',i.part):''}${row('목적',goalOf(i))}${compRow(i)}${(i.type=='flying'||i.type=='yoga'||i.type=='rest')?'':row('메모',i.memo)}</dl><div class="wda"><button class="sm ${i.pin?'':'ghost'}" aria-pressed="${!!i.pin}" onclick="togglePin('${i.id}')">${i.pin?'📌 고정됨':'📌 고정'}</button><button class="sm ghost" onclick="wdEdit('${i.id}')">수정</button><button class="sm ghost" onclick="toRest('${i.id}')">휴식으로 전환</button><select aria-label="다른 요일로 이동" onchange="wsMove('${i.id}',this.value);this.selectedIndex=0"><option value="">요일 이동…</option>${D.map((x,j)=>j==d?'':`<option value="${j}">${x}요일로</option>`).join('')}</select><input type="date" aria-label="날짜를 골라 이동 (다른 주 가능)" title="날짜를 골라 이동" onchange="moveDate('${i.id}',this.value);this.value=''" style="font-size:12.5px;min-height:32px;padding:4px 8px"></div></div>`;
+ const body=st=='rest'?`<div class="wdi" style="--tc:#d6d6d6"><h4>휴식</h4><dl class="wdk">${row('내용',(r&&r.memo&&r.memo!='휴식일 지정')?r.memo:'회복 · 가벼운 산책')}${row('목적',goalOf({type:'rest'}))}${compRow({type:'rest'})}</dl></div>`:l.map(it).join('');
+ const ps=pers.length?`<p class="mut" style="margin:4px 0 0">개인 일정 · ${pers.map(i=>esc((i.time?i.time+' ':'')+(i.memo||'일정'))).join(', ')}</p>`:'';
+ document.getElementById('wdDlg').innerHTML=`<div class="dd"><div class="ddh"><div><b style="font-size:18px">${dt.getMonth()+1}월 ${dt.getDate()}일 (${D[d]})</b> <span class="wsb ${st}">${WSK[st]}</span></div><button class="sm" onclick="document.getElementById('wdDlg').close()">닫기</button></div><div class="ddb">${body}${ps}</div><div class="wdf">${st=='rest'?'':st=='fix'?`<button class="ghost" onclick="fixDay(${d},0)">확정 해제</button>`:`<button class="pri" onclick="fixDay(${d},1)">이 날 확정</button>`}<button onclick="regenDay(${d})">이 날 재생성</button><button onclick="wdAdd()">+ 운동 추가</button></div></div>`}
+function vPlanForm(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl||[];const P=plan(c);bzInit(c);
  const sel=(f,o)=>`<select onchange="setC('${f}',this.value,1)">${o.map(v=>`<option ${c[f]==v?'selected':''}>${v}</option>`).join('')}</select>`;
  const ck=f=>D.map((x,i)=>`<label><input type="checkbox" ${c[f].includes(i)?'checked':''} onchange="tg('${f}',${i})">${x}</label>`).join('');
  const rg=`${md(parse(cur))} ~ ${md(parse(addD(cur,6)))}`;
@@ -478,9 +654,7 @@ function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl
  const grp=(col,title,sub,body)=>`<div class="card exb" style="--cc:${col}"><h2>${title}<small>${sub}</small></h2>${body}</div>`;
  const cnt=n=>n?`선택 ${n}일`:'선택 없음',ks=Object.keys(S.cardio);
  const cdRows=d=>{if(!ks.length)return '';const a=P.cd[d]||[];return `<div class="cdrows" style="margin-top:8px">${a.map((x,i)=>`<div class="bz"><select aria-label="유산소 종류" onchange="cdSetDay(${d},${i},'k',this.value)">${ks.map(k=>`<option value="${k}" ${x.k==k?'selected':''}>${esc(S.cardio[k].name)}</option>`).join('')}</select><input type="number" inputmode="numeric" min="5" max="240" step="5" value="${x.min}" aria-label="유산소 시간(분)" style="width:84px;flex:none" onchange="cdSetDay(${d},${i},'min',this.value)"><span class="mut">분</span><button class="sm ghost" onclick="cdDelDay(${d},${i})">삭제</button></div>`).join('')}<button class="sm" onclick="cdAddDay(${d})">+ 유산소 추가</button></div>`};
- let h=`<summary><span>이 주 자동 생성 <span class="mut">${rg} · 요일 선택</span></span></summary><div class="secb">`;
- h+=`<div class="card"><div class="bar"><button onclick="nav(-1)">◀</button><b>${rg}</b><button onclick="nav(1)">▶</button></div><p class="mut" style="margin:0">운동별로 이 주에 할 요일을 골라 일정을 짜요. 근무시간은 날짜 타임테이블의 '근무' 일정으로 입력해요. 직접 추가·수정한 일정과 완료 기록은 다시 생성해도 유지돼요.</p></div>`;
- if(w.msgs&&w.msgs.length)h+=`<div class="msg"><b>일정 안내</b>${w.msgs.map(m=>`<p>· ${esc(m)}</p>`).join('')}</div>`;
+ let h='';
  h+=`<div class="card"><h2>① 운동 요일 정하기</h2><p class="mut" style="margin:0">요일을 누르면 선택되고, 다시 누르면 해제돼요. 선택한 요일 수가 이 주의 운동 횟수예요.</p></div>`;
  const pd=Object.keys(P.pt).map(Number).sort((a,b)=>a-b),wd=[...P.wt].sort((a,b)=>a-b),ud=[...new Set([...pd,...wd])].sort((a,b)=>a-b);
  const sub=(t,n,x)=>`<h3 style="margin:14px 0 8px">${t}<small>${n?`선택 ${n}일`:'선택 없음'}${x||''}</small></h3>`;
@@ -495,8 +669,8 @@ function vGen(){const w=wk(cur),c=w.cond;c.ds=c.ds||{};c.pst=c.pst||{};c.pl=c.pl
  h+=grp('#8f6fe0','요가',cnt(yd.length)+' · 시간표에 수업이 있는 요일만 선택돼요',S.yoga.length?dps('yoga',yd,null,d=>!S.yoga.some(y=>y.day==d))+yd.map(d=>{const cl=S.yoga.filter(y=>y.day==d).sort((a,b)=>a.time.localeCompare(b.time));return `<div class="slot"><div class="sl">${D[d]}요일 수업</div><div class="f"><label style="grid-column:1/-1"><select onchange="planSet('yoga',${d},'id',this.value)">${cl.map(y=>`<option value="${y.id}" ${P.yoga[d]==y.id?'selected':''}>${esc(y.time)} ${esc(y.name)}</option>`).join('')}</select></label></div></div>`}).join(''):'<p class="mut" style="margin:0">요가 시간표에 등록된 수업이 없어요. 운동 설정에서 시간표를 확인해 주세요.</p>');
  h+=`<div class="card"><h2>② 개인 일정</h2><p class="mut">있는 날만 추가해요. 개인 일정이 있는 날도 직접 고른 운동은 그대로 넣고, 안내 메시지로 알려드려요. (시간대가 있는 개인 일정은 날짜 타임테이블에서 추가해요)</p>${c.bz.map((b,i)=>`<div class="bz"><select onchange="bzSet(${i},'day',this.value)">${D.map((x,d)=>`<option value="${d}" ${b.day==d?'selected':''}>${x}요일</option>`).join('')}</select><input type="text" placeholder="예: 가족 모임, 야근" value="${esc(b.txt||'')}" oninput="bzSet(${i},'txt',this.value,1)"><button class="sm ghost" onclick="bzDel(${i})">삭제</button></div>`).join('')}<button class="sm" onclick="bzAdd()">+ 개인 일정 추가</button></div>`;
  h+=`<div class="card"><h2>③ 컨디션</h2><div class="f"><label>전반적인 컨디션${sel('c',['좋음','보통','피곤함'])}</label><label>하체 부종${sel('sw',['없음','약간','심함'])}</label><label>근육통${sel('so',['없음','약간','심함'])}</label><label>수면 상태${sel('sl',['좋음','보통','부족'])}</label></div><p class="mut" style="margin:10px 0 2px">휴식으로 지정할 요일</p><div class="chips">${ck('rest')}</div></div>`;
- h+=`<div class="card"><div class="row"><button class="pri" onclick="genNow(false)">일정 생성</button><button class="ghost" onclick="genNow(true)">처음부터 새로 생성</button></div><p class="mut">"일정 생성"은 직접 수정·추가·삭제한 일정과 완료 기록을 유지해요. "처음부터 새로 생성"은 이 주를 모두 지우고 다시 만들어요.</p></div>`;
- return h+'</div>'}
+ h+=`<div class="card"><div class="row"><button class="pri" onclick="genNow(false)">일정 생성</button><button onclick="regenAll()">전체 재생성</button><button class="ghost" onclick="genNow(true)">처음부터 새로 생성</button></div><p class="mut">"일정 생성"은 직접 수정·추가·삭제한 일정과 완료 기록을 유지해요. "전체 재생성"은 고정·완료한 일정만 남기고 근무시간·컨디션·휴식일 조건에 맞춰 다시 만들어요. "처음부터 새로 생성"은 고정한 일정만 남기고 모두 지우고 다시 만들어요.</p></div>`;
+ return h}
 function exp(){const b=new Blob([JSON.stringify({S,W},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='my-balance-'+key(new Date())+'.json';a.click()}
 function imp(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o.S||!o.W)throw 0;S=o.S;W=o.W;normS();save();R();toast('가져오기 완료')}catch(e){toast('올바른 파일이 아니에요')}};r.readAsText(f)}
 function rst(){if(!confirm('모든 데이터를 삭제하고 기본값으로 되돌릴까요?'))return;localStorage.removeItem(K);S=defS();normS();W={};cur=key(mon(new Date()));msel=key(new Date());mc=new Date(new Date().getFullYear(),new Date().getMonth(),1);generate(cur);R();toast('초기화했어요')}
@@ -585,7 +759,7 @@ function timeline(ev,rh=RH){let g=[],c=[],end=-1;
  g.forEach(c=>{const en=[];c.forEach(e=>{let l=en.findIndex(x=>x<=e.s);if(l<0){l=en.length;en.push(0)}en[l]=e.e;e.l=l});c.forEach(e=>e.n=en.length)});
  const pairs=[];for(let i=0;i<ev.length;i++)for(let j=i+1;j<ev.length;j++)if(ev[i].s<ev[j].e&&ev[j].s<ev[i].e){ev[i].ov=ev[j].ov=1;pairs.push([ev[i],ev[j]])}
  const blk=e=>{const s=Math.max(e.s,H0),f=Math.min(e.e,H0+NH),i=e.it,ex=i&&!['rest','personal'].includes(i.type),dn=i&&i.status=='done';
-  return`<div class="tb ${e.ov?'ov':''} ${dn?'dn':''} ${i&&i.status=='chg'?'ch':''}" style="top:${(s-H0)*rh}px;height:${Math.max(rh>30?20:17,(f-s)*rh-2)}px;left:calc(${e.l}*100%/${e.n});width:calc(100%/${e.n} - 3px);background:${T[e.t][1]}" data-id="${e.id}" title="${fmt(e.s)}–${fmt(e.e)}"><b>${esc(evLabel(e))}</b><span>${fmt(e.s)}–${fmt(e.e)}</span>${ex?`<i class="ck ${dn?'on':''}" onclick="event.stopPropagation();tgDone('${e.id}')">${dn?'✓':'○'}</i>`:''}</div>`};
+  return`<div class="tb ${e.ov?'ov':''} ${dn?'dn':''} ${i&&i.status=='chg'?'ch':''}" style="top:${(s-H0)*rh}px;height:${Math.max(rh>30?20:17,(f-s)*rh-2)}px;left:calc(${e.l}*100%/${e.n});width:calc(100%/${e.n} - 3px);background:${T[e.t][1]}" data-id="${e.id}" title="${fmt(e.s)}–${fmt(e.e)}"><b>${i&&i.pin?'📌 ':''}${esc(evLabel(e))}</b><span>${fmt(e.s)}–${fmt(e.e)}</span>${ex?`<i class="ck ${dn?'on':''}" onclick="event.stopPropagation();tgDone('${e.id}')">${dn?'✓':'○'}</i>`:''}</div>`};
  return{pairs,html:ev.map(blk).join('')}}
 let ARM=null,DRG=null,WSEL={},PEND=null;
 const KINDS=[['work','근무'],['ex','운동'],['personal','개인 일정'],['rest','휴식']];
@@ -593,9 +767,6 @@ const kcol=k=>k=='ex'?'#cfe1c8':T[k][1];
 const exLabel=a=>a.cat=='weight'?tn(a.type)+' · '+a.part:{cardio:'유산소',pilates:'필라테스',yoga:'요가'}[a.cat];
 function openDay(){renderDay();const d=document.getElementById('dayDlg');if(!d.open)d.showModal()}
 function closeDay(){ARM=null;DRG=null;document.getElementById('dayDlg').close()}
-(function(){const out=(d,e)=>{const r=d.getBoundingClientRect();return e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom};
- ['dayDlg','timeDlg','dlg','ckDlg','setDlg'].forEach(id=>{const d=document.getElementById(id);d.addEventListener('click',e=>{if(e.target===d&&out(d,e)){id=='dayDlg'?closeDay():d.close()}})});
- document.getElementById('dayDlg').addEventListener('close',()=>{ARM=null;DRG=null});document.getElementById('timeDlg').addEventListener('close',()=>{ARM=null;DRG=null;MV=null})})();
 function notes(k){const d=parse(k),w=W[key(mon(d))];if(!w)return '';const di=(d.getDay()+6)%7,n=w.items.filter(i=>i.day==di&&(i.type=='rest'||i.type=='personal'));
  return n.slice(0,2).map(i=>`<span class="mc" style="background:${T[i.type][1]}">${i.type=='rest'?'휴식':esc(i.memo||'개인 일정')}</span>`).join('')+(n.length>2?`<span class="mut">+${n.length-2}</span>`:'')}
 function cLab(i){return i.type=='pt'?'PT'+(i.part?' '+i.part:''):i.type=='weight'?'개인'+(i.part?' '+i.part:''):SH[i.type]}
@@ -672,7 +843,7 @@ function renderCk(){const d=document.getElementById('ckDlg'),sd=parse(msel),di=(
  if(!its.length){if(d.open)d.close();return}
  const old=d.querySelector('.ddb'),sc=old?old.scrollTop:0,af=document.activeElement,fid=af&&af.dataset?af.dataset.ck:null,
   dn=its.filter(i=>i.status=='done').length,pc=Math.round(dn/its.length*100);
- d.innerHTML=`<div class="dd"><div class="ddh"><b>${sd.getFullYear()}년 ${sd.getMonth()+1}월 ${sd.getDate()}일 ${D[di]}요일</b><button class="sm" onclick="closeCk()">✕ 닫기</button></div><div class="ddb"><p class="ckp">완료 체크 · <b>${dn} / ${its.length}</b> 완료 <span class="ckh">탭: 수정 · ← 밀어서 삭제</span></p><div class="ckbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pc}"><i style="width:${pc}%"></i></div><ul class="ckl">${its.map(i=>`<li data-id="${esc(i.id)}"><div class="ckx" aria-hidden="true"><span class="a">밀어서 삭제</span><span class="b">놓으면 삭제</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg></div><div class="ckr ${i.status=='done'?'dn':''}" style="border-left-color:${T[i.type][1]}"><label class="ckb" aria-label="완료 체크"><input type="checkbox" data-ck="${esc(i.id)}" ${i.status=='done'?'checked':''} onchange="ckTg('${esc(i.id)}')" onkeydown="if(event.key=='Delete'&&confirm('이 일정을 삭제할까요?'))ckDel('${esc(i.id)}')"></label><span class="ct" role="button" tabindex="0" aria-label="일정 수정" onclick="ckEd('${esc(i.id)}')" onkeydown="if(event.key=='Enter'||event.key==' '){event.preventDefault();ckEd('${esc(i.id)}')}"><span class="cn">${esc(ckName(i))}</span><span class="cs">${esc(ckTime(i))}${i.place?' · '+esc(i.place):''}${i.status=='chg'?' · 일정 변경':''}</span></span></div></li>`).join('')}</ul><div class="ckf"><button class="ghost" onclick="ckEdit()">일정 추가·수정</button><button class="pri" onclick="closeCk()">확인</button></div></div></div>`;
+ d.innerHTML=`<div class="dd"><div class="ddh"><b>${sd.getFullYear()}년 ${sd.getMonth()+1}월 ${sd.getDate()}일 ${D[di]}요일</b><button class="sm" onclick="closeCk()">✕ 닫기</button></div><div class="ddb"><p class="ckp">완료 체크 · <b>${dn} / ${its.length}</b> 완료 <span class="ckh">탭: 수정 · ← 밀어서 삭제</span></p><div class="ckbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pc}"><i style="width:${pc}%"></i></div><ul class="ckl">${its.map(i=>`<li data-id="${esc(i.id)}"><div class="ckx" aria-hidden="true"><span class="a">밀어서 삭제</span><span class="b">놓으면 삭제</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg></div><div class="ckr ${i.status=='done'?'dn':''}" style="border-left-color:${T[i.type][1]}"><label class="ckb" aria-label="완료 체크"><input type="checkbox" data-ck="${esc(i.id)}" ${i.status=='done'?'checked':''} onchange="ckTg('${esc(i.id)}')" onkeydown="if(event.key=='Delete'&&confirm('이 일정을 삭제할까요?'))ckDel('${esc(i.id)}')"></label><span class="ct" role="button" tabindex="0" aria-label="일정 수정" onclick="ckEd('${esc(i.id)}')" onkeydown="if(event.key=='Enter'||event.key==' '){event.preventDefault();ckEd('${esc(i.id)}')}"><span class="cn">${i.pin?'📌 ':''}${esc(ckName(i))}</span><span class="cs">${esc(ckTime(i))}${i.place?' · '+esc(i.place):''}${i.status=='chg'?' · 일정 변경':''}</span></span></div></li>`).join('')}</ul><div class="ckf"><button class="ghost" onclick="ckEdit()">일정 추가·수정</button><button class="pri" onclick="closeCk()">확인</button></div></div></div>`;
  const ul=d.querySelector('.ckl');if(ul)ckBind(ul);
  const nb=d.querySelector('.ddb');if(nb)nb.scrollTop=sc;
  if(fid){const e=[...d.querySelectorAll('[data-ck]')].find(x=>x.dataset.ck==fid);if(e)e.focus({preventScroll:true})}}
@@ -808,5 +979,228 @@ function delEv(){const id=E.id,w=wk(curK());if(id=='work'){matWk(w.cond);delete 
 function yAdd(id){const y=S.yoga.find(x=>x.id==id),t=new Date();t.setHours(0,0,0,0);t.setDate(t.getDate()+(y.day-((t.getDay()+6)%7)+7)%7);
  dropRest(wk(key(mon(t))),y.day);wk(key(mon(t))).items.push({id:uid(),u:1,add:1,status:'todo',day:y.day,time:y.time,dur:1.17,type:y.name.includes('플라잉')?'flying':'yoga',part:'',place:PLC('yoga'),min:'',memo:y.name});
  save();tab='month';msel=key(t);cur=key(mon(t));mc=new Date(t.getFullYear(),t.getMonth(),1);R();openDay();toast(`${t.getMonth()+1}월 ${t.getDate()}일 타임테이블에 추가했어요`)}
+
+/* ===== 일정 편집 기능: 고정 · 이동 · 선택/전체 재생성 · 휴식 전환 · 완료 ===== */
+const findIt=id=>wk(cur).items.find(x=>x.id==id);
+function weekRate(w){const l=w.items.filter(isEx),dn=l.filter(i=>i.status=='done').length;return{n:l.length,dn,pct:l.length?Math.round(dn/l.length*100):0}}
+function balanceOf(w){const c=w.cond||{},ex=[0,1,2,3,4,5,6].map(d=>w.items.filter(i=>i.day==d&&isEx(i))),has=ex.map(l=>l.length>0),days=has.filter(Boolean).length,rest=7-days,low=p=>/하체|둔근|전신/.test(p||''),L=[];
+ let run=0,mx=0;has.forEach(v=>{run=v?run+1:0;mx=Math.max(mx,run)});
+ const min=ex.reduce((a,l)=>a+l.reduce((b,i)=>b+Math.round(durOf(i)*60),0),0),tired=c.c=='피곤함'||c.sl=='부족'||c.so=='심함';
+ if(days&&rest<1)L.push('회복일이 하루도 없어요. 최소 하루는 쉬거나 가벼운 활동만 두는 걸 권해요.');
+ else if(days&&rest<2&&tired)L.push('컨디션이 좋지 않은데 회복일이 1일뿐이에요. 하루 더 쉬는 걸 권해요.');
+ if(mx>=4)L.push(`${mx}일 연속 운동이에요. 중간에 회복일을 넣어 보세요.`);
+ for(let d=0;d<6;d++){if(ex[d].filter(isWt).some(i=>low(i.part))&&ex[d+1].filter(isWt).some(i=>low(i.part)))L.push(`${D[d]}·${D[d+1]}요일 하체 계열 웨이트가 이어져요. 부위를 나누거나 간격을 두세요.`)}
+ if(days&&days<=2)L.push('운동하는 날이 적어요. 가벼운 활동을 더해도 좋아요.');
+ return{days,rest,hr:Math.round(min/6)/10,notes:L}}
+const balHtml=w=>{const b=balanceOf(w);return `<div class="wsmsg wsbal"><b>회복 밸런스</b> · 운동 ${b.days}일 · 회복일 ${b.rest}일 · 주간 운동량 약 ${b.hr}시간${b.notes.length?b.notes.map(x=>`<p>⚠ ${esc(x)}</p>`).join(''):'<p>✓ 연속 운동·회복일이 무난해요.</p>'}</div>`};
+const balTail=w=>{const b=balanceOf(w);return ` · 운동량 ${b.hr}시간 · 회복일 ${b.rest}일`+(b.notes.length?' · ⚠ '+b.notes[0]:'')};
+function shiftOver(n,list){let m=false;for(let k=0;k<4;k++){const s=st0(n),e=s+durOf(n),h=list.find(p=>p.day==n.day&&p.time&&st0(p)<e&&st0(p)+durOf(p)>s);if(!h)break;n.time=fmt(Math.min(23,st0(h)+durOf(h)));m=true}return m}
+/* PT/필라테스 같은 날 중복 방지 */
+function ppFix(w,M){for(let d=0;d<7;d++){const pt=w.items.find(i=>i.day==d&&i.type=='pt'),pl=w.items.find(i=>i.day==d&&i.type=='pilates');if(!pt||!pl)continue;
+  const mv=[pl,pt].find(i=>!i.pin&&!i.u&&i.status!='done');
+  if(!mv){M.push(`${D[d]}요일에 PT와 필라테스가 함께 있어요 (고정·수정한 일정이라 그대로 두었어요). 확인해 주세요.`);continue}
+  const fr=[d+1,d-1,d+2,d-2].find(x=>x>=0&&x<=6&&!(w.cond.rest||[]).includes(x)&&!w.items.some(i=>i.day==x&&(i.type=='pt'||i.type=='pilates'||(i.type=='rest'&&i.u))));
+  if(fr==null){M.push(`${D[d]}요일에 PT와 필라테스가 함께 있어요. 옮길 수 있는 날이 없어 그대로 두었어요.`);continue}
+  w.items=w.items.filter(i=>!(i.day==fr&&i.type=='rest'&&!i.u));mv.od=mv.od??mv.day;mv.day=fr;
+  M.push(`${D[d]}요일 PT와 필라테스가 겹쳐 ${tn(mv.type)}을(를) ${D[fr]}요일로 옮겼어요.`)}}
+/* 1. 고정 / 해제 */
+function togglePin(id,ev){if(ev)ev.stopPropagation();const i=findIt(id);if(!i||!isEx(i))return toast('고정할 일정을 찾을 수 없어요');
+ if(i.pin)delete i.pin;else i.pin=1;save();R();toast(i.pin?'📌 일정을 고정했어요 (재생성에서 제외돼요)':'고정을 해제했어요')}
+/* 6. 완료 토글 */
+function toggleDone(id,ev){if(ev)ev.stopPropagation();const i=findIt(id);if(!i||!isEx(i))return toast('일정을 찾을 수 없어요');
+ i.status=i.status=='done'?'todo':'done';save();R();toast((i.status=='done'?'완료했어요':'완료를 취소했어요')+' · 이번 주 완료율 '+weekRate(wk(cur)).pct+'%')}
+/* 2. 이동 충돌 경고 */
+function moveWarn(w,it,nd,noWk){const L=[],s=st0(it),e=s+durOf(it),oth=w.items.filter(x=>x.id!=it.id),same=oth.filter(x=>x.day==nd);
+ if(it.time)same.filter(x=>x.time&&x.type!='rest'&&st0(x)<e&&st0(x)+durOf(x)>s).forEach(x=>L.push(`${D[nd]}요일 ${trOf(x)} ${nmOf(x)}와(과) 시간이 겹쳐요`));
+ const wx=noWk?null:wkh(w.cond,nd);if(it.time&&wx&&s<wx[1]&&e>wx[0])L.push(`${D[nd]}요일 근무시간(${wx[0]}~${wx[1]}시)과 겹쳐요`);
+ if((it.type=='pt'&&same.some(x=>x.type=='pilates'))||(it.type=='pilates'&&same.some(x=>x.type=='pt')))L.push('같은 날 PT와 필라테스가 함께 있게 돼요');
+ if(same.some(x=>x.type=='personal'&&!x.time))L.push(`${D[nd]}요일에 개인 일정이 있어요`);
+ if(same.some(x=>x.type=='rest'&&x.u)||(!noWk&&(w.cond.rest||[]).includes(nd)&&!same.some(x=>isEx(x))))L.push(`${D[nd]}요일은 휴식일로 지정돼 있어요`);
+ const n=same.filter(x=>isEx(x)).length;if(n>=2)L.push(`${D[nd]}요일에 이미 운동이 ${n}개 있어요`);
+ try{const b0=balanceOf(w);let b1;
+  if(w.items.includes(it)){const od=it.day;it.day=nd;try{b1=balanceOf(w)}finally{it.day=od}}
+  else{w.items.push(Object.assign({},it,{day:nd}));try{b1=balanceOf(w)}finally{w.items.pop()}}
+  b1.notes.filter(x=>!b0.notes.includes(x)).forEach(x=>L.push('회복 밸런스: '+x))}catch(_){}
+ return L.length?'⚠ 이동 충돌 경고\n· '+L.join('\n· '):''}
+/* 2-b. 날짜 선택 이동 (같은 주 · 다른 주 모두) */
+function moveDate(id,ds){const w=wk(cur),it=w.items.find(x=>x.id==id);
+ if(!it||!isEx(it))return toast('일정을 찾을 수 없어요');
+ const nd=/^\d{4}-\d{2}-\d{2}$/.test(ds||'')?parse(ds):null;if(!nd||isNaN(nd)||key(nd)!=ds)return toast('날짜를 확인해 주세요');
+ const nk=key(mon(nd)),ni=(nd.getDay()+6)%7;
+ if(nk==cur){if(ni==it.day)return toast('같은 날짜예요');return wsMove(id,ni)}
+ const ex=W[nk],has=!!(ex&&ex.items.length),tw=ex||{items:[],cond:defC(),msgs:[]};
+ if(isWt(it)){const c=wtConflict(tw,ni,it.type);if(c)return toast(wtMsg(c))}
+ const mw=moveWarn(tw,it,ni,!has);if(mw&&!confirm(mw+'\n\n그래도 옮길까요?'))return;
+ const od=it.day,mvs=[it].concat(isWt(it)&&!w.items.some(x=>x.day==od&&isWt(x)&&x.id!=id)?w.items.filter(x=>x.day==od&&x.type=='cardio'&&x.id!=id):[]),nw=wk(nk);
+ w.mvOut=w.mvOut||[];mvs.forEach(x=>w.mvOut.push({day:x.od??x.day,type:x.type,part:x.type=='cardio'?(x.part||''):''}));
+ mvs.forEach(x=>delIt0(w,x));dropRest(nw,ni);
+ mvs.forEach(x=>{const y=Object.assign({},x,{day:ni,u:1,add:1});delete y.od;nw.items.push(y)});
+ if(!w.items.some(x=>x.day==od&&isEx(x))&&!w.items.some(x=>x.day==od&&x.type=='rest'))w.items.push({id:uid(),day:od,time:'',dur:'',type:'rest',part:'',place:'',min:'',memo:'회복',status:'rest'});
+ const b=balanceOf(w),b2=balanceOf(nw);save();R();
+ toast(`${nd.getMonth()+1}월 ${nd.getDate()}일(${D[ni]})로 옮겼어요 · 이 주 운동량 ${b.hr}시간·회복일 ${b.rest}일 / 옮긴 주 회복일 ${b2.rest}일`+(b.notes.length?' · ⚠ '+b.notes[0]:''))}
+/* 3. 선택 재생성 (해당 요일만) */
+function genR(w){plan(w.cond);const pd=[...new Set(w.items.filter(i=>i.type=='personal'&&(!i.time||(st0(i)<22&&st0(i)+durOf(i)>17))).map(i=>i.day))];return gen(Object.assign({},w.cond,{busy:[...new Set([...w.cond.busy,...pd])]}))}
+function regenDay(d){d=+d;if(!(d>=0&&d<=6))return toast('요일을 확인해 주세요');
+ const w=wk(cur),c=w.cond,old=w.items.filter(i=>i.day==d&&isEx(i)&&!i.pin&&i.status!='done'),keep=w.items.filter(i=>i.day==d&&isEx(i)&&(i.pin||i.status=='done')),ur=w.items.filter(i=>i.day==d&&i.type=='rest'&&i.u);
+ if(ur.length){if(!confirm(`${D[d]}요일은 휴식일로 지정돼 있어요. 휴식을 해제하고 다시 만들까요?`))return;w.items=w.items.filter(i=>!ur.includes(i))}
+ else if(old.length&&!confirm(`${D[d]}요일에서 고정·완료되지 않은 일정 ${old.length}개를 다시 만들까요?\n고정·완료한 일정과 다른 요일 일정은 그대로 유지돼요.`))return;
+ const low=p=>/하체|둔근|전신/.test(p||'');let cand=genR(w).items.filter(n=>n.day==d&&n.type!='rest');
+ cand=cand.filter(n=>!keep.some(k=>k.type==n.type&&(n.type!='cardio'||k.part==n.part)));
+ {const away=w.items.filter(x=>x.od===d&&x.day!=d&&isEx(x)),mo=w.mvOut||[];cand=cand.filter(n=>!away.some(a=>a.type==n.type&&(n.type!='cardio'||a.part==n.part))&&!mo.some(a=>a.day==d&&a.type==n.type&&(n.type!='cardio'||a.part==(n.part||''))))}
+ if(keep.some(isWt))cand=cand.filter(n=>!isWt(n));
+ const hadPil=cand.some(n=>n.type=='pilates'),hadPt=cand.some(n=>n.type=='pt');
+ if(keep.some(k=>k.type=='pt')||cand.some(n=>n.type=='pt'))cand=cand.filter(n=>n.type!='pilates');
+ if(keep.some(k=>k.type=='pilates'))cand=cand.filter(n=>n.type!='pt');
+ const ppDrop=(hadPil&&!cand.some(n=>n.type=='pilates'))||(hadPt&&!cand.some(n=>n.type=='pt'));
+ cand.filter(n=>n.type=='weight').forEach(n=>{const nb=[d-1,d+1].flatMap(x=>w.items.filter(i=>i.day==x&&isWt(i)).map(i=>i.part));n.part=(c.sw=='심함'||nb.some(low))?'상체':(nb.length?'둔근':'전신')});
+ cand.forEach(n=>{if(n.time)shiftOver(n,keep)});
+ w.items=w.items.filter(x=>!old.includes(x));w.del=(w.del||[]).filter(x=>x.day!=d);
+ if(cand.length||keep.length)dropRest(w,d);
+ else if(!w.items.some(i=>i.day==d&&i.type=='rest'))w.items.push({id:uid(),day:d,time:'',dur:'',type:'rest',part:'',place:'',min:'',memo:'회복 · 가벼운 산책 선택',status:'rest'});
+ cand.forEach(n=>w.items.push(n));
+ const sum=[...keep,...cand].map(nmOf).join(', ')||'휴식';
+ w.msgs=(w.msgs||[]).filter(m=>!m.startsWith(D[d]+'요일 선택 재생성')).slice(-30);
+ w.msgs.push(`${D[d]}요일 선택 재생성: ${sum}`+(!cand.length&&!keep.length?' (운동 요일 계획에 없는 날이라 회복일로 두었어요. 운동을 원하면 "운동 요일·조건 수정"에서 요일을 추가해 주세요)':''));
+ if(ppDrop)w.msgs.push(`${D[d]}요일 선택 재생성: PT와 필라테스가 같은 날이라 하나만 넣었어요 (고정·기존 일정 우선)`);
+ save();R();toast(`${D[d]}요일을 다시 만들었어요 (${sum})`+balTail(w))}
+/* 4. 전체 재생성 (고정·완료 유지 + 조건 반영) */
+function regenAll(){const w=wk(cur),pk=w.items.filter(i=>i.pin&&isEx(i)).length,dn=w.items.filter(i=>i.status=='done'&&isEx(i)&&!i.pin).length;
+ if(!confirm(`이 주 일정을 근무시간·컨디션·휴식일 조건에 맞춰 전체 다시 만들까요?\n\n유지: 고정 ${pk}개 · 완료 ${dn}개 · 직접 지정한 휴식일 · 개인 일정\n다시 만듦: 그 외 일정 (직접 수정·추가한 운동 포함)`))return;
+ generate(cur,'all');(UI.pl=UI.pl||{})[cur]=false;tab='month';xGenClose();R();toast('고정 일정을 유지하고 전체 재생성했어요'+balTail(wk(cur)))}
+/* 5. 휴식 전환 + 가벼운 활동 추천 */
+function lightRec(w,d){const c=w.cond,tired=c.c=='피곤함'||c.sl=='부족'||c.so=='심함'||c.sw=='심함',hv=x=>w.items.some(i=>i.day==x&&isWt(i)&&/하체|둔근|전신/.test(i.part||''));
+ if(tired)return{name:'스트레칭·가벼운 산책',min:20,short:'스트레칭·산책 20분',long:'컨디션 회복이 우선이에요. 전신 스트레칭 10분과 천천히 걷는 산책 20분 정도만 권해요.'};
+ if(hv(d-1)||hv(d+1))return{name:'가벼운 산책',min:30,short:'가벼운 산책 30분',long:'앞뒤 날 하체 운동이 있어요. 부담 없는 산책 30분과 폼롤러 이완을 권해요.'};
+ return{name:'가벼운 산책',min:30,short:'가벼운 산책 30분',long:'가벼운 산책 30분이나 요가 스트레칭으로 순환을 도와 주세요.'}}
+function toRest(id){const w=wk(cur),i=w.items.find(x=>x.id==id);if(!i||!isEx(i))return toast('일정을 찾을 수 없어요');
+ if(i.status=='done'&&!confirm('이미 완료한 운동이에요. 휴식으로 바꾸면 완료 기록도 사라져요. 계속할까요?'))return;
+ if(i.pin&&!confirm('고정된 일정이에요. 고정을 풀고 휴식으로 바꿀까요?'))return;
+ const d=i.day,nm=nmOf(i),b0=balanceOf(w),rec=lightRec(w,d);
+ delIt0(w,i);
+ if(isWt(i)&&!w.items.some(x=>x.day==d&&isWt(x)))w.items.filter(x=>x.day==d&&x.type=='cardio'&&!x.pin&&x.status!='done').forEach(x=>delIt0(w,x));
+ const left=w.items.some(x=>x.day==d&&isEx(x));
+ if(!left){dropRest(w,d);w.items.push({id:uid(),u:1,day:d,time:'',dur:'',type:'rest',part:'',place:'',min:'',memo:'휴식 전환 · '+rec.short,status:'rest'})}
+ save();R();restDlg(d,nm,left,rec,b0)}
+function restDlg(d,nm,left,rec,b0){const b=balanceOf(wk(cur));
+ document.getElementById('dlg').innerHTML=`<h2>휴식으로 전환했어요</h2><p class="mut" style="margin:0 0 10px">${D[d]}요일 ${esc(nm)} → ${left?'제거 (같은 날 다른 운동은 유지)':'휴식'}</p><div class="msg"><b>밸런스 재검토</b><p>운동 ${b0.days}일 → ${b.days}일 · 회복일 ${b0.rest}일 → ${b.rest}일 · 주간 운동량 ${b0.hr}시간 → ${b.hr}시간</p>${b.notes.length?b.notes.map(x=>`<p>⚠ ${esc(x)}</p>`).join(''):'<p>✓ 회복 밸런스가 괜찮아요.</p>'}</div><div class="msg"><b>가벼운 활동 추천</b><p>${esc(rec.long)}</p><p class="mut">추가하면 그날은 운동일로 계산돼 회복일 수가 줄어요.</p></div><div class="row"><button class="pri" onclick="addLight(${d})">${esc(rec.short)} 추가</button><button onclick="document.getElementById('dlg').close()">휴식 유지</button></div>`;dlgOpen()}
+function addLight(d){d=+d;const w=wk(cur),rec=lightRec(w,d);if(w.items.some(i=>i.day==d&&i.type=='cardio'&&i.part==rec.name))return toast('이미 추가돼 있어요');
+ dropRest(w,d);w.items.push({id:uid(),u:1,add:1,status:'todo',day:d,time:'',dur:'',type:'cardio',part:rec.name,place:'',min:rec.min,memo:'휴식 전환 · 가벼운 활동'});
+ save();document.getElementById('dlg').close();R();toast(`${D[d]}요일에 ${rec.short}을 추가했어요`+balTail(w))}
+/* 오류 안내: 새·수정 기능 공통 보호 */
+['togglePin','toggleDone','regenDay','regenAll','toRest','addLight','wsMove','moveDate','fixDay','fixWeek','unfixWeek'].forEach(n=>{const f=window[n];window[n]=function(){try{return f.apply(this,arguments)}catch(e){console.error(e);toast('처리 중 오류가 발생했어요. 다시 시도해 주세요')}}});
+/* ===== 새 UI 레이어 (데이터·자동 생성·동기화 로직은 위 원본 코드를 그대로 사용) ===== */
+const Q=id=>document.getElementById(id);
+let X=null;
+const XR=18;
+const hh=v=>fmt(v).replace(':00','').replace(/^0/,'');
+const XC=[['weight','웨이트'],['cardio','유산소'],['pilates','필라테스'],['yoga','요가']],XP=['등','어깨','하체'];
+function toast(t){const e=Q('toast');e.textContent=t;try{e.hidePopover();e.showPopover()}catch(_){}e.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>{e.classList.remove('on');try{e.hidePopover()}catch(_){}},Math.max(1800,Math.min(5000,String(t).length*70)))}
+function R(){Q('tabs').innerHTML=[['month','달력'],['log','기록'],['set','설정']].map(t=>`<button class="${tab==t[0]||(tab=='yoga'&&t[0]=='set')?'on':''}" onclick="tab='${t[0]}';R();scrollTo(0,0)">${t[1]}</button>`).join('');
+ Q('main').innerHTML={month:vMonth,log:vLogP,set:vSetP,yoga:vYogaP}[tab]();
+ if(Q('sh').open&&X)xRender();if(Q('bk').open)xBkR()}
+/* 월간 달력 */
+function vMonth(){cur=key(mon(parse(msel)));const y=mc.getFullYear(),m=mc.getMonth(),n=new Date(y,m+1,0).getDate(),off=(new Date(y,m,1).getDay()+6)%7,rows=Math.ceil((off+n)/7),td=key(new Date());
+ let h=`<div class="bar"><button onclick="mnav(-1)" aria-label="이전 달">◀</button><b>${y}년 ${m+1}월</b><button onclick="mnav(1)" aria-label="다음 달">▶</button><button onclick="mtoday()">오늘</button></div><div class="lg">${[['weight','웨이트'],['cardio','유산소'],['pilates','필라테스'],['flying','요가'],['personal','개인 일정'],['rest','휴식']].map(x=>`<span>${DOT(x[0])}${x[1]}</span>`).join('')}</div><div class="cal">${D.map(x=>`<div class="ch">${x}</div>`).join('')}`;
+ for(let i=0;i<rows*7;i++){const dt=new Date(y,m,1-off+i),k=key(dt),di=(dt.getDay()+6)%7,w=W[key(mon(dt))],x=null,
+  tk=[...dayItems(k).map(chip),...(w?w.items.filter(a=>a.day==di&&(a.type=='rest'||a.type=='personal')).map(a=>`<span class="mc" style="background:${T[a.type][1]}">${a.type=='rest'?'휴식':esc(a.memo||'개인 일정')}</span>`):[])];
+  h+=`<div class="cd ${dt.getMonth()!=m?'o':''} ${k==td?'t':''}" onclick="pickDay('${k}')"><b>${dt.getDate()}</b>${x?`<i class="wk">근무 ${hh(x[0])}–${hh(x[1])}</i>`:''}${tk.slice(0,3).join('')}${tk.length>3?`<span class="mut">+${tk.length-3}</span>`:''}</div>`}
+ return h+'</div>'}
+function pickDay(k){const d=parse(k);mc=new Date(d.getFullYear(),d.getMonth(),1);msel=k;cur=key(mon(d));R();xOpen(k)}
+function openDay(){xOpen(msel)}
+/* 기록 · 설정 */
+function vLogP(){const y=mc.getFullYear(),m=mc.getMonth(),n=new Date(y,m+1,0).getDate(),cnt={};
+ for(let d=1;d<=n;d++)dayItems(key(new Date(y,m,d))).forEach(i=>{if(i.status=='done')cnt[i.type]=(cnt[i.type]||0)+1});
+ return `<div class="bar"><button onclick="mnav(-1)" aria-label="이전 달">◀</button><b>${y}년 ${m+1}월 기록</b><button onclick="mnav(1)" aria-label="다음 달">▶</button></div><div class="card">${mChart(cnt)}</div>`+vLog()}
+function vSetP(){cur=key(mon(parse(msel)));const w=wk(cur),r=weekRate(w),st=[0,1,2,3,4,5,6].map(i=>dayStat(w,i)).filter(z=>z!='rest'),fx=st.length&&st.every(z=>z=='fix');
+ return `<div class="bar"><button onclick="nav(-1)" aria-label="이전 주">◀</button><b>${md(parse(cur))} ~ ${md(parse(addD(cur,6)))} 주간 일정</b><button onclick="nav(1)" aria-label="다음 주">▶</button></div><p class="mut" style="margin:0 0 12px">이 주에 할 운동 요일과 컨디션을 정하고 “일정 생성”을 누르면 달력에 반영돼요.</p>${w.items.length?`<div class="msg"><b>운동 ${r.n}회 · 완료율 ${r.pct}%</b> <button class="sm ghost" onclick="${fx?'unfixWeek()':'fixWeek()'}">${fx?'확정 해제':'이 주 일정 확정'}</button>${balHtml(w)}${w.msgs&&w.msgs.length?`<details><summary>안내 ${w.msgs.length}건</summary>${w.msgs.map(m=>`<p>· ${esc(m)}</p>`).join('')}</details>`:''}</div>`:''}${vPlanForm()}<details class="card" style="margin-top:16px"><summary style="cursor:pointer;min-height:44px;display:flex;align-items:center"><b>운동 기본값 · 요가 시간표</b></summary>${setCats()}</details>`}
+function vYogaP(){return `<div class="bar"><button onclick="tab='set';R()">← 설정</button><b>요가 시간표</b></div>`+vYoga()}
+function openSet(){tab='set';R()}
+/* 날짜 시트: 목록 ↔ 추가/수정 (한 팝업 안에서 처리) */
+function xRows(k){const d=parse(k),di=(d.getDay()+6)%7,w=wk(key(mon(d))),r=[],x=wkh(w.cond,di);
+ w.items.filter(i=>i.day==di).forEach(i=>r.push({id:i.id,t:i.type,it:i,s:i.time?st0(i):99,tm:i.time?ckTime(i):(i.type=='rest'?'':'하루 종일'),n:i.type=='personal'?(i.memo||'개인 일정'):i.type=='rest'?'휴식'+(i.memo&&i.memo!='휴식일 지정'?' · '+i.memo:''):ckName(i)}));
+ return r.sort((a,b)=>a.s-b.s)}
+function xOpen(k){msel=k;cur=key(mon(parse(k)));X={k,mode:'list'};if(xRows(k).some(r=>r.id!='work'))xRender();else xNew();const d=Q('sh');if(!d.open)d.showModal()}
+function xNew(){X={k:X.k,mode:'form',id:null,kind:null,cat:null,sub:null,part:'',name:'',memo:'',place:'',pin:0,all:0,s:9,e:10,dd:1};xRender()}
+function xBack(){if(xRows(X.k).length){X.mode='list';xRender()}else Q('sh').close()}
+function xRegen(){regenDay((parse(X.k).getDay()+6)%7)}
+function xRender(){const d=Q('sh'),o=d.querySelector('.ddb'),sc=o?o.scrollTop:0,dt=parse(X.k),di=(dt.getDay()+6)%7,tt=`${dt.getMonth()+1}월 ${dt.getDate()}일 ${D[di]}요일`;let b,f;
+ if(X.mode=='list'){b=`<ul class="xl0">${xRows(X.k).map(a=>{const i=a.it,ex=i&&isEx(i);return `<li class="xr ${i&&i.status=='done'?'dn':''}" style="--c:${T[a.t][1]}">${ex?`<label class="xk"><input type="checkbox" ${i.status=='done'?'checked':''} onchange="xDone('${i.id}')" aria-label="운동 완료"></label>`:''}<div class="xi" onclick="xEdit('${a.id}')"><b>${i&&i.pin?'📌 ':''}${esc(a.n)}</b><small>${esc(a.tm)}</small></div><button class="ic" aria-label="삭제" onclick="xDel('${a.id}')">🗑</button></li>`}).join('')}</ul><p style="margin-top:14px"><button class="sm ghost" onclick="xRegen()">이 날 운동 다시 만들기</button></p>`;f=`<button class="pri" onclick="xNew()">+ 일정 추가</button>`}
+ else{b=xForm();f=`<button onclick="xBack()">취소</button>${X.id?`<button class="ghost" onclick="xDel('${X.id}')">삭제</button>`:''}<button class="pri" onclick="xSave()">저장</button>`}
+ d.innerHTML=`<div class="dd"><div class="ddh"><b>${X.mode=='form'?(X.id?'일정 수정 · ':'일정 추가 · '):''}${tt}</b><button class="sm" onclick="Q('sh').close()" aria-label="닫기">✕</button></div><div class="ddb">${b}</div><div class="xf">${f}</div></div>`;
+ d.querySelector('.ddb').scrollTop=sc;if(X.mode=='form')xBind()}
+function xForm(){const x=X,ex=x.kind=='ex',per=x.kind=='personal',di=(parse(x.k).getDay()+6)%7,
+ rdy=x.kind&&(!ex||(x.cat&&(x.cat=='weight'?x.sub&&x.part:(x.cat=='cardio'||x.cat=='yoga')?x.sub:1))),
+ pk=(a,v,fn)=>`<div class="pk">${a.map(z=>`<button class="${v==z[0]?'on':''}" data-v="${esc(z[0])}" onclick="${fn}(this.dataset.v)">${esc(z[1])}</button>`).join('')}</div>`;
+ let h=`<p class="xl">① 일정 종류</p><div class="pk big">${KINDS.filter(z=>z[0]!='work').map(z=>`<button class="${x.kind==z[0]?'on':''}" style="background:${kcol(z[0])}" data-v="${z[0]}" onclick="xKind(this.dataset.v)">${z[1]}</button>`).join('')}</div>`;
+ if(ex){h+=`<p class="xl">② 운동 선택</p>`+pk(XC,x.cat,'xCat');
+  if(x.cat=='weight')h+=`<p class="xs">운동 유형</p>`+pk([['pt','PT'],['weight','개인운동']],x.sub,'xSub')+`<p class="xs">운동 부위</p>`+pk((!x.part||XP.includes(x.part)?XP:[...XP,x.part]).map(p=>[p,p]),x.part,'xPart');
+  if(x.cat=='cardio'){const a=cdSub().map(z=>z[0]);if(x.sub&&!a.includes(x.sub))a.push(x.sub);h+=`<p class="xs">세부 종류</p>`+pk(a.map(z=>[z,z]),x.sub,'xSub')}
+  if(x.cat=='yoga'){h+=`<p class="xs">요가 종류</p>`+pk([['flying','플라잉 요가'],['yoga','일반 요가']],x.sub,'xSub');
+   if(x.sub){const cl=S.yoga.filter(y=>y.day==di&&y.name.includes('플라잉')==(x.sub=='flying')).sort((a,b)=>a.time.localeCompare(b.time));
+    if(cl.length)h+=`<p class="xs">이 요일 시간표 수업 (누르면 시간이 자동 입력돼요)</p><div class="pk">${cl.map(y=>`<button class="${x.cid==y.id?'on':''}" onclick="xCls('${y.id}')">${esc(y.name)}<small>${ktime(y.time)}</small></button>`).join('')}</div>`}}}
+ if(rdy&&x.kind=='rest')h+=`<p class="xl">② 휴식</p><p class="mut">이 날을 휴식일로 표시해요. 저장을 누르세요.</p>`;
+ if(rdy&&x.kind!='rest'){h+=`<p class="xl">${ex?'③':'②'} 시간 설정</p>`;
+  if(per)h+=`<input type="text" class="xin" maxlength="30" placeholder="일정 이름 (예: 병원, 약속)" value="${esc(x.name)}" oninput="X.name=this.value"><label class="xa"><input type="checkbox" ${x.all?'checked':''} onchange="X.all=this.checked;xRender()">시간 없이 하루 종일</label>`;
+  if(!(per&&x.all))h+=`<div class="xt"><div class="xtm"><div><small>시작</small><input type="time" step="300" id="xs" onchange="xIn('s',this.value)"><div class="row"><button class="sm" onclick="xAdj('s',-.25)">−15분</button><button class="sm" onclick="xAdj('s',.25)">+15분</button></div></div><div><small>종료</small><input type="time" step="300" id="xe" onchange="xIn('e',this.value)"><div class="row"><button class="sm" onclick="xAdj('e',-.25)">−15분</button><button class="sm" onclick="xAdj('e',.25)">+15분</button></div></div></div><p id="xsum"></p><p class="mut" style="margin:0 0 4px">시간표를 누르거나 끌어서 시간을 정하고(30분 단위), 위 버튼으로 세밀하게 조정하세요. 흐린 블록은 기존 일정이에요.</p>${tlBox(timeline(dayEv().filter(e=>e.id!=x.id&&e.k!='work'),36),'xg',true,true)}</div>`;
+  if(ex)h+=`<details class="xd"><summary>메모</summary><input class="xin" placeholder="${x.cat=='yoga'?'수업명':'메모'}" value="${esc(x.memo)}" oninput="X.memo=this.value"></details>`}
+ if(ex&&rdy)h+=`<label class="xa"><input type="checkbox" ${x.pin?'checked':''} onchange="X.pin=this.checked?1:0">📌 일정 고정 (자동 재생성에서 제외)</label>`;
+ if(ex&&x.id)h+=`<div class="row xa"><button class="sm ghost" onclick="Q('sh').close();toRest('${x.id}')">휴식으로 바꾸기</button><label>날짜 이동 <input type="date" value="${x.k}" onchange="moveDate('${x.id}',this.value);Q('sh').close()"></label></div>`;
+ return h}
+function xPre(){const x=X,di=(parse(x.k).getDay()+6)%7,c=x.cat,f=(t,d)=>{x.s=Math.max(H0,tm(t));x.e=Math.min(24,x.s+d)};
+ if(x.kind=='work'){const o=wkh(wk(key(mon(parse(x.k)))).cond,di)||[9,18];x.s=o[0];x.e=o[1]}
+ else if(x.kind=='personal')f('10:00',1);
+ else if(x.kind=='ex'){const cc=c=='cardio'&&Object.values(S.cardio).find(z=>z.name==x.sub);
+  if(c=='weight')x.sub=='pt'?f(S.ptd.time,S.ptd.min/60):f(S.wt.time||'19:00',+S.wt.dur||1);else if(cc)f(cc.time,cc.min/60);else if(c=='cardio')f('20:00',.5);else if(c=='pilates')f(pilDef(di),1);else if(c=='yoga')f('18:30',1.17);}
+ x.dd=x.e-x.s}
+function xKind(k){X.kind=k;X.cat=X.sub=null;X.part='';X.cid=null;xPre();xRender()}
+function xCat(c){X.cat=c;X.sub=null;X.part='';X.cid=null;if(c=='cardio'){const a=cdSub();if(a.length==1)X.sub=a[0][0]}xPre();xRender()}
+function xSub(v){X.sub=v;X.cid=null;xPre();xRender()}
+function xPart(v){X.part=v;xRender()}
+function xCls(id){const y=S.yoga.find(z=>z.id==id);if(!y)return;X.s=tm(y.time);X.e=X.s+70/60;X.dd=70/60;X.memo=y.name;X.cid=id;xRender()}
+function xBind(){xUp();const g=Q('xg');if(!g)return;let a=null,mv=0;const c=e=>Math.max(0,Math.min(35,Math.floor((e.clientY-g.getBoundingClientRect().top)/XR)));
+ g.onpointerdown=e=>{a=c(e);mv=0;X.s=H0+a/2;X.e=X.s+.5;try{g.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault();xUp()};
+ g.onpointermove=e=>{if(a==null)return;const b=c(e);if(b!=a)mv=1;X.s=H0+Math.min(a,b)/2;X.e=H0+(Math.max(a,b)+1)/2;xUp()};
+ g.onpointerup=()=>{if(a!=null&&!mv)X.e=Math.min(24,X.s+(X.dd||1));a=null;xUp()};g.onpointercancel=()=>{a=null}}
+function xUp(){const s=Q('xs');if(!s)return;const g=Q('xg'),h=g&&g.querySelector('.gh');s.value=tv(X.s);Q('xe').value=tv(X.e);Q('xsum').textContent=`${fmt(X.s)} – ${tv(X.e)} · ${Math.round((X.e-X.s)*60)}분`;
+ if(h){h.style.cssText=`display:block;top:${(X.s-H0)*36}px;height:${(X.e-X.s)*36}px`;h.textContent=fmt(X.s)+'–'+tv(X.e)}}
+function xIn(f,v){if(!v)return xUp();let t=tm(v);if(f=='e'&&t==0)t=24;if(f=='s'){X.s=t;if(X.e<=t)X.e=Math.min(24,t+.5)}else{if(t<=X.s)return xUp(),toast('종료 시간은 시작보다 늦어야 해요');X.e=t}xUp()}
+function xAdj(f,d){if(f=='s')X.s=Math.max(0,Math.min(X.e-.25,X.s+d));else X.e=Math.min(24,Math.max(X.s+.25,X.e+d));xUp()}
+function xEdit(id){const dt=parse(X.k),di=(dt.getDay()+6)%7,w=wk(key(mon(dt))),x={k:X.k,mode:'form',id,kind:null,cat:null,sub:null,part:'',name:'',memo:'',place:'',pin:0,all:0,s:9,e:10,dd:1};
+ if(id=='work'){const o=wkh(w.cond,di)||[9,18];Object.assign(x,{kind:'work',s:o[0],e:o[1]})}
+ else{const i=w.items.find(a=>a.id==id);if(!i)return;const t=i.type;x.place=i.place||'';x.memo=i.memo||'';x.pin=i.pin?1:0;x.dd=durOf(i);
+  if(i.time){x.s=st0(i);x.e=x.s+durOf(i)}else{x.all=1;x.s=18;x.e=19}
+  if(t=='pt'||t=='weight')Object.assign(x,{kind:'ex',cat:'weight',sub:t,part:i.part||''});else if(t=='cardio')Object.assign(x,{kind:'ex',cat:'cardio',sub:i.part||'유산소'});else if(t=='pilates')Object.assign(x,{kind:'ex',cat:'pilates'});else if(t=='flying'||t=='yoga')Object.assign(x,{kind:'ex',cat:'yoga',sub:t});else{x.kind=t;x.name=i.memo||''}}
+ X=x;xRender()}
+function xSave(){const x=X,dt=parse(x.k),di=(dt.getDay()+6)%7,nk=key(mon(dt)),w=wk(nk),s=x.s,e=x.e,per=x.kind=='personal',ex=x.kind=='ex';cur=nk;msel=x.k;
+ if(!x.kind)return toast('일정 종류를 먼저 선택해 주세요');
+ if(ex&&!(x.cat&&(x.cat=='weight'?x.sub&&x.part:(x.cat=='cardio'||x.cat=='yoga')?x.sub:1)))return toast('운동 종류를 끝까지 선택해 주세요');
+ if(per&&!x.name.trim())return toast('일정 이름을 입력해 주세요');
+ if(x.kind!='rest'&&!(per&&x.all)&&!(e>s))return toast('종료 시간이 시작보다 늦어야 해요');
+ if(x.kind=='work'){matWk(w.cond);w.cond.wk[di]=[Math.round(s*100)/100,Math.round(e*100)/100]}
+ else{const old=x.id&&x.id!='work'?w.items.find(i=>i.id==x.id):null,type=ex?(x.cat=='weight'||x.cat=='yoga'?x.sub:x.cat):x.kind;
+  if(ex&&x.cat=='weight'){const c=wtConflict(w,di,type,x.id);if(c)return toast(wtMsg(c))}
+  if(x.kind=='rest'){if(w.items.some(i=>i.day==di&&isEx(i)))return toast(RESTMSG);if(w.items.some(i=>i.day==di&&i.type=='rest')){xBack();return toast('이미 휴식으로 표시돼 있어요')}}
+  if(ex)dropRest(w,di,x.id);
+  const t=!(x.kind=='rest'||(per&&x.all)),v={day:di,time:t?tv(s):'',dur:t?Math.round((e-s)*100)/100:'',type,part:'',place:'',min:'',memo:''};
+  if(ex){v.place=x.place;v.memo=x.memo.trim();if(x.cat=='weight')v.part=x.part;else if(x.cat=='cardio'){v.part=x.sub;v.min=Math.round((e-s)*60)}else if(x.cat=='pilates')v.part='코어'}
+  else if(per){v.memo=x.name.trim();v.place=x.place}
+  const same=old&&old.type==type,stt=x.kind=='rest'?'rest':(same&&old.status!='rest'?old.status:'todo');let it;
+  if(same){it=Object.assign(old,v,{u:1,status:stt})}else{if(old)delIt0(w,old);it={id:uid(),u:1,add:1,status:stt,...v};w.items.push(it)}
+  if(ex){if(x.pin)it.pin=1;else delete it.pin}}
+ save();R();xBack();toast(x.id?'수정했어요 · 달력에 반영됐어요':'저장했어요 · 달력에 반영됐어요');
+ if(timeline(dayEv().filter(e=>e.k!='work')).pairs.length)setTimeout(()=>toast('시간이 겹치는 일정이 있어요. 일정을 눌러 조정하세요'),2000)}
+function xDel(id){if(!confirm('이 일정을 삭제할까요?'))return;const dt=parse(X.k),di=(dt.getDay()+6)%7,w=wk(key(mon(dt)));cur=key(mon(dt));
+ if(id=='work'){matWk(w.cond);delete w.cond.wk[di]}else{const i=w.items.find(a=>a.id==id);if(i)delIt0(w,i)}
+ save();R();toast('삭제했어요');xBack()}
+function xDone(id){cur=key(mon(parse(X.k)));toggleDone(id)}
+/* 백업·복원 / 기기 간 공유 시트 (우측 상단 아이콘) */
+let XB='data';
+function xBk(k){XB=k;xBkR();const d=Q('bk');if(!d.open)d.showModal()}
+function xBkR(){Q('bk').innerHTML=`<div class="dd"><div class="ddh"><b>${XB=='data'?'데이터 백업 · 복원':'기기 간 일정 공유'}</b><button class="sm" onclick="Q('bk').close()" aria-label="닫기">✕</button></div><div class="ddb">${XB=='data'?dataCard():wgCard()}</div></div>`}
+function xGen(){tab='set';R();scrollTo(0,0)}
+function xGenClose(){}
+['sh','bk','dlg'].forEach(i=>Q(i).addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.close()}));
+Q('sh').addEventListener('close',()=>{X=null});
+
 wgBoot=true;load();cur=key(mon(new Date()));if(!wk(cur).items.length)generate(cur);R();wgBoot=false;wgSync();
 </script></body></html>
