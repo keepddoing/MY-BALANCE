@@ -20,6 +20,18 @@ dialog#ckDlg{width:min(400px,96vw);max-height:92vh;padding:0;overflow:hidden}.ck
 
 
 
+<style>
+.msm{padding:20px}.msm-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:14px}.msm-h b{font-size:16px;font-weight:600;letter-spacing:0}.msm-h span{font-size:12px;color:var(--mut)}
+.msm-k{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}.msm-k div{background:var(--cream);border-radius:14px;padding:14px 12px;text-align:center;min-width:0}.msm-k small{display:block;font-size:12px;color:var(--mut)}.msm-k b{display:block;font-size:28px;line-height:1.3;font-weight:700;color:var(--primary)}.msm-k b em{font-style:normal;font-size:14px;font-weight:500;color:var(--ink);margin-left:2px}.msm-k span{display:block;font-size:11px;color:var(--mut)}
+.msm-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;border-top:1px solid var(--line);padding-top:16px}.msm-c{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}.msm-c>b{font-size:13px;font-weight:600}.msm-d{width:104px;height:104px;display:block}.msm-d text{font-family:inherit;fill:var(--ink)}
+.msm-l{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;margin:0;padding:0;list-style:none;font-size:11.5px;color:var(--mut)}.msm-l li{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}.msm-l i{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+</style>
+<style>
+.cal2{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px 2px;max-width:420px;margin:0 auto 12px}.cal2 .cwd{text-align:center;font-size:12px;color:var(--mut);padding:2px 0}
+.cal2 .c2{width:100%;max-width:44px;aspect-ratio:1;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:400;color:var(--ink);background:transparent;padding:0;min-height:0;border:0;box-shadow:none}
+.cal2 button.c2{cursor:pointer;font-weight:700}.cal2 button.c2.l1{background:#ffd1da}.cal2 button.c2.l1:hover{background:#ffbccb}.cal2 button.c2.l2{background:var(--primary);color:#fff}.cal2 button.c2.l2:hover{background:var(--press)}.cal2 .c2.td{box-shadow:inset 0 0 0 2px var(--ink)}
+.yr2{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;align-items:end;margin-top:12px}.ym2{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-width:0;border-radius:8px;padding:2px 0}.ym2 .v{font-size:11px;color:var(--mut);height:14px;line-height:14px}.ym2 .bw{height:80px;width:100%;display:flex;align-items:flex-end;justify-content:center}.ym2 .b{width:min(70%,18px);border-radius:4px 4px 0 0;background:#ff9fb1}.ym2.cur .b{background:var(--primary)}.ym2 .b.z{background:#ebebeb}.ym2 .l{font-size:11px;color:var(--mut)}.ym2.sel .l{color:var(--ink);font-weight:700;text-decoration:underline}
+</style>
 </head><body>
 <header class="top"><button class="logo" onclick="tab='home';R();scrollTo(0,0)" aria-label="첫 화면으로 이동">MY BALANCE</button><span class="ics" id="ics"></span></header>
 <main class="wrap" id="main"></main>
@@ -825,9 +837,28 @@ function vMonth(){cur=key(mon(parse(msel)));const y=mc.getFullYear(),m=mc.getMon
 function pickDay(k){const d=parse(k);mc=new Date(d.getFullYear(),d.getMonth(),1);msel=k;cur=key(mon(d));R();xOpen(k)}
 function openDay(){xOpen(msel)}
 /* 기록 · 설정 */
-function vLogP(){const y=mc.getFullYear(),m=mc.getMonth(),n=new Date(y,m+1,0).getDate(),cnt={};
- for(let d=1;d<=n;d++)dayItems(key(new Date(y,m,d))).forEach(i=>{if(i.status=='done')cnt[i.type]=(cnt[i.type]||0)+1});
- return `<div class="bar"><button onclick="mnav(-1)" aria-label="이전 달">◀</button><b>${y}년 ${m+1}월 기록</b><button onclick="mnav(1)" aria-label="다음 달">▶</button></div><div class="card">${mChart(cnt)}</div>`+vLog()}
+function mSum(y,m){const n=new Date(y,m+1,0).getDate(),f=(new Date(y,m,1).getDay()+6)%7,nw=Math.floor((n-1+f)/7)+1,wd=new Array(nw).fill(0),tc={},dc=new Array(n+1).fill(0);let days=0;
+ for(let d=1;d<=n;d++){const dn=dayItems(key(new Date(y,m,d))).filter(i=>i.status=='done');if(!dn.length)continue;days++;dc[d]=dn.length;wd[Math.floor((d-1+f)/7)]++;dn.forEach(i=>{tc[i.type]=(tc[i.type]||0)+1})}
+ const now=new Date(),cy=now.getFullYear(),cm=now.getMonth(),el=(y<cy||(y==cy&&m<cm))?n:(y==cy&&m==cm)?now.getDate():0,avg=el?days/Math.max(1,el/7):0;
+ return{days,avg,wd,tc,dc,el,n}}
+function mDonut(a,tot,ctr,sub){const R=15.915;let off=25,h=`<svg class="msm-d" viewBox="0 0 42 42" role="img" aria-label="${esc(a.filter(x=>x.v).map(x=>x.l+' '+x.v).join(', ')||'기록 없음')}"><circle cx="21" cy="21" r="${R}" fill="none" stroke="#f2f2f2" stroke-width="5.5"/>`;
+ if(tot)a.forEach(x=>{if(!x.v)return;const p=x.v/tot*100;h+=`<circle cx="21" cy="21" r="${R}" fill="none" stroke="${x.c}" stroke-width="5.5" stroke-dasharray="${p} ${100-p}" stroke-dashoffset="${off}"/>`;off-=p});
+ return h+`<text x="21" y="${sub?20.5:23.5}" text-anchor="middle" font-size="7.5" font-weight="700">${esc(ctr)}</text>${sub?`<text x="21" y="27" text-anchor="middle" font-size="3.8" style="fill:var(--mut)">${esc(sub)}</text>`:''}</svg>`}
+function mLeg(a){return `<ul class="msm-l">${a.map(x=>`<li><i style="background:${x.c}"></i>${esc(x.l)} ${x.v}</li>`).join('')}</ul>`}
+function monthSummary(y,m,s0){const s=s0||mSum(y,m),WC=['#ff385c','#222222','#8a8a8a','#ffa3b3','#c9c9c9','#5c5c5c'],
+ wk=s.wd.map((v,i)=>({l:(i+1)+'주차',v,c:WC[i%WC.length]})),wt=s.days,
+ TL={pt:'PT',weight:'개인 웨이트',pilates:'필라테스',flying:'플라잉',yoga:'요가',cardio:'유산소'},
+ ty=Object.keys(TL).filter(t=>s.tc[t]).map(t=>({l:TL[t],v:s.tc[t],c:YC[t]})),tt=ty.reduce((a,x)=>a+x.v,0);
+ return `<div class="card msm"><div class="msm-h"><b>이달의 운동 요약</b><span>${y}년 ${m+1}월 · 완료 기록 기준</span></div>
+<div class="msm-k"><div><small>총 운동한 날</small><b>${s.days}<em>일</em></b><span>${s.el?s.el+'일 중':'아직 시작 전'}</span></div><div><small>주 평균 운동 횟수</small><b>${s.avg.toFixed(1)}<em>회</em></b><span>운동한 날 기준</span></div></div>
+<div class="msm-g"><div class="msm-c"><b>주차별 운동 비율</b>${mDonut(wk,wt,wt?wt+'일':'-','')}${wt?mLeg(wk):'<span class="mut">기록 없음</span>'}</div><div class="msm-c"><b>운동 종류별 횟수</b>${mDonut(ty,tt,tt?tt+'회':'-',tt?'합계':'')}${tt?mLeg(ty):'<span class="mut">기록 없음</span>'}</div></div></div>`}
+function monthCal(y,m,s){const f=(new Date(y,m,1).getDay()+6)%7,n=s.n,tk=key(new Date());let h=D.map(x=>`<div class="cwd">${x}</div>`).join('')+'<div></div>'.repeat(f);
+ for(let d=1;d<=n;d++){const k=key(new Date(y,m,d)),c=s.dc[d],t=k==tk?' td':'';h+=c?`<button type="button" class="c2 l${c>1?2:1}${t}" onclick="logGo('${k}')" aria-label="${m+1}월 ${d}일 운동 ${c}회, 상세 기록 보기">${d}</button>`:`<div class="c2${t}" aria-label="${m+1}월 ${d}일 운동 없음">${d}</div>`}
+ return `<div class="card msm"><div class="msm-h"><b>${m+1}월 운동 기록</b><span>운동한 날 ${s.days}일</span></div><p class="mut" style="margin:0 0 10px">색이 칠해진 날짜를 누르면 그날의 상세 기록으로 이동해요.</p><div class="cal2" role="grid" aria-label="${m+1}월 운동 달력">${h}</div><ul class="msm-l"><li><i style="background:#ffd1da"></i>1회</li><li><i style="background:#ff385c"></i>2회 이상</li><li><i style="box-shadow:inset 0 0 0 2px #222"></i>오늘</li></ul></div>`}
+function yrGo(i){mc=new Date(LY,i,1);R();window.scrollTo(0,0)}
+function yearBars(){const M=yearData(LY),vs=M.map(x=>x.ds.size),tot=vs.reduce((a,b)=>a+b,0),act=vs.filter(Boolean).length,mx=Math.max(1,...vs),now=new Date(),cm=now.getFullYear()==LY?now.getMonth():-1,sm=mc.getFullYear()==LY?mc.getMonth():-1,H=80;
+ return `<div class="card msm"><div class="bar" style="margin-bottom:8px"><button onclick="lyNav(-1)" aria-label="이전 해">◀</button><b>${LY}년 연간 기록</b><button onclick="lyNav(1)" aria-label="다음 해">▶</button></div>`+(tot?`<p class="mut" style="margin:0;text-align:center">총 <b style="color:var(--primary)">${tot}일</b> 운동 · 월평균 ${(tot/act).toFixed(1)}일</p><div class="yr2" role="list">${vs.map((v,i)=>`<div class="ym2${i==cm?' cur':''}${i==sm?' sel':''}" role="listitem" tabindex="0" onclick="yrGo(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();yrGo(${i})}" aria-label="${i+1}월 ${v}일 운동"><span class="v">${v||''}</span><div class="bw"><div class="b${v?'':' z'}" style="height:${v?Math.max(3,Math.round(v/mx*H)):2}px"></div></div><span class="l">${i+1}월</span></div>`).join('')}</div><p class="mut" style="margin:10px 0 0;font-size:12px">월별로 운동한 날 수예요. 막대를 누르면 그 달 기록을 위에서 볼 수 있어요.</p>`:`<p class="mut" style="margin:12px 0 0;text-align:center">${LY}년에는 아직 운동 기록이 없어요.</p>`)+`</div>`}
+function vLogP(){const y=mc.getFullYear(),m=mc.getMonth(),s=mSum(y,m);return `<div class="bar"><button onclick="mnav(-1)" aria-label="이전 달">◀</button><b>${y}년 ${m+1}월 기록</b><button onclick="mnav(1)" aria-label="다음 달">▶</button></div>${monthSummary(y,m,s)}${monthCal(y,m,s)}${yearBars()}`}
 function vSetP(){cur=key(mon(parse(msel)));const w=wk(cur),r=weekRate(w),st=[0,1,2,3,4,5,6].map(i=>dayStat(w,i)).filter(z=>z!='rest'),fx=st.length&&st.every(z=>z=='fix');
  return `<div class="bar"><button onclick="nav(-1)" aria-label="이전 주">◀</button><b>${md(parse(cur))} ~ ${md(parse(addD(cur,6)))} 주간 일정</b><button onclick="nav(1)" aria-label="다음 주">▶</button></div><p class="mut" style="margin:0 0 12px">이 주에 할 운동 요일과 컨디션을 정하고 “일정 생성”을 누르면 달력에 반영돼요.</p>${w.items.length?`<div class="msg"><b>운동 ${r.n}회 · 완료율 ${r.pct}%</b> <button class="sm ghost" onclick="${fx?'unfixWeek()':'fixWeek()'}">${fx?'확정 해제':'이 주 일정 확정'}</button>${balHtml(w)}${w.msgs&&w.msgs.length?`<details><summary>안내 ${w.msgs.length}건</summary>${w.msgs.map(m=>`<p>· ${esc(m)}</p>`).join('')}</details>`:''}</div>`:''}${vPlanForm()}`}
 function vYogaP(){return `<div class="bar"><button onclick="tab='set';R()">← 설정</button><b>요가 시간표</b></div>`+vYoga()}
