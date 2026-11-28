@@ -130,6 +130,12 @@ details.cat2{margin-bottom:12px}
 #bk .bkbar button{width:100%;min-height:48px;font-size:15px;font-weight:700}
 #bk .ddh .sm{min-width:64px}
 </style>
+<style>
+/* 백업·운동 설정 창: 실제 보이는 화면 높이 안에서만 커지도록 제한 (위쪽 X 버튼이 항상 보임) */
+#bk,#ex{max-height:var(--sheet-h,calc(100dvh - 56px))}
+#bk .dd,#ex .dd{max-height:var(--sheet-h,calc(100dvh - 56px))}
+#bk .ddh .sm{min-width:44px}
+</style>
 </head><body>
 <header class="top"><button class="logo" onclick="tab='home';R();scrollTo(0,0)" aria-label="첫 화면으로 이동">MY BALANCE</button><span class="ics" id="ics"></span></header>
 <main class="wrap" id="main"></main>
@@ -1095,14 +1101,16 @@ function xDel(id){if(!confirm('이 일정을 삭제할까요?'))return;const dt=
 function xDone(id){cur=key(mon(parse(X.k)));toggleDone(id)}
 /* 백업·복원 / 기기 간 공유 시트 (우측 상단 아이콘) */
 let XE='base';
-function xBk(){xBkR();const d=Q('bk');if(!d.open)d.showModal()}
+function sheetFit(){const v=window.visualViewport,h=Math.round((v&&v.height)||window.innerHeight||600),px=Math.max(260,h-56)+'px';['bk','ex'].forEach(id=>{const d=document.getElementById(id);if(d)d.style.setProperty('--sheet-h',px)})}
+function xBk(){sheetFit();xBkR();const d=Q('bk');if(!d.open)d.showModal()}
 function bkClose(){Q('bk').close();tab='home';R();scrollTo(0,0)}
-function xBkR(){Q('bk').innerHTML=`<div class="dd"><div class="ddh"><b>백업 · 기기 간 공유</b><button class="sm" onclick="bkClose()" aria-label="닫고 홈 화면으로 이동">닫기</button></div><div class="ddb">${dataCard()}${wgCard()}<div class="bkbar"><button class="pri" onclick="bkClose()">창 닫기 · 홈으로</button></div></div></div>`}
-function xEx(t){XE=t||XE;if(!Q('ex').open)svAt=0;xExR();const d=Q('ex');if(!d.open)d.showModal()}
+function xBkR(){Q('bk').innerHTML=`<div class="dd"><div class="ddh"><b>백업 · 기기 간 공유</b><button class="sm" onclick="bkClose()" aria-label="닫고 홈 화면으로 이동">✕</button></div><div class="ddb">${dataCard()}${wgCard()}<div class="bkbar"><button class="pri" onclick="bkClose()">창 닫기 · 홈으로</button></div></div></div>`}
+function xEx(t){sheetFit();XE=t||XE;if(!Q('ex').open)svAt=0;xExR();const d=Q('ex');if(!d.open)d.showModal()}
 function xExR(){const d=Q('ex'),o=d.querySelector('.ddb'),sc=o?o.scrollTop:0;d.innerHTML=`<div class="dd"><div class="ddh"><b>운동 설정</b>${svChip()}<button class="sm" onclick="Q('ex').close()" aria-label="닫기">✕</button></div><div class="ddb"><div class="pk" style="margin-bottom:12px">${[['base','운동 기본값'],['yoga','요가 시간표']].map(z=>`<button class="${XE==z[0]?'on':''}" onclick="XE='${z[0]}';xExR()">${z[1]}</button>`).join('')}</div>${XE=='yoga'?vYoga():setCats()}</div></div>`;d.querySelector('.ddb').scrollTop=sc}
 function xGen(){tab='set';R();scrollTo(0,0)}
 function xGenClose(){}
 ['sh','bk','ex','dlg'].forEach(i=>Q(i).addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.close()}));
+sheetFit();addEventListener('resize',sheetFit);addEventListener('orientationchange',sheetFit);if(window.visualViewport)visualViewport.addEventListener('resize',sheetFit);
 Q('sh').addEventListener('close',()=>{X=null});
 tab='home';
 
